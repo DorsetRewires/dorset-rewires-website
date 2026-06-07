@@ -1,0 +1,491 @@
+{
+  "_note": "Default room counts used by the Quick Estimate feature on the quote page. Edit here or via the Pricing Admin page. Each room uses the same keys as EMPTY_ROOM_COUNTS in quote.js.",
+  "templates": {
+    "1_bed_flat": {
+      "label": "1 bed",
+      "consumer_unit_count": 1,
+      "smoke_detector_count": 1,
+      "rooms": [
+        {
+          "preset_key": "kitchen",
+          "name": "Kitchen",
+          "sockets": 6,
+          "lights": 3,
+          "fused_spurs": 2,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "living",
+          "name": "Living room",
+          "sockets": 4,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 1
+        },
+        {
+          "preset_key": "bedroom",
+          "name": "Bedroom",
+          "sockets": 4,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "bathroom",
+          "name": "Bathroom",
+          "sockets": 0,
+          "lights": 2,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 1,
+          "data_points": 0
+        },
+        {
+          "preset_key": "hallway",
+          "name": "Hallway",
+          "sockets": 1,
+          "lights": 2,
+          "fused_spurs": 0,
+          "one_way_switches": 0,
+          "two_way_switches": 1,
+          "extractor_fans": 0,
+          "data_points": 0
+        }
+      ]
+    },
+    "2_bed_terrace": {
+      "label": "2 bed",
+      "consumer_unit_count": 1,
+      "smoke_detector_count": 2,
+      "rooms": [
+        {
+          "preset_key": "kitchen",
+          "name": "Kitchen",
+          "sockets": 6,
+          "lights": 4,
+          "fused_spurs": 2,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "living",
+          "name": "Living room",
+          "sockets": 4,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 1
+        },
+        {
+          "preset_key": "bedroom",
+          "name": "Bedroom 1",
+          "sockets": 4,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 1
+        },
+        {
+          "preset_key": "bedroom",
+          "name": "Bedroom 2",
+          "sockets": 4,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "bathroom",
+          "name": "Bathroom",
+          "sockets": 0,
+          "lights": 2,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 1,
+          "data_points": 0
+        },
+        {
+          "preset_key": "hallway",
+          "name": "Hallway / landing",
+          "sockets": 2,
+          "lights": 2,
+          "fused_spurs": 0,
+          "one_way_switches": 0,
+          "two_way_switches": 2,
+          "extractor_fans": 0,
+          "data_points": 0
+        }
+      ]
+    },
+    "3_bed_semi": {
+      "label": "3 bed",
+      "consumer_unit_count": 1,
+      "smoke_detector_count": 3,
+      "rooms": [
+        {
+          "preset_key": "kitchen",
+          "name": "Kitchen",
+          "sockets": 8,
+          "lights": 4,
+          "fused_spurs": 2,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "living",
+          "name": "Living room",
+          "sockets": 4,
+          "lights": 4,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 1,
+          "extractor_fans": 0,
+          "data_points": 1
+        },
+        {
+          "preset_key": "bedroom",
+          "name": "Bedroom 1",
+          "sockets": 5,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 1
+        },
+        {
+          "preset_key": "bedroom",
+          "name": "Bedroom 2",
+          "sockets": 4,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "bedroom",
+          "name": "Bedroom 3",
+          "sockets": 4,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "bathroom",
+          "name": "Bathroom",
+          "sockets": 0,
+          "lights": 4,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 1,
+          "data_points": 0
+        },
+        {
+          "preset_key": "hallway",
+          "name": "Hallway / landing",
+          "sockets": 2,
+          "lights": 4,
+          "fused_spurs": 0,
+          "one_way_switches": 0,
+          "two_way_switches": 2,
+          "extractor_fans": 0,
+          "data_points": 0
+        }
+      ]
+    },
+    "4_bed_detached": {
+      "label": "4 bed",
+      "consumer_unit_count": 1,
+      "smoke_detector_count": 4,
+      "rooms": [
+        {
+          "preset_key": "kitchen",
+          "name": "Kitchen",
+          "sockets": 7,
+          "lights": 6,
+          "fused_spurs": 3,
+          "one_way_switches": 1,
+          "two_way_switches": 1,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "living",
+          "name": "Living room",
+          "sockets": 4,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 0,
+          "two_way_switches": 2,
+          "extractor_fans": 0,
+          "data_points": 2
+        },
+        {
+          "preset_key": "bedroom",
+          "name": "Bedroom 1",
+          "sockets": 6,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 1
+        },
+        {
+          "preset_key": "bedroom",
+          "name": "Bedroom 2",
+          "sockets": 5,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "bedroom",
+          "name": "Bedroom 3",
+          "sockets": 4,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "bedroom",
+          "name": "Bedroom 4",
+          "sockets": 4,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "bathroom",
+          "name": "Family bathroom",
+          "sockets": 0,
+          "lights": 4,
+          "fused_spurs": 1,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 1,
+          "data_points": 0
+        },
+        {
+          "preset_key": "bathroom",
+          "name": "En-suite",
+          "sockets": 0,
+          "lights": 2,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 1,
+          "data_points": 0
+        },
+        {
+          "preset_key": "hallway",
+          "name": "Hallway / landing",
+          "sockets": 2,
+          "lights": 6,
+          "fused_spurs": 0,
+          "one_way_switches": 0,
+          "two_way_switches": 2,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "utility",
+          "name": "Utility",
+          "sockets": 4,
+          "lights": 2,
+          "fused_spurs": 2,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 0
+        }
+      ]
+    },
+    "5_bed_plus": {
+      "label": "5 bed+",
+      "consumer_unit_count": 1,
+      "smoke_detector_count": 5,
+      "rooms": [
+        {
+          "preset_key": "kitchen",
+          "name": "Kitchen",
+          "sockets": 8,
+          "lights": 8,
+          "fused_spurs": 3,
+          "one_way_switches": 1,
+          "two_way_switches": 1,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "living",
+          "name": "Living room",
+          "sockets": 4,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 0,
+          "two_way_switches": 2,
+          "extractor_fans": 0,
+          "data_points": 1
+        },
+        {
+          "preset_key": "living",
+          "name": "Dining room",
+          "sockets": 6,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 1,
+          "extractor_fans": 0,
+          "data_points": 1
+        },
+        {
+          "preset_key": "bedroom",
+          "name": "Bedroom 1",
+          "sockets": 6,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 1
+        },
+        {
+          "preset_key": "bedroom",
+          "name": "Bedroom 2",
+          "sockets": 6,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "bedroom",
+          "name": "Bedroom 3",
+          "sockets": 5,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "bedroom",
+          "name": "Bedroom 4",
+          "sockets": 4,
+          "lights": 1,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "bedroom",
+          "name": "Bedroom 5",
+          "sockets": 4,
+          "lights": 2,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "bathroom",
+          "name": "Family bathroom",
+          "sockets": 1,
+          "lights": 4,
+          "fused_spurs": 1,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 1,
+          "data_points": 0
+        },
+        {
+          "preset_key": "bathroom",
+          "name": "En-suite 1",
+          "sockets": 0,
+          "lights": 2,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 1,
+          "data_points": 0
+        },
+        {
+          "preset_key": "bathroom",
+          "name": "En-suite 2",
+          "sockets": 0,
+          "lights": 2,
+          "fused_spurs": 0,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 1,
+          "data_points": 0
+        },
+        {
+          "preset_key": "hallway",
+          "name": "Hallway / landing",
+          "sockets": 2,
+          "lights": 8,
+          "fused_spurs": 0,
+          "one_way_switches": 0,
+          "two_way_switches": 3,
+          "extractor_fans": 0,
+          "data_points": 0
+        },
+        {
+          "preset_key": "utility",
+          "name": "Utility",
+          "sockets": 5,
+          "lights": 2,
+          "fused_spurs": 3,
+          "one_way_switches": 1,
+          "two_way_switches": 0,
+          "extractor_fans": 0,
+          "data_points": 0
+        }
+      ]
+    }
+  }
+}

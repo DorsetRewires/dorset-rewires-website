@@ -1,0 +1,23 @@
+﻿{
+  "name": "Dorset Rewires - Instant Quote",
+  "short_name": "Dorset Rewires Quote",
+  "description": "Build a rough rewire quote on site in 60 seconds. Per-room socket/light/switch counter with running total.",
+  "start_url": "/quote.html?source=pwa",
+  "scope": "/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#0F2540",
+  "theme_color": "#0F2540",
+  "lang": "en-GB",
+  "categories": ["productivity", "business", "utilities"],
+  "icons": [
+    {"src": "assets/icons/icon-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any"},
+    {"src": "assets/icons/icon-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any"},
+    {"src": "assets/icons/icon-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable"}
+  ],
+  "shortcuts": [
+    {"name": "New quote", "url": "/quote.html", "icons": [{"src": "assets/icons/icon-192.png", "sizes": "192x192"}]},
+    {"name": "Call back log", "url": "/index.html#contact"}
+  ],
+  "screenshots": []
+}

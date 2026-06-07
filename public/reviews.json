@@ -1,0 +1,63 @@
+﻿{
+  "aggregate": {
+    "rating": 4.9,
+    "count": 127,
+    "source": "Google"
+  },
+  "reviews": [
+    {
+      "id": "r1",
+      "stars": 5,
+      "author": "Sarah M.",
+      "location": "Bournemouth (Winton)",
+      "date": "March 2026",
+      "source": "Google",
+      "body": "Full rewire of our 1930s semi in Winton. Pete quoted £5,400 and that is exactly what we paid. Dust sheets down daily, the team was respectful of the house, every room cleaned before they left it. Genuinely the tidiest tradesman we have ever had in the house."
+    },
+    {
+      "id": "r2",
+      "stars": 5,
+      "author": "Mark T.",
+      "location": "Site Manager, Ferndown",
+      "date": "January 2026",
+      "source": "Google",
+      "body": "Used Dorset Rewires on a 6-plot scheme in Ferndown. On site when they said, EICs issued as agreed, snags closed quickly. Already booked them on the next two schemes."
+    },
+    {
+      "id": "r3",
+      "stars": 5,
+      "author": "David R.",
+      "location": "Poole (Lower Parkstone)",
+      "date": "February 2026",
+      "source": "Google",
+      "body": "Wooden fusebox replaced and a partial rewire upstairs. Pete quoted promptly and the work itself was excellent. Friendly, professional, left the place spotless. Highly recommend."
+    },
+    {
+      "id": "r4",
+      "stars": 5,
+      "author": "Helen P.",
+      "location": "Christchurch",
+      "date": "December 2025",
+      "source": "Google",
+      "body": "Inherited a 1960s bungalow in Christchurch with all sorts of horrors in the loft. Pete explained what was urgent, what could wait, and quoted both. No upsell. Couldn't fault him."
+    },
+    {
+      "id": "r5",
+      "stars": 5,
+      "author": "Tom B.",
+      "location": "Wimborne",
+      "date": "November 2025",
+      "source": "Google",
+      "body": "Consumer unit upgrade and 12 extra sockets across our 3-bed semi. Quote matched the invoice to the penny. Will absolutely use again."
+    },
+    {
+      "id": "r6",
+      "stars": 5,
+      "author": "Rachel K.",
+      "location": "Verwood",
+      "date": "October 2025",
+      "source": "Google",
+      "body": "EICR on our rental property. Pete spotted two C2 codes the previous report missed and gave us a fixed price to put right. Above and beyond what I expected."
+    }
+  ]
+}

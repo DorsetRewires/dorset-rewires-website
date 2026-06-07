@@ -1,0 +1,27 @@
+# ops/ stays on Pete's PC only - never committed, never deployed
+ops/
+
+# Cloudflare / build artifacts
+.cloudflare/
+.wrangler/
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+
+# Node (used only for Decap CMS local dev server)
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Editor
+.vscode/
+*.swp
+*.swo
+
+# Logs
+*.log

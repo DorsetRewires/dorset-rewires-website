@@ -1,0 +1,353 @@
+/* Quote calculator page */
+.quote-hero {
+  background: linear-gradient(135deg, var(--c-navy) 0%, var(--c-navy-2) 100%);
+  color: #fff;
+  padding: 64px 0 56px;
+  text-align: center;
+}
+.quote-hero .ds-eyebrow {
+  background: rgba(244,163,0,0.18); color: #FFD37A;
+  display: inline-block; margin-bottom: 16px;
+}
+.quote-hero h1 {
+  font-size: clamp(30px, 4vw, 46px); margin: 0 0 14px;
+  letter-spacing: -0.025em; font-weight: 800; color: #fff;
+}
+.quote-hero .lede { color: #D8DEE8; max-width: 760px; margin: 0 auto; font-size: 17px; }
+
+.calc { padding: 56px 0 96px; background: var(--c-bg); }
+.calc-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
+
+.calc-block {
+  background: #fff; border: 1px solid var(--c-border); border-radius: var(--r-lg);
+  padding: 28px 28px 18px; margin-bottom: 22px;
+}
+.calc-block-head { margin-bottom: 18px; }
+.calc-block-head h2 { margin: 0 0 4px; font-size: 22px; color: var(--c-navy); font-weight: 800; letter-spacing: -0.015em; }
+.calc-block-head p { margin: 0; color: var(--c-text-mute); font-size: 14.5px; }
+
+.calc-rows { display: grid; gap: 12px; }
+.calc-row {
+  display: grid; grid-template-columns: 1fr auto auto; gap: 16px; align-items: center;
+  padding: 14px 0;
+  border-top: 1px solid var(--c-border);
+}
+.calc-row:first-child { border-top: 0; padding-top: 6px; }
+.calc-row-label strong { display: block; font-size: 15.5px; color: var(--c-navy); font-weight: 700; }
+.calc-row-label span { display: block; color: var(--c-text-mute); font-size: 13.5px; margin-top: 2px; }
+.calc-row-price { font-weight: 700; color: var(--c-green); font-size: 15px; white-space: nowrap; }
+.calc-row-controls { display: inline-flex; align-items: center; gap: 6px; }
+.calc-row-step-button {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--c-border-2); background: #fff; cursor: pointer;
+  font-size: 18px; font-weight: 700; color: var(--c-navy);
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background 0.1s, border-color 0.1s;
+}
+.calc-row-step-button:hover { background: var(--c-amber-soft); border-color: var(--c-amber); }
+.calc-row-quantity {
+  width: 50px; text-align: center; padding: 6px 0;
+  border: 1px solid var(--c-border-2); border-radius: var(--r-sm);
+  font-size: 16px; font-weight: 700; color: var(--c-navy); font-family: inherit;
+  background: #fff;
+  -moz-appearance: textfield;
+}
+.calc-row-quantity::-webkit-outer-spin-button, .calc-row-quantity::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.calc-row-controls-stacked { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; min-width: 220px; }
+.calc-row-mini-input { display: flex; flex-direction: column; gap: 4px; font-size: 12px; color: var(--c-text-mute); font-weight: 600; }
+.calc-row-mini-input input { padding: 8px 10px; }
+.calc-row-radial { grid-template-columns: 1fr auto; }
+
+/* ===== Quick estimate block ===== */
+.quick-estimate-block {
+  background: linear-gradient(135deg, var(--c-navy) 0%, var(--c-navy-2) 100%);
+  border-radius: var(--r-lg); padding: 28px 28px 22px;
+  margin-bottom: 22px; color: #fff;
+}
+.qe-head h2 { margin: 0 0 6px; font-size: 22px; color: #fff; font-weight: 800; letter-spacing: -0.015em; }
+.qe-head p { margin: 0 0 20px; color: #C6CFDE; font-size: 15px; }
+.qe-buttons { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 16px; }
+.qe-btn {
+  background: rgba(255,255,255,0.1); color: #fff;
+  border: 1.5px solid rgba(255,255,255,0.3);
+  border-radius: var(--r-sm); padding: 12px 18px;
+  font-size: 15px; font-weight: 700; font-family: inherit; cursor: pointer;
+  transition: background 0.15s, border-color 0.15s, transform 0.08s;
+}
+.qe-btn:hover { background: rgba(244,163,0,0.2); border-color: var(--c-amber); transform: translateY(-1px); }
+.qe-btn-active {
+  background: var(--c-amber); color: var(--c-navy);
+  border-color: var(--c-amber);
+}
+.qe-btn-active:hover { background: #FFB42E; border-color: #FFB42E; }
+.qe-or { color: rgba(255,255,255,0.6); font-size: 13.5px; margin: 0; }
+.qe-scratch-link { color: rgba(255,255,255,0.85); font-weight: 600; }
+.qe-scratch-link:hover { color: var(--c-amber); }
+
+/* ===== Info (?) button on room items ===== */
+.room-item-label-row { display: flex; align-items: center; gap: 6px; }
+.room-item-label-row strong { flex: 1; }
+.room-item-info-button {
+  flex: 0 0 22px; width: 22px; height: 22px;
+  background: var(--c-bg-soft); color: var(--c-text-mute);
+  border: 1px solid var(--c-border); border-radius: 50%;
+  font-size: 12px; font-weight: 800; font-family: inherit;
+  cursor: pointer; display: inline-flex; align-items: center; justify-content: center;
+  transition: background 0.12s, color 0.12s, border-color 0.12s;
+  line-height: 1;
+}
+.room-item-info-button:hover { background: var(--c-amber-soft); color: var(--c-navy); border-color: var(--c-amber); }
+.room-item-info-button-active { background: var(--c-amber); color: var(--c-navy); border-color: var(--c-amber); }
+.room-item-description {
+  display: block; margin-top: 6px; padding: 8px 10px;
+  background: var(--c-amber-soft); border: 1px solid var(--c-amber-line);
+  border-radius: var(--r-sm);
+  font-size: 13px; color: var(--c-text); line-height: 1.45;
+}
+.room-item-description[hidden] { display: none; }
+
+/* ===== Rooms ===== */
+.room-quick { display: flex; flex-wrap: wrap; gap: 8px; margin-bottom: 18px; align-items: center; }
+.quick-add-label { font-size: 13px; color: var(--c-text-mute); font-weight: 600; margin-right: 4px; }
+.quick-add-button {
+  background: var(--c-bg-soft); color: var(--c-navy);
+  border: 1px solid var(--c-border); border-radius: var(--r-pill);
+  padding: 8px 14px; font-size: 13.5px; font-weight: 600; font-family: inherit; cursor: pointer;
+  transition: background 0.1s, border-color 0.1s;
+}
+.quick-add-button:hover { background: var(--c-amber-soft); border-color: var(--c-amber); }
+.quick-add-blank { background: #fff; border-style: dashed; }
+
+.rooms-list { display: grid; gap: 14px; }
+.room {
+  background: var(--c-bg-soft);
+  border: 1px solid var(--c-border);
+  border-radius: var(--r-md);
+  padding: 18px 20px;
+}
+.room-head {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 14px;
+}
+.room-name {
+  flex: 1; padding: 6px 10px; border: 1px solid transparent; border-radius: var(--r-sm);
+  font-size: 16px; font-weight: 700; color: var(--c-navy); background: transparent; font-family: inherit;
+}
+.room-name:focus { outline: 2px solid var(--c-amber); border-color: var(--c-amber); background: #fff; }
+.room-subtotal { font-weight: 700; color: var(--c-green); font-size: 15px; white-space: nowrap; }
+.room-remove, .room-minimise {
+  background: transparent; border: 1px solid transparent; cursor: pointer;
+  color: var(--c-text-mute);
+  font-size: 18px; padding: 4px 10px; line-height: 1; border-radius: var(--r-sm);
+}
+.room-minimise:hover { color: var(--c-navy); background: var(--c-bg-soft); border-color: var(--c-border); }
+.room-remove:hover { color: #C13B3B; background: #FBECEC; border-color: #F4C9C9; }
+.room.room-collapsed .room-items { display: none; }
+.room.room-collapsed { padding-bottom: 16px; }
+.room.room-collapsed .room-head { margin-bottom: 0; }
+
+/* Count badge on the quick-add buttons - shows how many of this room type
+   are already in the list. */
+.quick-add-button { position: relative; }
+.quick-add-count {
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-left: 6px; min-width: 18px; height: 18px; padding: 0 6px;
+  background: var(--c-amber); color: var(--c-navy);
+  border-radius: 999px; font-size: 11px; font-weight: 800; line-height: 1;
+}
+
+/* ==== Unified room item rows ====
+   Every item in a room (sockets, lights, radials, etc.) uses the SAME row
+   pattern: full-width row with label + plain-English description on the
+   left, minus/count/plus controls on the right. Radial circuits get an
+   additional "extra metres" mini input that drops below the row. */
+.room-items {
+  display: grid; gap: 10px;
+}
+.room-item {
+  background: #fff; border: 1px solid var(--c-border); border-radius: var(--r-sm);
+  padding: 14px 16px;
+  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 16px;
+}
+.room-item-label strong {
+  display: block; color: var(--c-navy); font-weight: 700; font-size: 15px;
+  letter-spacing: -0.005em;
+}
+.room-item-label small {
+  display: block; color: var(--c-text-mute); font-weight: 500; font-size: 13px;
+  margin-top: 4px; line-height: 1.4;
+}
+.room-item-controls {
+  display: inline-flex; align-items: center; gap: 8px;
+}
+.room-item-step-button {
+  width: 36px; height: 36px; border-radius: 50%;
+  border: 1px solid var(--c-border-2); background: #fff; cursor: pointer;
+  font-size: 18px; font-weight: 700; color: var(--c-navy);
+  display: inline-flex; align-items: center; justify-content: center;
+  transition: background 0.1s, border-color 0.1s;
+}
+.room-item-step-button:hover { background: var(--c-amber-soft); border-color: var(--c-amber); }
+.room-item-quantity {
+  width: 56px; text-align: center; padding: 6px 0;
+  border: 1px solid var(--c-border-2); border-radius: var(--r-sm);
+  font-size: 16px; font-weight: 700; color: var(--c-navy); font-family: inherit;
+  background: #fff;
+  -moz-appearance: textfield;
+}
+.room-item-quantity::-webkit-outer-spin-button, .room-item-quantity::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+.room-item-quantity:focus { outline: 2px solid var(--c-amber); border-color: var(--c-amber); }
+
+/* Extras & upgrades collapsible section - sits below all the basic items
+   and radials. Visually separated so the eye reads it as optional. */
+.room-extras { margin-top: 18px; }
+.room-extras-toggle {
+  width: 100%; display: flex; align-items: center; gap: 14px;
+  background: #fff; border: 1.5px dashed var(--c-amber);
+  border-radius: var(--r-sm); padding: 14px 18px;
+  cursor: pointer; font-family: inherit; text-align: left;
+  transition: background 0.15s, border-color 0.15s;
+}
+.room-extras-toggle:hover { background: var(--c-amber-soft); }
+.room-extras-toggle-icon {
+  flex: 0 0 32px; width: 32px; height: 32px;
+  background: var(--c-amber); color: var(--c-navy);
+  border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-weight: 800; font-size: 20px;
+}
+.room-extras-toggle-text { flex: 1; display: grid; }
+.room-extras-toggle-text strong { color: var(--c-navy); font-size: 15.5px; font-weight: 700; }
+.room-extras-toggle-text small { color: var(--c-text-mute); font-size: 12.5px; margin-top: 2px; }
+.room-extras-toggle-arrow {
+  color: var(--c-amber); font-size: 14px; transition: transform 0.2s;
+}
+.room.room-extras-open .room-extras-toggle-arrow { transform: rotate(90deg); }
+.room.room-extras-open .room-extras-toggle {
+  border-bottom-left-radius: 0; border-bottom-right-radius: 0;
+  border-style: solid; border-bottom-color: transparent;
+}
+.room-extras-content {
+  display: grid; gap: 10px;
+  border: 1.5px solid var(--c-amber); border-top: 0;
+  border-bottom-left-radius: var(--r-sm); border-bottom-right-radius: var(--r-sm);
+  padding: 14px 14px 16px;
+  background: #fff;
+}
+.room-extras-content[hidden] { display: none; }
+
+/* COB LED block explainer that introduces both LED rows. */
+.room-led-explainer {
+  margin: 4px 0 0; padding: 12px 14px;
+  background: var(--c-bg-soft); border-radius: var(--r-sm);
+  font-size: 13.5px; color: var(--c-text-soft); line-height: 1.45;
+}
+.room-led-explainer strong {
+  display: block; color: var(--c-navy); font-size: 14px; font-weight: 700; margin-bottom: 2px;
+}
+.room-led-explainer small { color: var(--c-text-mute); font-size: 12.5px; }
+
+/* Inline extra-metres mini-row that sits below the relevant parent row.
+   Same +/- pattern as the main rows so the eye reads them as one unit. */
+.room-item-extra-input {
+  margin: -4px 0 0 16px;
+  display: grid; grid-template-columns: 1fr auto; align-items: center; gap: 12px;
+  background: var(--c-amber-soft); border: 1px dashed var(--c-amber-line);
+  border-radius: var(--r-sm);
+  padding: 10px 14px;
+}
+.room-item-extra-label {
+  font-size: 13.5px; font-weight: 600; color: var(--c-text);
+}
+
+@media (max-width: 720px) {
+  .room-item { grid-template-columns: 1fr; gap: 12px; }
+  .room-item-controls { justify-self: end; }
+}
+
+.calc-disclaimer {
+  font-size: 13px; color: var(--c-text-mute); margin-top: 22px;
+  padding: 14px 18px; background: var(--c-amber-soft); border: 1px solid var(--c-amber-line);
+  border-radius: var(--r-md);
+}
+
+/* Sticky summary */
+.calc-summary { position: sticky; top: 88px; display: grid; gap: 18px; }
+.summary-card {
+  background: var(--c-navy); color: #fff;
+  border-radius: var(--r-lg);
+  padding: 24px; box-shadow: 0 18px 40px rgba(15,37,64,0.15);
+}
+.summary-head { padding-bottom: 18px; border-bottom: 1px solid rgba(255,255,255,0.12); margin-bottom: 16px; }
+.summary-eyebrow { font-size: 11px; letter-spacing: 0.1em; color: var(--c-amber); font-weight: 700; text-transform: uppercase; }
+.summary-total { font-size: 44px; font-weight: 800; letter-spacing: -0.025em; color: #fff; line-height: 1.05; margin: 4px 0 2px; }
+.summary-sub { font-size: 13px; color: #B6C2D6; }
+.summary-line-list { display: grid; gap: 6px; min-height: 32px; font-size: 13.5px; color: #C6CFDE; max-height: 280px; overflow-y: auto; padding-right: 4px; }
+.summary-line { display: flex; justify-content: space-between; gap: 10px; }
+.summary-line strong { color: #fff; font-weight: 600; }
+.summary-empty { color: #7E8EA8; font-style: italic; }
+.summary-vat { color: #7E8EA8; font-size: 12px; margin: 14px 0; padding-top: 14px; border-top: 1px solid rgba(255,255,255,0.08); }
+.summary-cta { margin: 4px 0 12px; padding: 16px; font-size: 16px; }
+.btn-ghost-cta {
+  display: flex; justify-content: center; align-items: center;
+  border: 1px solid rgba(255,255,255,0.25); border-radius: var(--r-sm);
+  padding: 12px 16px; color: #fff; font-weight: 600; text-decoration: none;
+  font-size: 14.5px;
+}
+.btn-ghost-cta:hover { background: rgba(255,255,255,0.08); color: #fff; text-decoration: none; }
+.summary-foot { font-size: 12px; color: #B6C2D6; margin: 14px 0 0; text-align: center; line-height: 1.4; }
+
+.rate-card {
+  background: #fff; border: 1px solid var(--c-border); border-radius: var(--r-lg);
+  padding: 22px 24px;
+}
+.rate-card h3 { margin: 0 0 12px; font-size: 16px; color: var(--c-navy); font-weight: 700; }
+.rate-card table { width: 100%; border-collapse: collapse; font-size: 13.5px; }
+.rate-card td { padding: 6px 0; color: var(--c-text-soft); }
+.rate-card td:last-child { text-align: right; color: var(--c-navy); font-weight: 700; }
+.rate-card tr { border-top: 1px solid var(--c-border); }
+.rate-card tr:first-child { border-top: 0; }
+
+@media (max-width: 980px) {
+  .calc-grid { grid-template-columns: 1fr; }
+  .calc-summary { position: static; }
+}
+@media (max-width: 720px) {
+  .calc-row { grid-template-columns: 1fr; }
+  .calc-row-price { justify-self: start; }
+  .calc-row-controls { justify-self: start; }
+  .summary-total { font-size: 36px; }
+}
+
+/* PWA install banner */
+.pwa-install {
+  position: fixed; left: 16px; right: 16px; bottom: calc(env(safe-area-inset-bottom, 0px) + 12px);
+  background: var(--c-navy);
+  color: #fff;
+  padding: 14px 16px;
+  border-radius: var(--r-md);
+  display: flex; align-items: center; gap: 14px;
+  box-shadow: 0 18px 40px rgba(0,0,0,0.3);
+  z-index: 200;
+  max-width: 520px; margin: 0 auto;
+}
+.pwa-icon { flex-shrink: 0; }
+.pwa-body { flex: 1; line-height: 1.35; }
+.pwa-body strong { display: block; font-size: 14.5px; }
+.pwa-body span { display: block; font-size: 12.5px; color: #C6CFDE; margin-top: 2px; }
+.pwa-body b { color: #fff; }
+.pwa-install-btn {
+  background: var(--c-amber); color: var(--c-navy); border: 0;
+  font-weight: 700; padding: 8px 14px; border-radius: var(--r-sm); font-family: inherit;
+  cursor: pointer; font-size: 14px; margin-top: 4px;
+}
+.pwa-install-btn:hover { background: #FFB42E; }
+#pwaDismiss {
+  background: transparent; border: 0; color: #B6C2D6; font-size: 24px; line-height: 1;
+  cursor: pointer; padding: 4px 8px; flex-shrink: 0;
+}
+#pwaDismiss:hover { color: #fff; }
+
+/* Hide install banner when running as installed PWA */
+@media all and (display-mode: standalone) {
+  .pwa-install, .site-header, .mobile-call-bar, footer.site-footer { /* keep header + bar */ }
+}

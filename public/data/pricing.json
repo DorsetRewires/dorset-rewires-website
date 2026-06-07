@@ -1,0 +1,75 @@
+{
+  "version": "1.0.4",
+  "updated": "2026-06-06",
+  "notes": "Single source of truth for all prices on the site and in the quote calculator. Edit via /ops-hq/pricing-admin.html or by hand. After editing, drop in place and reload any open page.",
+  "rewire_per_point": {
+    "socket": 90,
+    "light": 90,
+    "fused_spur": 90,
+    "one_way_switch": 0,
+    "two_way_switch": 80,
+    "extractor_fan": 160,
+    "data_point": 80,
+    "mains_smoke_detector": 110,
+    "led_strip_continuous_base_first_5_metres": 190,
+    "led_strip_continuous_per_extra_metre": 30,
+    "led_strip_section_first_section": 160,
+    "led_strip_section_additional_section": 90,
+    "led_strip_section_per_extra_metre": 40
+  },
+  "rewire_whole_property": {
+    "rcbo_consumer_unit_12way_with_surge": 625,
+    "radial_16a_base_first_20m": 120,
+    "radial_16a_per_extra_metre": 2,
+    "radial_32a_base_first_20m": 190,
+    "radial_32a_per_extra_metre": 4
+  },
+  "eicr_by_circuit_count": [
+    {
+      "label": "1-bed flat (up to 6 circuits)",
+      "max_circuits": 6,
+      "price": 140
+    },
+    {
+      "label": "2-3 bed (7-10 circuits)",
+      "max_circuits": 10,
+      "price": 195
+    },
+    {
+      "label": "4-5 bed (11-15 circuits)",
+      "max_circuits": 15,
+      "price": 265
+    },
+    {
+      "label": "HMO / large (16+ circuits)",
+      "max_circuits": null,
+      "price": 345,
+      "per_extra_circuit": 20
+    }
+  ],
+  "eicr_extras": {
+    "retest_within_90_days": 85,
+    "landlord_portfolio_discount_percent": 10,
+    "landlord_portfolio_min_properties": 3
+  },
+  "heating_wiring": {
+    "combi_basic": 175,
+    "combi_with_smart_thermostat": 245,
+    "y_plan": 345,
+    "s_plan": 395,
+    "s_plan_with_cores_run": 475,
+    "ashp_existing_cu": 650,
+    "ashp_with_cu_upgrade_from": 1100
+  },
+  "labour_baselines": {
+    "single_sparky_day_rate": 300,
+    "two_man_team_day_rate": 510,
+    "hourly_fallback": 60,
+    "variation_hourly_rate": 45
+  },
+  "markup_percentages": {
+    "cable_and_accessories": 20,
+    "consumer_units_and_rcbos": 20,
+    "small_consumables": 50
+  }
+}

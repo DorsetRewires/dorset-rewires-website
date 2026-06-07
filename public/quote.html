@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Instant Rewire Quote Calculator | Dorset Rewires Bournemouth &amp; Poole</title>
+<meta name="description" content="Build your own rough rewire quote in 60 seconds. Add rooms, count sockets, lights and switches, see a transparent price instantly. Final price confirmed after free home survey.">
+<meta name="theme-color" content="#0F2540">
+<meta name="robots" content="index,follow">
+<link rel="canonical" href="https://dorsetrewires.co.uk/quote.html">
+
+<!-- iPhone home-screen PWA -->
+<link rel="manifest" href="manifest.json">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Dorset Rewires Quote">
+<link rel="apple-touch-icon" href="assets/icons/icon-180-apple.png">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23F4A300' d='M18 2 6 18h7l-3 12 12-16h-7z'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/styles.css">
+<link rel="stylesheet" href="assets/css/quote.css">
+</head>
+<body>
+
+<a class="skip-link" href="#main">Skip to main content</a>
+
+<header class="site-header" id="siteHeader">
+  <div class="container header-row">
+    <a class="logo" href="index.html" aria-label="Home">
+      <svg width="28" height="28" viewBox="0 0 32 32" aria-hidden="true"><path fill="#F4A300" d="M18 2 6 18h7l-3 12 12-16h-7z"/></svg>
+      <span class="logo-text">Dorset Rewires</span>
+    </a>
+    <nav class="primary-nav" aria-label="Primary">
+      <a href="index.html#rewires">Rewires</a>
+      <a href="index.html#newbuild">New Build</a>
+      <a href="quote.html" class="nav-cta">Instant Quote</a>
+      <a href="index.html#reviews">Reviews</a>
+      <a href="index.html#faq">FAQs</a>
+      <a href="index.html#contact">Contact</a>
+    </nav>
+    <a class="header-call" href="tel:+441202000000" aria-label="Call us on 01202 000 000">
+      <svg width="16" height="16" viewBox="0 0 24 24" aria-hidden="true" class="hc-icon"><path fill="currentColor" d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg>
+      <span class="call-num">01202 000 000</span>
+    </a>
+    <button class="menu-btn" id="menuBtn" aria-label="Open menu" aria-expanded="false">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</header>
+
+<main id="main">
+
+<section class="quote-hero">
+  <div class="container">
+    <span class="ds-eyebrow">Instant Quote &middot; No Email Required</span>
+    <h1>Build your own rough quote in 60 seconds</h1>
+    <p class="lede">Add rooms, count sockets, lights and switches. See a transparent price update as you go. Final price confirmed after a free home survey - this tool is the same maths Pete uses on the doorstep.</p>
+  </div>
+</section>
+
+<section class="calc">
+  <div class="container calc-grid">
+
+    <div class="calc-main">
+
+      <div class="quick-estimate-block">
+        <div class="qe-head">
+          <h2>What kind of property is it?</h2>
+          <p>Pick your property type for an instant estimate. Every room pre-fills with typical numbers. You can change any of it below.</p>
+        </div>
+        <div class="qe-buttons" id="quickEstimateButtons">
+          <button type="button" class="qe-btn" data-template="1_bed_flat">1 bed</button>
+          <button type="button" class="qe-btn" data-template="2_bed_terrace">2 bed</button>
+          <button type="button" class="qe-btn" data-template="3_bed_semi">3 bed</button>
+          <button type="button" class="qe-btn" data-template="4_bed_detached">4 bed</button>
+          <button type="button" class="qe-btn" data-template="5_bed_plus">5 bed+</button>
+        </div>
+        <p class="qe-or">or <a href="#" id="startFromScratch" class="qe-scratch-link">start from scratch below</a></p>
+      </div>
+
+      <div class="calc-block">
+        <div class="calc-block-head">
+          <h2>Whole-property items</h2>
+          <p>Add the bits that aren&rsquo;t room-specific.</p>
+        </div>
+        <div class="calc-rows">
+          <div class="calc-row" data-key="consumer_unit_count">
+            <div class="calc-row-label">
+              <strong>RCBO Consumer Unit (up to 12 ways) with surge suppression</strong>
+              <span>Replaces old fusebox. Required on any full rewire.</span>
+            </div>
+            <div class="calc-row-price" data-unit="625">&pound;625</div>
+            <div class="calc-row-controls">
+              <button type="button" class="calc-row-step-button" data-step="-1" aria-label="decrease">&minus;</button>
+              <input type="number" class="calc-row-quantity" value="0" min="0" max="2" inputmode="numeric" aria-label="quantity">
+              <button type="button" class="calc-row-step-button" data-step="1" aria-label="increase">&plus;</button>
+            </div>
+          </div>
+          <div class="calc-row" data-key="smoke_detector_count">
+            <div class="calc-row-label">
+              <strong>Mains-powered, interlinked smoke detector</strong>
+              <span>Now required at every floor level on most rewires.</span>
+            </div>
+            <div class="calc-row-price" data-unit="110">&pound;110 each</div>
+            <div class="calc-row-controls">
+              <button type="button" class="calc-row-step-button" data-step="-1" aria-label="decrease">&minus;</button>
+              <input type="number" class="calc-row-quantity" value="0" min="0" max="20" inputmode="numeric" aria-label="quantity">
+              <button type="button" class="calc-row-step-button" data-step="1" aria-label="increase">&plus;</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="calc-block">
+        <div class="calc-block-head">
+          <h2>Rooms</h2>
+          <p>Add each room and tap the chips to count items inside it.</p>
+        </div>
+
+        <div class="room-quick">
+          <span class="quick-add-label">Quick add:</span>
+          <button type="button" class="quick-add-button" data-preset="kitchen">Kitchen</button>
+          <button type="button" class="quick-add-button" data-preset="living">Living room</button>
+          <button type="button" class="quick-add-button" data-preset="bedroom">Bedroom</button>
+          <button type="button" class="quick-add-button" data-preset="bathroom">Bathroom</button>
+          <button type="button" class="quick-add-button" data-preset="hallway">Hallway / landing</button>
+          <button type="button" class="quick-add-button" data-preset="utility">Utility</button>
+          <button type="button" class="quick-add-button" data-preset="garage">Garage / outbuilding</button>
+          <button type="button" class="quick-add-button quick-add-blank" data-preset="blank">+ Blank room</button>
+        </div>
+
+        <div id="roomsList" class="rooms-list"></div>
+
+      </div>
+
+      <p class="calc-disclaimer">This is a rough working number based on Pete&rsquo;s standard rate card. Final price is fixed in writing after a free home survey and may flex if access is difficult, second-fix scope changes, or the consumer unit position has to move. Plaster make-good and decoration are NOT included - we recommend a decorator and will coordinate.</p>
+
+    </div>
+
+    <aside class="calc-summary">
+      <div class="summary-card">
+        <div class="summary-head">
+          <span class="summary-eyebrow">Running total</span>
+          <div class="summary-total" id="csTotal">&pound;0</div>
+          <div class="summary-sub" id="csCount">0 items added</div>
+        </div>
+        <div class="summary-line-list" id="csLines"></div>
+        <div class="summary-vat">All prices ex VAT. We&rsquo;ll add 20% on the final quote.</div>
+        <a class="btn-amber btn-block summary-cta" id="csCta" href="mailto:info@dorsetrewires.co.uk?subject=Instant%20quote%20enquiry">Send my quote to Pete</a>
+        <a class="btn-ghost-cta" href="tel:+441202000000">Or call 01202 000 000</a>
+        <p class="summary-foot">Pete reviews every instant quote within 1 working hour. Transparent 5-stage payment schedule. Free survey before any work.</p>
+      </div>
+
+      <div class="rate-card">
+        <h3>How prices are built</h3>
+        <table>
+          <tbody>
+            <tr><td>Socket (single or double)</td><td>&pound;90</td></tr>
+            <tr><td>Light point</td><td>&pound;90</td></tr>
+            <tr><td>Fused spur</td><td>&pound;90</td></tr>
+            <tr><td>1-way switch</td><td>Free</td></tr>
+            <tr><td>2-way switch</td><td>&pound;40</td></tr>
+            <tr><td>Extractor fan</td><td>&pound;160</td></tr>
+            <tr><td>Data point (CAT6)</td><td>&pound;80</td></tr>
+            <tr><td>Mains smoke detector</td><td>&pound;110</td></tr>
+            <tr><td>COB LED continuous - first 5m per run</td><td>&pound;190</td></tr>
+            <tr><td>COB LED continuous - each extra metre</td><td>&pound;30</td></tr>
+            <tr><td>COB LED small section - first section (2m)</td><td>&pound;160</td></tr>
+            <tr><td>COB LED small section - each extra section</td><td>&pound;90</td></tr>
+            <tr><td>COB LED small section - each extra metre</td><td>&pound;40</td></tr>
+            <tr><td>16A radial - first 20m</td><td>&pound;120</td></tr>
+            <tr><td>16A radial - each extra metre</td><td>&pound;2</td></tr>
+            <tr><td>32A radial - first 20m</td><td>&pound;190</td></tr>
+            <tr><td>32A radial - each extra metre</td><td>&pound;4</td></tr>
+            <tr><td>RCBO consumer unit (12 way, surge)</td><td>&pound;625</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </aside>
+
+  </div>
+</section>
+
+</main>
+
+<footer class="site-footer">
+  <div class="container footer-grid">
+    <div>
+      <div class="logo">
+        <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><path fill="#F4A300" d="M18 2 6 18h7l-3 12 12-16h-7z"/></svg>
+        <span class="logo-text">Dorset Rewires</span>
+      </div>
+      <p class="addr">1 Example Road, Bournemouth, Dorset BH1 1AA</p>
+    </div>
+    <div>
+      <h4>Contact</h4>
+      <p><a href="tel:+441202000000">01202 000 000</a></p>
+      <p><a href="mailto:info@dorsetrewires.co.uk">info@dorsetrewires.co.uk</a></p>
+      <p>Mon-Fri 7am-7pm</p>
+    </div>
+    <div>
+      <h4>Services</h4>
+      <p><a href="index.html#rewires">House Rewires</a></p>
+      <p><a href="index.html#newbuild">New Build &amp; Developer</a></p>
+      <p><a href="quote.html">Instant Quote</a></p>
+    </div>
+    <div>
+      <h4>Accreditations</h4>
+      <p>NICEIC Approved &middot; Cert #12345</p>
+      <p>Part P Registered</p>
+      <p>&pound;5M Public Liability</p>
+      <p>10-Year Workmanship Guarantee</p>
+    </div>
+  </div>
+  <div class="container footer-bottom">
+    <p>&copy; 2026 Dorset Rewires. All rights reserved. <a href="index.html">Home</a> &middot; <a href="#">Privacy</a></p>
+    <p class="demo-note">Demo site - prices indicative, final figure after free home survey.</p>
+  </div>
+</footer>
+
+<aside class="mobile-call-bar" aria-label="Quick call">
+  <a class="mcb-call" href="tel:+441202000000">
+    <span class="mcb-icon" aria-hidden="true"><svg width="22" height="22" viewBox="0 0 24 24"><path fill="currentColor" d="M6.6 10.8a15.2 15.2 0 0 0 6.6 6.6l2.2-2.2a1 1 0 0 1 1-.25 11.4 11.4 0 0 0 3.6.57 1 1 0 0 1 1 1V20a1 1 0 0 1-1 1A17 17 0 0 1 3 4a1 1 0 0 1 1-1h3.5a1 1 0 0 1 1 1 11.4 11.4 0 0 0 .57 3.6 1 1 0 0 1-.25 1z"/></svg></span>
+    <span class="mcb-text"><strong>Call 01202 000 000</strong><span>Free quote &middot; 7am-7pm</span></span>
+  </a>
+  <a class="mcb-email" href="mailto:info@dorsetrewires.co.uk" aria-label="Email us"><svg width="20" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M4 6h16v12H4zm0 2 8 5 8-5"/></svg></a>
+</aside>
+
+<div id="pwaInstall" class="pwa-install" hidden>
+  <div class="pwa-icon" aria-hidden="true">
+    <svg width="28" height="28" viewBox="0 0 32 32"><path fill="#F4A300" d="M18 2 6 18h7l-3 12 12-16h-7z"/></svg>
+  </div>
+  <div class="pwa-body">
+    <strong>Add to Home Screen</strong>
+    <span id="pwaInstructions">Tap <b>Share</b> &uarr; then <b>Add to Home Screen</b> to use this on site like a native app.</span>
+  </div>
+  <button type="button" id="pwaDismiss" aria-label="Dismiss">&times;</button>
+</div>
+
+<script src="assets/js/script.js"></script>
+<script src="assets/js/quote.js"></script>
+<script src="assets/js/pwa.js"></script>
+</body>
+</html>
