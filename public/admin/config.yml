@@ -18,8 +18,7 @@ backend:
   name: github
   repo: DorsetRewires/dorset-rewires-website
   branch: main
-  auth_type: pkce
-  app_id: Ov23lijdy9G7g4BGbT97
+  base_url: https://dorset-rewires-oauth.silent-star-0bcc.workers.dev
 
 media_folder: public/assets/img
 public_folder: /assets/img
