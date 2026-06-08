@@ -1,0 +1,69 @@
+# Decap CMS config for Dorset Rewires
+#
+# SETUP REQUIRED before this works (one-time, 10 minutes):
+#
+# 1. Go to github.com -> your profile -> Settings -> Developer settings
+#    -> OAuth Apps -> New OAuth App
+# 2. Fill in:
+#    - App name: Dorset Rewires CMS
+#    - Homepage URL: https://dorsetrewires.co.uk
+#    - Authorization callback URL: https://dorsetrewires.co.uk/admin/
+# 3. Click Register application
+# 4. Copy the Client ID shown on the next screen
+# 5. Replace YOUR_GITHUB_OAUTH_APP_CLIENT_ID below with that value
+# 6. Commit and push this file - the change deploys automatically
+# 7. Visit https://dorsetrewires.co.uk/admin/ and log in with GitHub
+
+backend:
+  name: github
+  repo: DorsetRewires/dorset-rewires-website
+  branch: main
+  auth_type: pkce
+  app_id: Ov23lijdy9G7g4BGbT97
+
+media_folder: public/assets/img
+public_folder: /assets/img
+
+collections:
+  # Reviews - edit the customer reviews shown on the site
+  - name: reviews
+    label: Customer reviews
+    files:
+      - name: all-reviews
+        label: All reviews
+        file: public/reviews.json
+        format: json
+        fields:
+          - label: Overall rating
+            name: aggregate
+            widget: object
+            fields:
+              - { label: Star rating (e.g. 4.9), name: rating, widget: number, value_type: float, min: 1, max: 5, step: 0.1 }
+              - { label: Total review count, name: count, widget: number }
+              - { label: Review source (e.g. Google), name: source, widget: string }
+          - label: Reviews
+            name: reviews
+            widget: list
+            fields:
+              - { label: ID (unique, e.g. r12), name: id, widget: string }
+              - { label: Star rating, name: stars, widget: number, min: 1, max: 5 }
+              - { label: Reviewer name, name: author, widget: string }
+              - { label: Location (e.g. Bournemouth, Winton), name: location, widget: string }
+              - { label: Date (e.g. March 2026), name: date, widget: string }
+              - { label: Source (e.g. Google), name: source, widget: string }
+              - { label: Review text, name: body, widget: text }
+
+  # Homepage content - NEEDS SETUP FIRST
+  # Before enabling this, homepage copy must be extracted to public/data/site-content.json
+  # and index.html must read from that file. Ask Claude to do this when ready.
+  #
+  # - name: homepage
+  #   label: Homepage
+  #   files:
+  #     - name: site-content
+  #       label: Site content
+  #       file: public/data/site-content.json
+  #       format: json
+  #       fields:
+  #         - { label: Hero heading, name: hero_heading, widget: string }
+  #         - { label: Hero subheading, name: hero_subheading, widget: text }
