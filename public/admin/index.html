@@ -22,20 +22,30 @@
 
     showDebug('1. BC listener created');
 
+    var WORKER_ORIGIN = 'https://dorset-rewires-oauth.silent-star-0bcc.workers.dev';
+
+    function dispatchToDecap(dataString) {
+      window.dispatchEvent(new MessageEvent('message', {
+        data: dataString,
+        origin: WORKER_ORIGIN,
+      }));
+    }
+
     var bc = new BroadcastChannel('decap-oauth-relay');
     bc.addEventListener('message', function (event) {
       bc.close();
       showDebug('2. BC message received');
-      showDebug('   data: ' + event.data.slice(0, 40) + '...');
 
-      var syntheticEvent = new MessageEvent('message', {
-        data: event.data,
-        origin: 'https://dorset-rewires-oauth.silent-star-0bcc.workers.dev',
-      });
+      // Decap uses a two-step handshake. The listener that accepts the token
+      // is only registered AFTER it receives "authorizing:github". So we send
+      // the handshake first, then the real token message.
+      showDebug('3. Sending handshake');
+      dispatchToDecap('authorizing:github');
 
-      showDebug('3. Dispatching synthetic event');
-      window.dispatchEvent(syntheticEvent);
-      showDebug('4. Dispatched - waiting for Decap');
+      showDebug('4. Sending token');
+      dispatchToDecap(event.data);
+
+      showDebug('5. Done - Decap should advance');
     });
   })();
   </script>
