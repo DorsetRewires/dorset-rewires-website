@@ -16,6 +16,9 @@
   var params = new URLSearchParams(hash);
   var token = params.get('token');
 
+  // Clear the hash immediately so the token is never saved to browser history.
+  history.replaceState(null, '', location.pathname);
+
   if (!token) {
     msg.innerText = 'Login failed - no token received.';
     msg.style.color = 'red';
