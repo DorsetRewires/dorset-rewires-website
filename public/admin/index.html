@@ -6,6 +6,22 @@
   <title>Dorset Rewires - Content editor</title>
 </head>
 <body>
+  <script>
+  // Receives the OAuth token from relay.html via BroadcastChannel.
+  // GitHub's COOP policy clears window.opener during OAuth redirect, so the
+  // standard popup postMessage flow fails. relay.html lands on this domain,
+  // broadcasts the token, and we synthesize the MessageEvent Decap CMS expects.
+  (function () {
+    var bc = new BroadcastChannel('decap-oauth-relay');
+    bc.addEventListener('message', function (event) {
+      bc.close();
+      window.dispatchEvent(new MessageEvent('message', {
+        data: event.data,
+        origin: 'https://dorset-rewires-oauth.silent-star-0bcc.workers.dev',
+      }));
+    });
+  })();
+  </script>
   <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
 </body>
 </html>

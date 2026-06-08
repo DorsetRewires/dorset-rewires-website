@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <title>Completing login...</title>
+</head>
+<body style="font-family:sans-serif;padding:24px;background:#f5f5f5">
+  <h2 id="msg">Completing login...</h2>
+  <p id="detail"></p>
+<script>
+(function () {
+  var msg = document.getElementById('msg');
+  var detail = document.getElementById('detail');
+
+  var hash = location.hash.slice(1);
+  var params = new URLSearchParams(hash);
+  var token = params.get('token');
+
+  if (!token) {
+    msg.innerText = 'Login failed - no token received.';
+    msg.style.color = 'red';
+    detail.innerText = 'Close this tab and try again.';
+    return;
+  }
+
+  var authMessage = 'authorization:github:success:' + JSON.stringify({ token: token, provider: 'github' });
+
+  var bc = new BroadcastChannel('decap-oauth-relay');
+  bc.postMessage(authMessage);
+  bc.close();
+
+  msg.innerText = 'Login complete!';
+  msg.style.color = 'green';
+  detail.innerText = 'Returning to the editor...';
+  setTimeout(function () { window.close(); }, 2000);
+})();
+</script>
+</body>
+</html>
