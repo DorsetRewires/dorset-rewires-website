@@ -7,21 +7,14 @@
 </head>
 <body>
   <script>
-  // Debug overlay - shows state without needing DevTools. Remove once auth works.
+  // Receives the OAuth token from relay.html via BroadcastChannel and feeds it
+  // to Decap CMS. GitHub's COOP policy clears window.opener during the OAuth
+  // redirect, so the normal popup postMessage flow fails silently. Instead the
+  // worker redirects the popup to relay.html (same origin), which broadcasts the
+  // token here. Decap uses a two-step handshake: it only registers its token
+  // listener AFTER receiving "authorizing:github", so we send the handshake
+  // first, then the real token message.
   (function () {
-    function showDebug(line) {
-      var box = document.getElementById('dr-oauth-debug');
-      if (!box) {
-        box = document.createElement('div');
-        box.id = 'dr-oauth-debug';
-        box.style.cssText = 'position:fixed;bottom:12px;right:12px;background:#111;color:#0f0;padding:10px 14px;z-index:999999;font:12px/1.6 monospace;border-radius:4px;max-width:360px';
-        document.body.appendChild(box);
-      }
-      box.innerHTML += line + '<br>';
-    }
-
-    showDebug('1. BC listener created');
-
     var WORKER_ORIGIN = 'https://dorset-rewires-oauth.silent-star-0bcc.workers.dev';
 
     function dispatchToDecap(dataString) {
@@ -34,18 +27,8 @@
     var bc = new BroadcastChannel('decap-oauth-relay');
     bc.addEventListener('message', function (event) {
       bc.close();
-      showDebug('2. BC message received');
-
-      // Decap uses a two-step handshake. The listener that accepts the token
-      // is only registered AFTER it receives "authorizing:github". So we send
-      // the handshake first, then the real token message.
-      showDebug('3. Sending handshake');
       dispatchToDecap('authorizing:github');
-
-      showDebug('4. Sending token');
       dispatchToDecap(event.data);
-
-      showDebug('5. Done - Decap should advance');
     });
   })();
   </script>
