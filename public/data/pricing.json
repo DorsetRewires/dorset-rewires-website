@@ -1,6 +1,6 @@
 {
-  "version": "1.0.4",
-  "updated": "2026-06-06",
+  "version": "1.0.6",
+  "updated": "2026-06-08",
   "notes": "Single source of truth for all prices on the site and in the quote calculator. Edit via /ops-hq/pricing-admin.html or by hand. After editing, drop in place and reload any open page.",
   "rewire_per_point": {
     "socket": 90,
@@ -11,14 +11,26 @@
     "extractor_fan": 160,
     "data_point": 80,
     "mains_smoke_detector": 110,
+    "shaver_socket": 90,
+    "flip_lid_floor_socket": 110,
+    "five_amp_socket": 90,
+    "external_ip_fitting": 90,
+    "wired_ring_doorbell_cam": 180,
     "led_strip_continuous_base_first_5_metres": 190,
     "led_strip_continuous_per_extra_metre": 30,
     "led_strip_section_first_section": 160,
     "led_strip_section_additional_section": 90,
     "led_strip_section_per_extra_metre": 40
   },
+  "av_points": {
+    "tv_aerial": 220,
+    "tv_point": 90,
+    "sky_point": 90,
+    "telephone_point": 90
+  },
   "rewire_whole_property": {
     "rcbo_consumer_unit_12way_with_surge": 625,
+    "garage_consumer_unit_4way_rcbo": 180,
     "radial_16a_base_first_20m": 120,
     "radial_16a_per_extra_metre": 2,
     "radial_32a_base_first_20m": 190,

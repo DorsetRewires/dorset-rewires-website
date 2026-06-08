@@ -13,7 +13,11 @@
     led_strip_continuous_per_extra_metre_price: 30,
     led_strip_section_first_section_price: 160,
     led_strip_section_additional_section_price: 90,
-    led_strip_section_per_extra_metre_price: 40
+    led_strip_section_per_extra_metre_price: 40,
+    shaver_socket_price: 90, flip_lid_floor_socket_price: 110, five_amp_socket_price: 90,
+    external_ip_fitting_price: 90, wired_ring_doorbell_cam_price: 180,
+    tv_aerial_price: 220, tv_point_price: 90, sky_point_price: 90, telephone_point_price: 90,
+    garage_consumer_unit_price: 180
   };
 
   // Load live prices and re-render if calculator is already running
@@ -41,6 +45,17 @@
       if (pp.led_strip_section_first_section != null) PRICES.led_strip_section_first_section_price = pp.led_strip_section_first_section;
       if (pp.led_strip_section_additional_section != null) PRICES.led_strip_section_additional_section_price = pp.led_strip_section_additional_section;
       if (pp.led_strip_section_per_extra_metre != null) PRICES.led_strip_section_per_extra_metre_price = pp.led_strip_section_per_extra_metre;
+      if (pp.shaver_socket != null) PRICES.shaver_socket_price = pp.shaver_socket;
+      if (pp.flip_lid_floor_socket != null) PRICES.flip_lid_floor_socket_price = pp.flip_lid_floor_socket;
+      if (pp.five_amp_socket != null) PRICES.five_amp_socket_price = pp.five_amp_socket;
+      if (pp.external_ip_fitting != null) PRICES.external_ip_fitting_price = pp.external_ip_fitting;
+      if (pp.wired_ring_doorbell_cam != null) PRICES.wired_ring_doorbell_cam_price = pp.wired_ring_doorbell_cam;
+      var av = j.av_points || {};
+      if (av.tv_aerial != null) PRICES.tv_aerial_price = av.tv_aerial;
+      if (av.tv_point != null) PRICES.tv_point_price = av.tv_point;
+      if (av.sky_point != null) PRICES.sky_point_price = av.sky_point;
+      if (av.telephone_point != null) PRICES.telephone_point_price = av.telephone_point;
+      if (pw.garage_consumer_unit_4way_rcbo != null) PRICES.garage_consumer_unit_price = pw.garage_consumer_unit_4way_rcbo;
       if (typeof recalculateAndUpdateDisplay === 'function') recalculateAndUpdateDisplay();
     })
     .catch(function () { /* offline or missing - keep fallbacks */ });
@@ -51,6 +66,7 @@
   // hob/oven, garage owns EV charger).
   var EMPTY_ROOM_COUNTS = {
     sockets: 0, lights: 0, fused_spurs: 0, one_way_switches: 0, two_way_switches: 0, extractor_fans: 0, data_points: 0,
+    shaver_sockets: 0, flip_lid_floor_sockets: 0, five_amp_sockets: 0, external_ip_fittings: 0, tv_points: 0, sky_points: 0, telephone_points: 0,
     led_strip_continuous_count: 0, led_strip_continuous_total_metres: 0,
     led_strip_section_count: 0, led_strip_section_total_metres: 0,
     radial_16amp_count: 0, radial_16amp_extra_metres: 0, radial_32amp_count: 0, radial_32amp_extra_metres: 0
@@ -82,7 +98,10 @@
   var state = {
     rooms: [],
     consumer_unit_count: 0,
-    smoke_detector_count: 0
+    smoke_detector_count: 0,
+    tv_aerial_count: 0,
+    wired_ring_doorbell_count: 0,
+    garage_consumer_unit_count: 0
   };
   var nextRoomId = 1;
 
@@ -105,6 +124,13 @@
     sub += room.two_way_switches * PRICES.two_way_switch_price;
     sub += room.extractor_fans * PRICES.extractor_fan_price;
     sub += room.data_points * PRICES.data_point_price;
+    sub += (room.shaver_sockets || 0) * PRICES.shaver_socket_price;
+    sub += (room.flip_lid_floor_sockets || 0) * PRICES.flip_lid_floor_socket_price;
+    sub += (room.five_amp_sockets || 0) * PRICES.five_amp_socket_price;
+    sub += (room.external_ip_fittings || 0) * PRICES.external_ip_fitting_price;
+    sub += (room.tv_points || 0) * PRICES.tv_point_price;
+    sub += (room.sky_points || 0) * PRICES.sky_point_price;
+    sub += (room.telephone_points || 0) * PRICES.telephone_point_price;
     // Continuous COB LED runs: each run gets 5m base. Extra metres beyond
     // (count x 5) cost £30 per metre.
     if (room.led_strip_continuous_count > 0) {
@@ -148,10 +174,29 @@
       itemCount += state.smoke_detector_count;
       lines.push({ name: state.smoke_detector_count + ' x Mains smoke detector', value: v2 });
     }
+    if (state.tv_aerial_count > 0) {
+      var vAerial = state.tv_aerial_count * PRICES.tv_aerial_price;
+      total += vAerial;
+      itemCount += state.tv_aerial_count;
+      lines.push({ name: state.tv_aerial_count + ' x TV aerial', value: vAerial });
+    }
+    if (state.wired_ring_doorbell_count > 0) {
+      var vDoorbell = state.wired_ring_doorbell_count * PRICES.wired_ring_doorbell_cam_price;
+      total += vDoorbell;
+      itemCount += state.wired_ring_doorbell_count;
+      lines.push({ name: state.wired_ring_doorbell_count + ' x Wired Ring Doorbell Cam', value: vDoorbell });
+    }
+    if (state.garage_consumer_unit_count > 0) {
+      var vGarage = state.garage_consumer_unit_count * PRICES.garage_consumer_unit_price;
+      total += vGarage;
+      itemCount += state.garage_consumer_unit_count;
+      lines.push({ name: state.garage_consumer_unit_count + ' x Garage consumer unit', value: vGarage });
+    }
 
     state.rooms.forEach(function (room) {
       var sub = calculateRoomSubtotal(room);
       var roomItems = room.sockets + room.lights + room.fused_spurs + room.one_way_switches + room.two_way_switches + room.extractor_fans + room.data_points
+        + (room.shaver_sockets || 0) + (room.flip_lid_floor_sockets || 0) + (room.five_amp_sockets || 0) + (room.external_ip_fittings || 0) + (room.tv_points || 0) + (room.sky_points || 0) + (room.telephone_points || 0)
         + room.led_strip_continuous_count + room.led_strip_section_count + room.radial_16amp_count + room.radial_32amp_count;
       if (sub > 0 || roomItems > 0) {
         total += sub;
@@ -248,6 +293,7 @@
 
   function countActiveItemsInRoom(room) {
     return room.sockets + room.lights + room.fused_spurs + room.one_way_switches + room.two_way_switches + room.extractor_fans + room.data_points
+      + (room.shaver_sockets || 0) + (room.flip_lid_floor_sockets || 0) + (room.five_amp_sockets || 0) + (room.external_ip_fittings || 0) + (room.tv_points || 0) + (room.sky_points || 0) + (room.telephone_points || 0)
       + room.led_strip_continuous_count + room.led_strip_section_count + room.radial_16amp_count + room.radial_32amp_count;
   }
 
@@ -316,19 +362,31 @@
       ) +
       buildExtraMetresRow('led_strip_section_total_metres', 'Total metres across small sections in this room', room.led_strip_section_total_metres);
 
+    // Special and outdoor points. Less common, so kept in the extras section to
+    // keep the main per-room list short.
+    var specialPointsHtml =
+      '<div class="room-led-explainer"><strong>Special and outdoor points</strong>' +
+      '<small>Less common points. Add only if this room needs them.</small></div>' +
+      buildOneInputRow('shaver_sockets', 'How many shaver sockets?', '£90 each. Usually in bathrooms and en-suites.', room.shaver_sockets || 0) +
+      buildOneInputRow('flip_lid_floor_sockets', 'How many flip-lid floor sockets?', '£110 each. A socket set into the floor with a fold-down lid.', room.flip_lid_floor_sockets || 0) +
+      buildOneInputRow('five_amp_sockets', 'How many 5A lamp sockets?', '£90 each. Round-pin sockets for lamps run off the light switch.', room.five_amp_sockets || 0) +
+      buildOneInputRow('external_ip_fittings', 'How many outdoor weatherproof fittings?', '£90 each. Outdoor wall lights, ground uplights or weatherproof sockets.', room.external_ip_fittings || 0) +
+      buildOneInputRow('tv_points', 'How many TV points?', '£90 each.', room.tv_points || 0) +
+      buildOneInputRow('sky_points', 'How many Sky points?', '£90 each.', room.sky_points || 0) +
+      buildOneInputRow('telephone_points', 'How many telephone points?', '£90 each.', room.telephone_points || 0);
+
     // Wrap all extras/upgrades in a collapsible section below the radials.
-    // LED is the first extra. More extras will live in here later.
     var extrasHtml =
       '<div class="room-extras">' +
         '<button type="button" class="room-extras-toggle" aria-expanded="false">' +
           '<span class="room-extras-toggle-icon">&plus;</span>' +
           '<span class="room-extras-toggle-text">' +
             '<strong>Add extras and upgrades</strong>' +
-            '<small>Optional add-ons. COB LED strip lighting, more coming soon.</small>' +
+            '<small>Optional add-ons. COB LED strip lighting and special points.</small>' +
           '</span>' +
           '<span class="room-extras-toggle-arrow" aria-hidden="true">&#9656;</span>' +
         '</button>' +
-        '<div class="room-extras-content" hidden>' + ledHtml + '</div>' +
+        '<div class="room-extras-content" hidden>' + ledHtml + specialPointsHtml + '</div>' +
       '</div>';
 
     var radialsHtml =
@@ -463,6 +521,9 @@
     state.rooms = [];
     state.consumer_unit_count = 0;
     state.smoke_detector_count = 0;
+    state.tv_aerial_count = 0;
+    state.wired_ring_doorbell_count = 0;
+    state.garage_consumer_unit_count = 0;
     nextRoomId = 1;
     roomsList.innerHTML = '';
     // Reset the whole-property quantity inputs too
@@ -507,6 +568,8 @@
         two_way_switches:  templateRoom.two_way_switches  || 0,
         extractor_fans:    templateRoom.extractor_fans    || 0,
         data_points:       templateRoom.data_points       || 0,
+        shaver_sockets: 0, flip_lid_floor_sockets: 0, five_amp_sockets: 0, external_ip_fittings: 0,
+        tv_points: 0, sky_points: 0, telephone_points: 0,
         led_strip_continuous_count:       0, led_strip_continuous_total_metres: 0,
         led_strip_section_count:          0, led_strip_section_total_metres:    0,
         radial_16amp_count: 0, radial_16amp_extra_metres: 0,
