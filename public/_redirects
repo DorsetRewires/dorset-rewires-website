@@ -1,2 +1,22 @@
-/holding.html  /holding.html  200
-/*  /holding.html  302
+# Holding mode ("coming soon"), with ONE exception: the instant quote tool stays
+# public so Pete can price jobs on it and customers can self-serve a rough quote.
+#
+# Cloudflare Pages serves clean URLs (it strips the .html and 308-redirects
+# /holding.html -> /holding). So the holding target below MUST be the clean URL
+# /holding, not /holding.html. Targeting /holding.html created an infinite loop:
+# /holding.html -> 308 /holding -> 302 /holding.html -> ...
+
+# The quote tool and everything it needs to run
+/quote.html                      /quote.html                      200
+/quote                           /quote.html                      200
+/assets/*                        /assets/:splat                   200
+/data/*                          /data/:splat                     200
+/manifest.json                   /manifest.json                   200
+/quote-tool-service-worker.js    /quote-tool-service-worker.js    200
+
+# Holding page served directly (this line sits above the catch-all so /holding
+# does not bounce back into it)
+/holding                         /holding.html                    200
+
+# Everything else -> the holding page
+/*                               /holding                         302
