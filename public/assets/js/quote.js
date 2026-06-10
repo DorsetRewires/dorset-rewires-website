@@ -179,7 +179,7 @@
       var v2 = state.smoke_detector_count * PRICES.smoke_detector_price;
       total += v2;
       itemCount += state.smoke_detector_count;
-      lines.push({ name: state.smoke_detector_count + ' x Mains smoke detector', value: v2 });
+      lines.push({ name: state.smoke_detector_count + ' x Heat/Smoke detector', value: v2 });
     }
     if (state.tv_aerial_count > 0) {
       var vAerial = state.tv_aerial_count * PRICES.tv_aerial_price;
