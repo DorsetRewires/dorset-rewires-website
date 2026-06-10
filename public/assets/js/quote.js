@@ -95,7 +95,7 @@
     { key: 'fused_spurs',      label: 'How many fused spurs?',                   typical: '£90 each. Permanently wired stuff: boiler, towel rail, cooker hood, garage door opener.' },
     { key: 'one_way_switches', label: 'How many normal (1-way) light switches?', typical: 'Included free with the lights. One press on, one press off.' },
     { key: 'two_way_switches', label: 'How many 2-way switches?',                typical: '£40 each. Switches at both ends of a corridor, stairs or large room.' },
-    { key: 'extractor_fans',   label: 'How many extractor fans?',                typical: '£160 each. Bathrooms, en-suites, utility.' },
+    { key: 'extractor_fans',   label: 'How many extractor fans?',                typical: '£160 each. Timer or non-timer. Bathrooms, en-suites, utility.' },
     { key: 'data_points',      label: 'How many data points?',                   typical: '£80 each. Wired internet sockets (CAT6). One per desk, TV, smart device.' }
   ];
 

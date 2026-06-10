@@ -1,5 +1,5 @@
 {
-  "version": "1.0.7",
+  "version": "1.0.8",
   "updated": "2026-06-10",
   "notes": "Single source of truth for all prices on the site and in the quote calculator. Edit via /ops-hq/pricing-admin.html or by hand. After editing, drop in place and reload any open page.",
   "rewire_per_point": {
@@ -10,6 +10,7 @@
     "one_way_switch": 0,
     "two_way_switch": 80,
     "extractor_fan": 160,
+    "humidity_extractor_fan": 190,
     "data_point": 80,
     "mains_smoke_detector": 110,
     "shaver_socket": 90,
