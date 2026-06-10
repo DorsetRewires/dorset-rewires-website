@@ -1,7 +1,7 @@
 ﻿(function () {
   'use strict';
 
-  // Price book fallback. Live values are fetched from /ops-hq/data/pricing.json below.
+  // Price book fallback. Live values are fetched from /ops-hq/data/price-list.json below.
   var PRICES = {
     socket_price: 90, light_point_price: 90, fused_spur_price: 90,
     one_way_switch_price: 0, two_way_switch_price: 40,
@@ -22,7 +22,7 @@
   };
 
   // Load live prices and re-render if calculator is already running
-  fetch('/data/pricing.json', { cache: 'no-cache' })
+  fetch('/data/price-list.json', { cache: 'no-cache' })
     .then(function (r) { return r.ok ? r.json() : null; })
     .then(function (j) {
       if (!j) return;
@@ -116,6 +116,10 @@
   var csLines = document.getElementById('csLines');
   var csCount = document.getElementById('csCount');
   var csCta = document.getElementById('csCta');
+
+  var lastLines = [];
+  var lastTotal = 0;
+  var QUOTE_WORKER_URL = 'https://dorset-rewires-quote.silent-star-0bcc.workers.dev';
 
   function formatAsCurrency(n) {
     return '£' + Math.round(n).toLocaleString('en-GB');
@@ -247,6 +251,8 @@
       }).join('');
     }
 
+    lastLines = lines;
+    lastTotal = total;
     if (csCta && total > 0) {
       var body = 'Hi Pete,\n\nMy rough rewire quote is ' + formatAsCurrency(total) + '. Breakdown:\n\n' +
         lines.map(function (l) { return '- ' + l.name + ' = ' + formatAsCurrency(l.value); }).join('\n') +
@@ -650,4 +656,92 @@
 
   // Seed: empty by default, prompt
   csLines.innerHTML = '<div class="summary-empty">Pick a property type above to begin, or add rooms one by one below.</div>';
+
+  // ===== SEND-MY-QUOTE MODAL =====
+  // The CTA opens a small form for the customer's contact details, then posts
+  // the quote to the Cloudflare Worker, which emails it to info@dorsetrewires.co.uk.
+  var quoteModal = document.getElementById('quoteModal');
+  var quoteForm = document.getElementById('quoteForm');
+  var qmStatus = document.getElementById('qmStatus');
+  var qmSubmit = document.getElementById('qmSubmit');
+
+  function openQuoteModal() {
+    if (!quoteModal) return;
+    quoteModal.hidden = false;
+    var first = quoteForm && quoteForm.querySelector('input[name="name"]');
+    if (first) first.focus();
+  }
+  function closeQuoteModal() {
+    if (quoteModal) quoteModal.hidden = true;
+  }
+
+  if (csCta) {
+    csCta.addEventListener('click', function (e) {
+      e.preventDefault();
+      if (lastTotal <= 0) {
+        alert('Add a few items first, then send your quote to Pete.');
+        return;
+      }
+      if (qmStatus) { qmStatus.textContent = ''; qmStatus.className = 'quote-modal-status'; }
+      openQuoteModal();
+    });
+  }
+  if (quoteModal) {
+    quoteModal.querySelectorAll('[data-close]').forEach(function (el) {
+      el.addEventListener('click', closeQuoteModal);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape' && !quoteModal.hidden) closeQuoteModal();
+    });
+  }
+  if (quoteForm) {
+    quoteForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var fd = new FormData(quoteForm);
+      var name = (fd.get('name') || '').toString().trim();
+      var phone = (fd.get('phone') || '').toString().trim();
+      var emailValue = (fd.get('email') || '').toString().trim();
+      if (!name || !phone || !emailValue) {
+        qmStatus.className = 'quote-modal-status is-error';
+        qmStatus.textContent = 'Please fill in your name, phone and email.';
+        return;
+      }
+      var payload = {
+        name: name,
+        phone: phone,
+        email: emailValue,
+        address: (fd.get('address') || '').toString().trim(),
+        company: (fd.get('company') || '').toString(),
+        total: formatAsCurrency(lastTotal),
+        lines: lastLines.map(function (l) { return { name: l.name, value: formatAsCurrency(l.value) }; })
+      };
+      qmSubmit.disabled = true;
+      qmStatus.className = 'quote-modal-status';
+      qmStatus.textContent = 'Sending...';
+      fetch(QUOTE_WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (r) {
+        return r.json().catch(function () { return { ok: false }; }).then(function (j) {
+          return { httpOk: r.ok, body: j };
+        });
+      }).then(function (res) {
+        if (res.httpOk && res.body && res.body.ok) {
+          qmStatus.className = 'quote-modal-status is-ok';
+          qmStatus.textContent = 'Sent! Pete will be in touch within 1 working hour.';
+          quoteForm.reset();
+          setTimeout(closeQuoteModal, 2600);
+        } else {
+          qmStatus.className = 'quote-modal-status is-error';
+          qmStatus.textContent = (res.body && res.body.error) ? res.body.error : 'Could not send. Please call Pete instead.';
+        }
+      }).catch(function () {
+        qmStatus.className = 'quote-modal-status is-error';
+        qmStatus.textContent = 'Could not send. Please call Pete instead.';
+      }).then(function () {
+        qmSubmit.disabled = false;
+      });
+    });
+  }
 })();
