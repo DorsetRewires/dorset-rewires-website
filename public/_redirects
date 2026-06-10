@@ -1,18 +1,17 @@
 # Holding mode ("coming soon"), with ONE exception: the instant quote tool stays
 # public so Pete can price jobs on it and customers can self-serve a rough quote.
 #
-# Cloudflare Pages serves clean URLs (/foo.html 308-redirects to /foo). A
-# *redirect* catch-all (302 -> /holding) fights that clean-URL redirect and
-# loops. So the catch-all instead SERVES the holding page with a 200 rewrite.
-# A 200 rewrite is internal (no redirect issued), so it cannot loop.
+# CRITICAL Cloudflare Pages rule: clean URLs are ON, so NEVER put .html in a
+# destination. A rewrite whose target ends in .html (e.g. /holding.html) makes
+# the asset layer 308-redirect to the clean URL (/holding), and that loops
+# forever. Every destination below is therefore a clean URL with no .html.
 
-# The quote tool and everything it needs to run
-/quote                           /quote.html                      200
-/quote.html                      /quote.html                      200
+# Quote tool served at its clean URL (self-rewrite exempts it from the catch-all)
+/quote                           /quote                           200
 /assets/*                        /assets/:splat                   200
 /data/*                          /data/:splat                     200
 /manifest.json                   /manifest.json                   200
 /quote-tool-service-worker.js    /quote-tool-service-worker.js    200
 
-# Everything else: serve the holding page in place (no redirect, no loop)
-/*                               /holding.html                    200
+# Everything else: serve the holding page in place at its clean URL (no loop)
+/*                               /holding                         200
