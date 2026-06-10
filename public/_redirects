@@ -1,0 +1,6 @@
+# Temporary renovation holding page.
+# Every path 302-redirects to /holding.html (temporary, so search engines keep the real URLs).
+# The first rule serves /holding.html itself so it does not redirect in a loop.
+# To restore the live site: delete this file and redeploy.
+/holding.html  /holding.html  200
+/*  /holding.html  302
