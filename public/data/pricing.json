@@ -1,9 +1,10 @@
 {
-  "version": "1.0.6",
-  "updated": "2026-06-08",
+  "version": "1.0.7",
+  "updated": "2026-06-10",
   "notes": "Single source of truth for all prices on the site and in the quote calculator. Edit via /ops-hq/pricing-admin.html or by hand. After editing, drop in place and reload any open page.",
   "rewire_per_point": {
     "socket": 90,
+    "usb_socket": 100,
     "light": 90,
     "fused_spur": 90,
     "one_way_switch": 0,
@@ -31,6 +32,8 @@
   "rewire_whole_property": {
     "rcbo_consumer_unit_12way_with_surge": 625,
     "garage_consumer_unit_4way_rcbo": 180,
+    "water_bonding": 90,
+    "gas_bonding": 90,
     "radial_16a_base_first_20m": 120,
     "radial_16a_per_extra_metre": 2,
     "radial_32a_base_first_20m": 190,

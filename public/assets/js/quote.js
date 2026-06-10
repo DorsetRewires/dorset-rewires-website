@@ -17,7 +17,8 @@
     shaver_socket_price: 90, flip_lid_floor_socket_price: 110, five_amp_socket_price: 90,
     external_ip_fitting_price: 90, wired_ring_doorbell_cam_price: 180,
     tv_aerial_price: 220, tv_point_price: 90, sky_point_price: 90, telephone_point_price: 90,
-    garage_consumer_unit_price: 180
+    garage_consumer_unit_price: 180,
+    usb_socket_price: 100, water_bonding_price: 90, gas_bonding_price: 90
   };
 
   // Load live prices and re-render if calculator is already running
@@ -56,6 +57,9 @@
       if (av.sky_point != null) PRICES.sky_point_price = av.sky_point;
       if (av.telephone_point != null) PRICES.telephone_point_price = av.telephone_point;
       if (pw.garage_consumer_unit_4way_rcbo != null) PRICES.garage_consumer_unit_price = pw.garage_consumer_unit_4way_rcbo;
+      if (pp.usb_socket != null) PRICES.usb_socket_price = pp.usb_socket;
+      if (pw.water_bonding != null) PRICES.water_bonding_price = pw.water_bonding;
+      if (pw.gas_bonding != null) PRICES.gas_bonding_price = pw.gas_bonding;
       if (typeof recalculateAndUpdateDisplay === 'function') recalculateAndUpdateDisplay();
     })
     .catch(function () { /* offline or missing - keep fallbacks */ });
@@ -66,7 +70,7 @@
   // hob/oven, garage owns EV charger).
   var EMPTY_ROOM_COUNTS = {
     sockets: 0, lights: 0, fused_spurs: 0, one_way_switches: 0, two_way_switches: 0, extractor_fans: 0, data_points: 0,
-    shaver_sockets: 0, flip_lid_floor_sockets: 0, five_amp_sockets: 0, external_ip_fittings: 0, tv_points: 0, sky_points: 0, telephone_points: 0,
+    shaver_sockets: 0, usb_sockets: 0, flip_lid_floor_sockets: 0, five_amp_sockets: 0, external_ip_fittings: 0, tv_points: 0, sky_points: 0, telephone_points: 0,
     led_strip_continuous_count: 0, led_strip_continuous_total_metres: 0,
     led_strip_section_count: 0, led_strip_section_total_metres: 0,
     radial_16amp_count: 0, radial_16amp_extra_metres: 0, radial_32amp_count: 0, radial_32amp_extra_metres: 0
@@ -101,7 +105,9 @@
     smoke_detector_count: 0,
     tv_aerial_count: 0,
     wired_ring_doorbell_count: 0,
-    garage_consumer_unit_count: 0
+    garage_consumer_unit_count: 0,
+    water_bonding_count: 0,
+    gas_bonding_count: 0
   };
   var nextRoomId = 1;
 
@@ -125,6 +131,7 @@
     sub += room.extractor_fans * PRICES.extractor_fan_price;
     sub += room.data_points * PRICES.data_point_price;
     sub += (room.shaver_sockets || 0) * PRICES.shaver_socket_price;
+    sub += (room.usb_sockets || 0) * PRICES.usb_socket_price;
     sub += (room.flip_lid_floor_sockets || 0) * PRICES.flip_lid_floor_socket_price;
     sub += (room.five_amp_sockets || 0) * PRICES.five_amp_socket_price;
     sub += (room.external_ip_fittings || 0) * PRICES.external_ip_fitting_price;
@@ -192,11 +199,23 @@
       itemCount += state.garage_consumer_unit_count;
       lines.push({ name: state.garage_consumer_unit_count + ' x Garage consumer unit', value: vGarage });
     }
+    if (state.water_bonding_count > 0) {
+      var vWaterBond = state.water_bonding_count * PRICES.water_bonding_price;
+      total += vWaterBond;
+      itemCount += state.water_bonding_count;
+      lines.push({ name: state.water_bonding_count + ' x Water bond', value: vWaterBond });
+    }
+    if (state.gas_bonding_count > 0) {
+      var vGasBond = state.gas_bonding_count * PRICES.gas_bonding_price;
+      total += vGasBond;
+      itemCount += state.gas_bonding_count;
+      lines.push({ name: state.gas_bonding_count + ' x Gas bond', value: vGasBond });
+    }
 
     state.rooms.forEach(function (room) {
       var sub = calculateRoomSubtotal(room);
       var roomItems = room.sockets + room.lights + room.fused_spurs + room.one_way_switches + room.two_way_switches + room.extractor_fans + room.data_points
-        + (room.shaver_sockets || 0) + (room.flip_lid_floor_sockets || 0) + (room.five_amp_sockets || 0) + (room.external_ip_fittings || 0) + (room.tv_points || 0) + (room.sky_points || 0) + (room.telephone_points || 0)
+        + (room.shaver_sockets || 0) + (room.usb_sockets || 0) + (room.flip_lid_floor_sockets || 0) + (room.five_amp_sockets || 0) + (room.external_ip_fittings || 0) + (room.tv_points || 0) + (room.sky_points || 0) + (room.telephone_points || 0)
         + room.led_strip_continuous_count + room.led_strip_section_count + room.radial_16amp_count + room.radial_32amp_count;
       if (sub > 0 || roomItems > 0) {
         total += sub;
@@ -293,7 +312,7 @@
 
   function countActiveItemsInRoom(room) {
     return room.sockets + room.lights + room.fused_spurs + room.one_way_switches + room.two_way_switches + room.extractor_fans + room.data_points
-      + (room.shaver_sockets || 0) + (room.flip_lid_floor_sockets || 0) + (room.five_amp_sockets || 0) + (room.external_ip_fittings || 0) + (room.tv_points || 0) + (room.sky_points || 0) + (room.telephone_points || 0)
+      + (room.shaver_sockets || 0) + (room.usb_sockets || 0) + (room.flip_lid_floor_sockets || 0) + (room.five_amp_sockets || 0) + (room.external_ip_fittings || 0) + (room.tv_points || 0) + (room.sky_points || 0) + (room.telephone_points || 0)
       + room.led_strip_continuous_count + room.led_strip_section_count + room.radial_16amp_count + room.radial_32amp_count;
   }
 
@@ -368,6 +387,7 @@
       '<div class="room-led-explainer"><strong>Special and outdoor points</strong>' +
       '<small>Less common points. Add only if this room needs them.</small></div>' +
       buildOneInputRow('shaver_sockets', 'How many shaver sockets?', '£90 each. Usually in bathrooms and en-suites.', room.shaver_sockets || 0) +
+      buildOneInputRow('usb_sockets', 'How many USB sockets?', '£100 each. A socket with built-in USB charging ports.', room.usb_sockets || 0) +
       buildOneInputRow('flip_lid_floor_sockets', 'How many flip-lid floor sockets?', '£110 each. A socket set into the floor with a fold-down lid.', room.flip_lid_floor_sockets || 0) +
       buildOneInputRow('five_amp_sockets', 'How many 5A lamp sockets?', '£90 each. Round-pin sockets for lamps run off the light switch.', room.five_amp_sockets || 0) +
       buildOneInputRow('external_ip_fittings', 'How many outdoor weatherproof fittings?', '£90 each. Outdoor wall lights, ground uplights or weatherproof sockets.', room.external_ip_fittings || 0) +
@@ -524,6 +544,8 @@
     state.tv_aerial_count = 0;
     state.wired_ring_doorbell_count = 0;
     state.garage_consumer_unit_count = 0;
+    state.water_bonding_count = 0;
+    state.gas_bonding_count = 0;
     nextRoomId = 1;
     roomsList.innerHTML = '';
     // Reset the whole-property quantity inputs too
@@ -568,7 +590,7 @@
         two_way_switches:  templateRoom.two_way_switches  || 0,
         extractor_fans:    templateRoom.extractor_fans    || 0,
         data_points:       templateRoom.data_points       || 0,
-        shaver_sockets: 0, flip_lid_floor_sockets: 0, five_amp_sockets: 0, external_ip_fittings: 0,
+        shaver_sockets: 0, usb_sockets: 0, flip_lid_floor_sockets: 0, five_amp_sockets: 0, external_ip_fittings: 0,
         tv_points: 0, sky_points: 0, telephone_points: 0,
         led_strip_continuous_count:       0, led_strip_continuous_total_metres: 0,
         led_strip_section_count:          0, led_strip_section_total_metres:    0,
