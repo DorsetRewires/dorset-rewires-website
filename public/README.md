@@ -11,7 +11,7 @@ Customer-facing website + internal Operations HQ for Pete's NICEIC-approved elec
   reviews.html          Public reviews page
   reviews.json          Review data (also feeds homepage carousel)
   manifest.json         PWA manifest (locked filename per spec)
-  sw.js                 Service worker for offline calculator (locked filename per spec)
+  quote-tool-service-worker.js  Service worker for offline calculator
 
 /assets/                Shared client-side resources
   /css/                 Stylesheets
@@ -62,7 +62,7 @@ For persistent running, see `claude-memory-files/stack.md` (NSSM decisions).
 
 Plain English, kebab-case, no abbreviations beyond industry-standard ones (EICR, NICEIC, CIS, VAT, PWA, CU).
 
-Spec-locked names (must not be renamed): `index.html`, `manifest.json`, `sw.js`, files under `/pages/` (URL slug = SEO target).
+Spec-locked names (must not be renamed): `index.html`, `manifest.json`, files under `/pages/` (URL slug = SEO target). Everything else, including the service worker (`quote-tool-service-worker.js`), gets a descriptive name.
 
 Everything else describes what it does: `quote-calculator-logic.js`, not `quote.js`.
 

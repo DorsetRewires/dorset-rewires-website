@@ -19,6 +19,22 @@ Every named thing should describe **what it is** or **what it does**, in plain E
 7. **Numerics in identifiers spell out the unit.** `radial_16amp_count` (good) vs `r16` (bad).
 8. **Plural for collections, singular for one thing.** `state.rooms` (good, it's an array), `room.sockets` (good, it's a count, but acceptable as plural here since we're counting them).
 
+## Filenames (this applies to every NEW file)
+
+Every new file MUST have a descriptive, plain-English, kebab-case name that says what it does. Same bar as identifiers: someone who has never seen the codebase should understand the file from its name alone.
+
+- `quote-calculator-logic.js` (good) not `quote.js` or `app.js`
+- `quote-tool-service-worker.js` (good) not `sw.js`
+- `price-list.json` (good) not `prices.json` or `data.json`
+
+Only TRULY platform-mandated names are exempt:
+
+1. **`index.html`** - the default file a web server returns for a directory.
+2. **`manifest.json`** - kept by convention for the PWA `<link rel="manifest">`.
+3. **Files under `/pages/`** - the filename IS the public SEO URL slug, chosen for search, not for the codebase.
+
+A service worker filename is NOT platform-mandated. Its scope comes from WHERE it is served (served from root = controls the whole site), not from being called `sw.js`. So it gets a descriptive name like everything else.
+
 ## Examples — good vs bad
 
 | Bad | Good | Why |
@@ -48,9 +64,8 @@ Every named thing should describe **what it is** or **what it does**, in plain E
 |---|---|
 | `index.html` | Default served file |
 | `manifest.json` | PWA spec filename |
-| `sw.js` | Service worker scope rule |
 | Pages under `/pages/` | Filename = SEO URL slug |
-| `csTotal`, `csLines` etc. HTML element IDs | Currently used by quote.js — renaming requires HTML+JS sync |
+| `csTotal`, `csLines` etc. HTML element IDs | Currently used by quote-calculator-logic.js — renaming requires HTML+JS sync |
 
 (The element IDs above are short-lived spec-locks. They should be renamed too in the next polish pass.)
 

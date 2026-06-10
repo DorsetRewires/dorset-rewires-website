@@ -4,7 +4,7 @@
   // Register service worker for offline use
   if ('serviceWorker' in navigator) {
     window.addEventListener('load', function () {
-      navigator.serviceWorker.register('sw.js').catch(function (err) {
+      navigator.serviceWorker.register('quote-tool-service-worker.js').catch(function (err) {
         console.warn('SW registration failed', err);
       });
     });

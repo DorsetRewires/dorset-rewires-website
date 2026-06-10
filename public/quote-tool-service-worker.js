@@ -1,12 +1,12 @@
 ﻿/* Dorset Rewires - quote tool offline service worker */
-const VERSION = 'v3-2026-06-10';
+const VERSION = 'v4-2026-06-10';
 const SHELL_CACHE = 'dorset-rewires-shell-' + VERSION;
 const RUNTIME_CACHE = 'dorset-rewires-runtime-' + VERSION;
 
 const SHELL = [
   '/quote.html',
   '/assets/css/quote.css',
-  '/assets/js/quote.js',
+  '/assets/js/quote-calculator-logic.js',
   '/assets/css/styles.css',
   '/assets/js/script.js',
   '/assets/js/reviews-carousel.js',
