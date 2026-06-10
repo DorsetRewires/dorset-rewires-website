@@ -27,7 +27,7 @@ Customer-facing website + internal Operations HQ for Pete's NICEIC-approved elec
   manifest.html         Live file manifest with View / VS Code / Folder links per file
   pricing-admin.html    Edit prices, download updated JSON (drop in /data/)
   /topics/              Numbered operations content (01-quoting, 02-measuring, ...)
-  /data/                JSON data (files.json, pricing.json, files-descriptions.json)
+  /data/                JSON data (files.json, price-list.json, files-descriptions.json)
   /assets/              Ops-HQ-only CSS/JS
 
 /tools/                 Python utilities (build, scan, watch, capture, serve)
