@@ -208,9 +208,9 @@
           <div class="summary-sub" id="csCount">0 items added</div>
         </div>
         <div class="summary-line-list" id="csLines"></div>
-        <div class="summary-vat">All prices ex VAT. We&rsquo;ll add 20% on the final quote.</div>
+        <div class="summary-vat">No VAT to add. Dorset Rewires is not VAT registered.</div>
         <a class="btn-amber btn-block summary-cta" id="csCta" href="mailto:info@dorsetrewires.co.uk?subject=Instant%20quote%20enquiry">Send my quote to Pete</a>
-        <a class="btn-ghost-cta" href="tel:+441202000000">Or call 01202 000 000</a>
+        <a class="btn-ghost-cta" href="tel:+447702482507">Or call 07702 482 507</a>
         <p class="summary-foot">Pete reviews every instant quote within 1 working hour. Transparent 5-stage payment schedule. Free survey before any work.</p>
       </div>
 
@@ -298,6 +298,40 @@
     <span id="pwaInstructions">Tap <b>Share</b> &uarr; then <b>Add to Home Screen</b> to use this on site like a native app.</span>
   </div>
   <button type="button" id="pwaDismiss" aria-label="Dismiss">&times;</button>
+</div>
+
+<style>
+  .quote-modal[hidden] { display: none; }
+  .quote-modal { position: fixed; inset: 0; z-index: 2000; display: flex; align-items: center; justify-content: center; padding: 16px; }
+  .quote-modal-backdrop { position: absolute; inset: 0; background: rgba(15,37,64,0.55); }
+  .quote-modal-card { position: relative; background: #fff; border-radius: 14px; max-width: 430px; width: 100%; padding: 26px 24px 24px; box-shadow: 0 24px 60px rgba(0,0,0,0.3); max-height: 92vh; overflow: auto; }
+  .quote-modal-card h2 { margin: 0 0 4px; color: #0F2540; font-size: 20px; }
+  .quote-modal-sub { margin: 0 0 16px; color: #4A5468; font-size: 13.5px; }
+  .quote-modal-close { position: absolute; top: 10px; right: 14px; background: none; border: 0; font-size: 28px; line-height: 1; color: #7E8EA8; cursor: pointer; }
+  #quoteForm label { display: block; font-size: 13px; font-weight: 600; color: #0F2540; margin-bottom: 12px; }
+  #quoteForm input, #quoteForm textarea { display: block; width: 100%; margin-top: 5px; padding: 11px 12px; border: 1px solid #D5DCE8; border-radius: 8px; font: inherit; font-size: 16px; font-weight: 400; }
+  #quoteForm input:focus, #quoteForm textarea:focus { outline: 2px solid #F4A300; border-color: #F4A300; }
+  .qm-hp { position: absolute !important; left: -9999px !important; width: 1px !important; height: 1px !important; }
+  .quote-modal-status { font-size: 13.5px; margin: 2px 0 12px; min-height: 18px; }
+  .quote-modal-status.is-error { color: #C0392B; }
+  .quote-modal-status.is-ok { color: #1FA45A; font-weight: 600; }
+</style>
+<div class="quote-modal" id="quoteModal" hidden>
+  <div class="quote-modal-backdrop" data-close></div>
+  <div class="quote-modal-card" role="dialog" aria-modal="true" aria-labelledby="qmTitle">
+    <button type="button" class="quote-modal-close" data-close aria-label="Close">&times;</button>
+    <h2 id="qmTitle">Send your quote to Pete</h2>
+    <p class="quote-modal-sub">Pop your details in. Pete reviews every quote within 1 working hour.</p>
+    <form id="quoteForm" novalidate>
+      <label>Your name<input type="text" name="name" autocomplete="name" required></label>
+      <label>Phone<input type="tel" name="phone" autocomplete="tel" required></label>
+      <label>Email<input type="email" name="email" autocomplete="email" required></label>
+      <label>Property address (optional)<textarea name="address" rows="2" autocomplete="street-address"></textarea></label>
+      <input type="text" name="company" class="qm-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <div class="quote-modal-status" id="qmStatus" role="status"></div>
+      <button type="submit" class="btn-amber btn-block" id="qmSubmit">Send my quote</button>
+    </form>
+  </div>
 </div>
 
 <script src="assets/js/script.js"></script>
