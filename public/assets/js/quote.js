@@ -8,7 +8,7 @@
     extractor_fan_price: 160, data_point_price: 80, smoke_detector_price: 110,
     consumer_unit_price: 625,
     radial_16amp_base_price: 120, radial_16amp_per_extra_metre_price: 2,
-    radial_32amp_base_price: 190, radial_32amp_per_extra_metre_price: 4,
+    radial_32amp_base_price: 190, radial_32amp_per_extra_metre_price: 5,
     led_strip_continuous_base_first_5_metres_price: 190,
     led_strip_continuous_per_extra_metre_price: 30,
     led_strip_section_first_section_price: 160,

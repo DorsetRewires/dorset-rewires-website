@@ -1,5 +1,5 @@
 {
-  "version": "1.0.8",
+  "version": "1.0.9",
   "updated": "2026-06-10",
   "notes": "Single source of truth for all prices on the site and in the quote calculator. Edit via /ops-hq/pricing-admin.html or by hand. After editing, drop in place and reload any open page.",
   "rewire_per_point": {
@@ -38,7 +38,7 @@
     "radial_16a_base_first_20m": 120,
     "radial_16a_per_extra_metre": 2,
     "radial_32a_base_first_20m": 190,
-    "radial_32a_per_extra_metre": 4
+    "radial_32a_per_extra_metre": 5
   },
   "eicr_by_circuit_count": [
     {
