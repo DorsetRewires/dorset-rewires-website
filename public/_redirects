@@ -6,8 +6,11 @@
 # the asset layer 308-redirect to the clean URL (/holding), and that loops
 # forever. Every destination below is therefore a clean URL with no .html.
 
-# Quote tool served at its clean URL (self-rewrite exempts it from the catch-all)
+# Quote tool served at its clean URL (self-rewrite exempts it from the catch-all).
+# /quote.html is mapped to /quote too, so the PWA start_url (/quote.html?source=pwa)
+# and any .html link reach the calculator instead of being swept into the catch-all.
 /quote                           /quote                           200
+/quote.html                      /quote                           200
 /assets/*                        /assets/:splat                   200
 /data/*                          /data/:splat                     200
 /manifest.json                   /manifest.json                   200
