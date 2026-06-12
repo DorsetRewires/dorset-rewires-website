@@ -25,3 +25,10 @@ desktop.ini
 
 # Logs
 *.log
+
+# Local Claude launchers (machine-specific, not for deploy)
+open new session.bat
+existing session.bat
+
+# Claude working folder (internal, not for the public website repo)
+Claude/
