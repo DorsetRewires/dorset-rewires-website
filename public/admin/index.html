@@ -4,6 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Dorset Rewires - Content editor</title>
+  <!-- Pin Decap's config to the absolute path. Without this, Decap loads config.yml
+       relative to the page URL; at /admin (no trailing slash) that resolves to the
+       root /config.yml, which the holding-mode catch-all serves as HTML, breaking the
+       CMS with a YAML parse error. -->
+  <link href="/admin/config.yml" type="text/yaml" rel="cms-config-url" />
 </head>
 <body>
   <script>
