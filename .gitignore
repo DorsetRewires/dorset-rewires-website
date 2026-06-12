@@ -32,3 +32,6 @@ existing session.bat
 
 # Claude working folder (internal, not for the public website repo)
 Claude/
+
+# Claude project instructions (internal notes, not for the public website repo)
+CLAUDE.md
