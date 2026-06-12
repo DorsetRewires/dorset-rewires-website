@@ -11,6 +11,15 @@
 # and any .html link reach the calculator instead of being swept into the catch-all.
 /quote                           /quote                           200
 /quote.html                      /quote                           200
+
+# Decap CMS admin stays reachable so Pete can edit site content (reviews).
+# Editing/committing is gated by GitHub OAuth, so exposing the static admin is
+# safe. The splat serves admin files directly; /admin/relay.html 308s once to the
+# clean /admin/relay (which Cloudflare serves natively), preserving the OAuth
+# token in the URL hash.
+/admin                           /admin/                          200
+/admin/*                         /admin/:splat                    200
+
 /assets/*                        /assets/:splat                   200
 /data/*                          /data/:splat                     200
 /manifest.json                   /manifest.json                   200
