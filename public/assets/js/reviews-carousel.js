@@ -22,17 +22,21 @@
 
     // Page meta (reviews.html aggregate strip)
     if (pageMeta) {
+      var hasReviews = (data.reviews || []).length > 0;
       pageMeta.innerHTML =
         '<div class="reviews-meta" style="display:inline-flex;">' +
-          '<div class="rm-stars" aria-hidden="true">' + stars(Math.round(agg.rating || 0)) + '</div>' +
-          '<div class="rm-text"><strong>' + (agg.rating || '?') + ' from ' + (agg.count || '?') + ' ' + (agg.source || 'Google') + ' reviews</strong><br>Live feed &mdash; updated when new reviews land</div>' +
+          '<div class="rm-stars" aria-hidden="true">' + stars(hasReviews ? Math.round(agg.rating || 0) : 5) + '</div>' +
+          '<div class="rm-text">' + (hasReviews
+            ? '<strong>' + agg.rating + ' from ' + agg.count + ' ' + (agg.source || 'Google') + ' reviews</strong><br>Live feed - updated when new reviews land'
+            : '<strong>Awaiting our first reviews</strong><br>We are newly listed online - check back soon') +
+          '</div>' +
         '</div>';
     }
 
     // Full grid (reviews.html)
     if (gridMount) {
       if ((data.reviews || []).length === 0) {
-        gridMount.innerHTML = '<p class="rc-empty">No reviews yet.</p>';
+        gridMount.innerHTML = '<p class="rc-empty">We are gathering our first reviews. Check back soon.</p>';
       } else {
         gridMount.innerHTML = (data.reviews || []).map(function (r) {
           return '<article class="review-card">' +
@@ -47,7 +51,12 @@
     // Carousel (homepage)
     if (!mount) return;
     if (revs.length === 0) {
-      mount.innerHTML = '<p class="rc-empty">No reviews yet.</p>';
+      mount.innerHTML =
+        '<div class="rc-empty">' +
+          '<div class="rc-agg-stars" aria-hidden="true" style="color:var(--c-amber);font-size:22px;letter-spacing:3px;">' + stars(5) + '</div>' +
+          '<p><strong>Awaiting our first reviews</strong></p>' +
+          '<p>We are newly listed online. If we have worked for you, a review would mean a lot.</p>' +
+        '</div>';
       return;
     }
     mount.innerHTML =
