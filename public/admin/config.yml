@@ -1,18 +1,17 @@
-# Decap CMS config for Dorset Rewires
+# Decap CMS config for Dorset Rewires - LIVE (working since 2026-06-08).
 #
-# SETUP REQUIRED before this works (one-time, 10 minutes):
+# Auth uses a self-hosted GitHub OAuth proxy, NOT Decap's default Netlify proxy:
+# the base_url below points to the dr-oauth-worker (a Cloudflare Worker).
 #
-# 1. Go to github.com -> your profile -> Settings -> Developer settings
-#    -> OAuth Apps -> New OAuth App
-# 2. Fill in:
-#    - App name: Dorset Rewires CMS
-#    - Homepage URL: https://dorsetrewires.co.uk
-#    - Authorization callback URL: https://dorsetrewires.co.uk/admin/
-# 3. Click Register application
-# 4. Copy the Client ID shown on the next screen
-# 5. Replace YOUR_GITHUB_OAUTH_APP_CLIENT_ID below with that value
-# 6. Commit and push this file - the change deploys automatically
-# 7. Visit https://dorsetrewires.co.uk/admin/ and log in with GitHub
+# The GitHub OAuth App's Authorization callback URL must be the WORKER callback:
+#   https://dorset-rewires-oauth.silent-star-0bcc.workers.dev/callback
+# It is NOT https://dorsetrewires.co.uk/admin/ - that was the early, abandoned
+# approach (GitHub OAuth Apps do not support PKCE, so the worker proxy is required).
+#
+# The GitHub Client Secret is stored as a Worker secret, never in this file.
+# The login flow works around GitHub's COOP policy via a same-origin BroadcastChannel
+# relay - see admin/index.html and admin/relay.html for how the token gets back to the CMS.
+# Reach the editor at https://dorsetrewires.co.uk/admin/ (keep the trailing slash).
 
 backend:
   name: github
