@@ -46,7 +46,7 @@ Customer-facing website + internal Operations HQ for Pete's NICEIC-approved elec
 
 ```
 # Static dev server (terminal stays open)
-cd D:/dorset-rewires-and-new-builds
+cd D:/dorset-rewires
 python -m http.server 8765 --bind 127.0.0.1
 
 # Live file manifest auto-updater (terminal stays open)

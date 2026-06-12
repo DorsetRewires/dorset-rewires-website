@@ -1,4 +1,4 @@
-# Naming convention — D:/dorset-rewires-and-new-builds/
+# Naming convention - D:/dorset-rewires/
 
 This file is the canonical rules for naming functions, properties (variables) and CSS classes inside this project.
 
