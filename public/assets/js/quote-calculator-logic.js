@@ -507,7 +507,9 @@
         '<button type="button" class="room-minimise" aria-label="Minimise room" title="Minimise this room">&minus;</button>' +
         '<button type="button" class="room-remove" aria-label="Remove room" title="Remove this room">&times;</button>' +
       '</div>' +
-      '<div class="room-items">' + itemsHtml + radialsHtml + extrasHtml + '</div>';
+      '<div class="room-items">' + itemsHtml + radialsHtml + extrasHtml +
+        '<div class="room-done-row"><button type="button" class="room-done">Done &check;</button></div>' +
+      '</div>';
 
     el.querySelector('.room-name').addEventListener('input', function (e) { room.name = e.target.value; recalculateAndUpdateDisplay(); });
 
@@ -517,6 +519,17 @@
       minimiseButton.innerHTML = isCollapsed ? '&plus;' : '&minus;';
       minimiseButton.setAttribute('aria-label', isCollapsed ? 'Expand room' : 'Minimise room');
       minimiseButton.setAttribute('title', isCollapsed ? 'Expand this room' : 'Minimise this room');
+    });
+
+    // "Done" button at the foot of the room: folds the room up (same as the
+    // header minimise) so the list stays tidy. Keeps every input.
+    el.querySelector('.room-done').addEventListener('click', function () {
+      el.classList.add('room-collapsed');
+      var minimiseButton = el.querySelector('.room-minimise');
+      minimiseButton.innerHTML = '&plus;';
+      minimiseButton.setAttribute('aria-label', 'Expand room');
+      minimiseButton.setAttribute('title', 'Expand this room');
+      el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
 
     el.querySelector('.room-extras-toggle').addEventListener('click', function () {

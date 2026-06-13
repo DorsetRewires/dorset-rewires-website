@@ -138,6 +138,16 @@
 .room.room-collapsed { padding-bottom: 16px; }
 .room.room-collapsed .room-head { margin-bottom: 0; }
 
+/* "Done" button at the foot of each room - folds the room up. */
+.room-done-row { display: flex; justify-content: flex-end; margin-top: 16px; }
+.room-done {
+  background: var(--c-navy); color: #fff;
+  border: 1px solid var(--c-navy); border-radius: var(--r-pill);
+  padding: 9px 22px; font-size: 13.5px; font-weight: 700; font-family: inherit; cursor: pointer;
+  transition: opacity 0.1s;
+}
+.room-done:hover { opacity: 0.88; }
+
 /* Count badge on the quick-add buttons - shows how many of this room type
    are already in the list. */
 .quick-add-button { position: relative; }
