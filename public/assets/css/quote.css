@@ -108,7 +108,8 @@
   transition: background 0.1s, border-color 0.1s;
 }
 .quick-add-button:hover { background: var(--c-amber-soft); border-color: var(--c-amber); }
-.quick-add-blank { background: #fff; border-style: dashed; }
+.quick-add-blank { background: var(--c-amber); color: var(--c-navy); border-color: var(--c-amber); border-style: solid; font-weight: 700; }
+.quick-add-blank:hover { background: #FFB42E; border-color: #FFB42E; }
 
 .rooms-list { display: grid; gap: 14px; }
 .room {

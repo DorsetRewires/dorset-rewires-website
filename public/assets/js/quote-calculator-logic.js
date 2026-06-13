@@ -84,7 +84,7 @@
     hallway:  buildEmptyRoomPreset('Hallway / landing'),
     utility:  buildEmptyRoomPreset('Utility'),
     garage:   buildEmptyRoomPreset('Garage / outbuilding'),
-    blank:    buildEmptyRoomPreset('New room')
+    blank:    buildEmptyRoomPreset('')
   };
 
   // Each item has an ADHD-friendly question label and a one-line plain-English
@@ -291,7 +291,8 @@
         }
         if (room.radial_16amp_count > 0) extras.push(room.radial_16amp_count + 'x 16A' + (room.radial_16amp_extra_metres > 0 ? ' +' + room.radial_16amp_extra_metres + 'm' : ''));
         if (room.radial_32amp_count > 0) extras.push(room.radial_32amp_count + 'x 32A' + (room.radial_32amp_extra_metres > 0 ? ' +' + room.radial_32amp_extra_metres + 'm' : ''));
-        var label = room.name + ' (' + roomItems + ' items' + (extras.length ? ', incl ' + extras.join(' + ') : '') + ')';
+        var roomLabelName = (room.name && room.name.trim()) ? room.name : 'Unnamed room';
+        var label = roomLabelName + ' (' + roomItems + ' items' + (extras.length ? ', incl ' + extras.join(' + ') : '') + ')';
         lines.push({ name: label, value: sub });
       }
       var subEl = document.querySelector('[data-room-id="' + room.id + '"] .room-subtotal');
@@ -375,6 +376,13 @@
     buildRoomCardInDom(room);
     updateQuickAddBadges();
     recalculateAndUpdateDisplay();
+
+    // Custom room starts with an empty name - drop the cursor straight into the
+    // name box so the customer can type the room name right away.
+    if (presetKey === 'blank') {
+      var newNameInput = document.querySelector('[data-room-id="' + room.id + '"] .room-name');
+      if (newNameInput) newNameInput.focus();
+    }
   }
 
   function countActiveItemsInRoom(room) {
@@ -494,7 +502,7 @@
 
     el.innerHTML =
       '<div class="room-head">' +
-        '<input class="room-name" value="' + room.name + '" maxlength="40">' +
+        '<input class="room-name" value="' + room.name + '" maxlength="40" placeholder="Name this room (e.g. Loft, Office)">' +
         '<span class="room-subtotal">£0</span>' +
         '<button type="button" class="room-minimise" aria-label="Minimise room" title="Minimise this room">&minus;</button>' +
         '<button type="button" class="room-remove" aria-label="Remove room" title="Remove this room">&times;</button>' +
@@ -523,7 +531,8 @@
     el.querySelector('.room-remove').addEventListener('click', function () {
       var activeItemCount = countActiveItemsInRoom(room);
       if (activeItemCount > 0) {
-        var message = 'This room (' + room.name + ') has ' + activeItemCount + ' item' + (activeItemCount === 1 ? '' : 's') + ' selected.\n\nDelete the room and lose all the inputs?';
+        var roomNameForConfirm = (room.name && room.name.trim()) ? room.name : 'Unnamed room';
+        var message = 'This room (' + roomNameForConfirm + ') has ' + activeItemCount + ' item' + (activeItemCount === 1 ? '' : 's') + ' selected.\n\nDelete the room and lose all the inputs?';
         if (!window.confirm(message)) return;
       }
       state.rooms = state.rooms.filter(function (r) { return r.id !== room.id; });
