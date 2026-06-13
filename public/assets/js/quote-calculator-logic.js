@@ -116,10 +116,68 @@
   var csLines = document.getElementById('csLines');
   var csCount = document.getElementById('csCount');
   var csCta = document.getElementById('csCta');
+  var csReset = document.getElementById('csReset');
 
   var lastLines = [];
   var lastTotal = 0;
   var QUOTE_WORKER_URL = 'https://dorset-rewires-quote.silent-star-0bcc.workers.dev';
+
+  // ===== QUOTE PERSISTENCE =====
+  // The whole quote is saved to this browser's localStorage on every change, so
+  // a refresh, accidental reload or dropped signal does NOT wipe a part-built
+  // quote. saveQuoteState() runs at the end of recalculateAndUpdateDisplay();
+  // loadQuoteState() runs once on page load. The "Reset quote" button is the
+  // deliberate clear. (A hard refresh cannot be told apart from a normal one in
+  // the browser, so the Reset button is the way to start fresh.)
+  var QUOTE_STORAGE_KEY = 'dorset-rewires-quote-v1';
+
+  function saveQuoteState() {
+    try {
+      localStorage.setItem(QUOTE_STORAGE_KEY, JSON.stringify({
+        rooms: state.rooms,
+        consumer_unit_count: state.consumer_unit_count,
+        smoke_detector_count: state.smoke_detector_count,
+        tv_aerial_count: state.tv_aerial_count,
+        wired_ring_doorbell_count: state.wired_ring_doorbell_count,
+        garage_consumer_unit_count: state.garage_consumer_unit_count,
+        water_bonding_count: state.water_bonding_count,
+        gas_bonding_count: state.gas_bonding_count,
+        next_room_id: nextRoomId
+      }));
+    } catch (e) { /* storage full or disabled - the quote still works in memory */ }
+  }
+
+  function loadQuoteState() {
+    var raw;
+    try { raw = localStorage.getItem(QUOTE_STORAGE_KEY); } catch (e) { return false; }
+    if (!raw) return false;
+    var saved;
+    try { saved = JSON.parse(raw); } catch (e) { return false; }
+    if (!saved || !Array.isArray(saved.rooms)) return false;
+
+    state.consumer_unit_count = saved.consumer_unit_count || 0;
+    state.smoke_detector_count = saved.smoke_detector_count || 0;
+    state.tv_aerial_count = saved.tv_aerial_count || 0;
+    state.wired_ring_doorbell_count = saved.wired_ring_doorbell_count || 0;
+    state.garage_consumer_unit_count = saved.garage_consumer_unit_count || 0;
+    state.water_bonding_count = saved.water_bonding_count || 0;
+    state.gas_bonding_count = saved.gas_bonding_count || 0;
+    nextRoomId = saved.next_room_id || 1;
+
+    state.rooms = saved.rooms;
+    state.rooms.forEach(function (room) { buildRoomCardInDom(room); });
+
+    // Put the saved whole-property counts (consumer unit, smoke detectors, etc.)
+    // back into their input boxes.
+    document.querySelectorAll('.calc-row[data-key]').forEach(function (row) {
+      var key = row.getAttribute('data-key');
+      var qtyInput = row.querySelector('.calc-row-quantity');
+      if (qtyInput && typeof state[key] === 'number') qtyInput.value = state[key];
+    });
+
+    updateQuickAddBadges();
+    return true;
+  }
 
   function formatAsCurrency(n) {
     return '£' + Math.round(n).toLocaleString('en-GB');
@@ -260,6 +318,9 @@
       csCta.href = 'mailto:info@dorsetrewires.co.uk?subject=' + encodeURIComponent('Instant quote: ' + formatAsCurrency(total)) +
         '&body=' + encodeURIComponent(body);
     }
+
+    if (csReset) csReset.hidden = (itemCount === 0 && state.rooms.length === 0);
+    saveQuoteState();
   }
 
   function countRoomsByPresetKey(presetKey) {
@@ -539,8 +600,34 @@
   // Quick-estimate property-type prefill removed 2026-06-12: this is a custom-only
   // builder, so the customer adds each room themselves via the Quick add buttons.
 
-  // Seed: empty by default, prompt
-  csLines.innerHTML = '<div class="summary-empty">Add a room below to begin. Tap Quick add for a ready-named room, or + Blank room to name your own.</div>';
+  // Reset button: deliberate clear of the whole quote back to zero (confirm first).
+  if (csReset) {
+    csReset.addEventListener('click', function () {
+      if (!window.confirm('Reset the whole quote back to £0? This clears every room and item.')) return;
+      state.rooms = [];
+      state.consumer_unit_count = 0;
+      state.smoke_detector_count = 0;
+      state.tv_aerial_count = 0;
+      state.wired_ring_doorbell_count = 0;
+      state.garage_consumer_unit_count = 0;
+      state.water_bonding_count = 0;
+      state.gas_bonding_count = 0;
+      nextRoomId = 1;
+      roomsList.innerHTML = '';
+      document.querySelectorAll('.calc-row[data-key] .calc-row-quantity').forEach(function (input) { input.value = 0; });
+      try { localStorage.removeItem(QUOTE_STORAGE_KEY); } catch (e) { /* ignore */ }
+      updateQuickAddBadges();
+      recalculateAndUpdateDisplay();
+    });
+  }
+
+  // Restore any in-progress quote saved in this browser, then show totals. If
+  // nothing is saved, show the empty prompt instead.
+  if (loadQuoteState()) {
+    recalculateAndUpdateDisplay();
+  } else {
+    csLines.innerHTML = '<div class="summary-empty">Add a room below to begin. Tap Quick add for a ready-named room, or + Blank room to name your own.</div>';
+  }
 
   // ===== SEND-MY-QUOTE MODAL =====
   // The CTA opens a small form for the customer's contact details, then posts
