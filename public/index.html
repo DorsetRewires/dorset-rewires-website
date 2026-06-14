@@ -644,15 +644,16 @@
         </a>
       </div>
     </div>
-    <form class="quote-form" onsubmit="event.preventDefault(); this.querySelector('.form-msg').hidden = false;">
+    <form class="quote-form" id="callbackForm" novalidate>
       <h3>Or request a callback</h3>
       <p class="form-sub">Four fields. We call you back within the hour, 7am-7pm.</p>
-      <label>Your name<input type="text" name="name" required></label>
-      <label>Postcode<input type="text" name="postcode" required inputmode="text" autocomplete="postal-code"></label>
+      <label>Your name<input type="text" name="name" autocomplete="name" required></label>
+      <label>Postcode<input type="text" name="postcode" inputmode="text" autocomplete="postal-code"></label>
       <label>Phone<input type="tel" name="phone" required inputmode="numeric" autocomplete="tel"></label>
       <label>Tell us about the job<textarea name="job" rows="3" placeholder="e.g. 3 bed in Winton, original wiring, want a full rewire this summer"></textarea></label>
-      <button type="submit" class="btn-amber btn-block">Request callback</button>
-      <p class="form-msg" hidden>Thanks - we&rsquo;ll be in touch within the hour.</p>
+      <input type="text" name="company" class="cb-hp" tabindex="-1" autocomplete="off" aria-hidden="true">
+      <button type="submit" class="btn-amber btn-block" id="callbackSubmit">Request callback</button>
+      <p class="form-msg" id="callbackStatus" role="status" hidden></p>
       <p class="form-foot">No spam. No mailing list. We use your details only to quote your job.</p>
     </form>
   </div>

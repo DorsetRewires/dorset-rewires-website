@@ -764,6 +764,9 @@ section { padding: var(--pad-md) 0; }
 }
 .quote-form input:focus, .quote-form textarea:focus { outline: 2px solid var(--c-amber); border-color: var(--c-amber); }
 .form-msg { color: var(--c-green); font-weight: 600; margin: 12px 0 0; }
+.form-msg.is-error { color: #C0392B; }
+.form-msg.is-ok { color: var(--c-green); }
+.cb-hp { position: absolute !important; left: -9999px !important; width: 1px !important; height: 1px !important; overflow: hidden; }
 .form-foot { color: var(--c-text-mute); font-size: 12px; margin: 12px 0 0; text-align: center; }
 
 /* ===== Footer ===== */
