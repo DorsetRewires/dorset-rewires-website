@@ -619,6 +619,32 @@
     btn.addEventListener('click', function () { addRoom(btn.getAttribute('data-preset')); });
   });
 
+  // Whole-property block: collapsible like a room. Header "-" toggles it, the
+  // foot "Done" folds it up. UI-only, keeps every input.
+  var wholePropertyBlock = document.getElementById('wholePropertyBlock');
+  var wholePropertyToggle = document.getElementById('wholePropertyToggle');
+  var wholePropertyDone = document.getElementById('wholePropertyDone');
+  function setWholePropertyCollapsed(collapsed) {
+    if (!wholePropertyBlock) return;
+    wholePropertyBlock.classList.toggle('is-collapsed', collapsed);
+    if (wholePropertyToggle) {
+      wholePropertyToggle.innerHTML = collapsed ? '&plus;' : '&minus;';
+      wholePropertyToggle.setAttribute('aria-label', collapsed ? 'Expand whole-property items' : 'Minimise whole-property items');
+      wholePropertyToggle.setAttribute('title', collapsed ? 'Expand this section' : 'Minimise this section');
+    }
+  }
+  if (wholePropertyToggle) {
+    wholePropertyToggle.addEventListener('click', function () {
+      setWholePropertyCollapsed(!wholePropertyBlock.classList.contains('is-collapsed'));
+    });
+  }
+  if (wholePropertyDone) {
+    wholePropertyDone.addEventListener('click', function () {
+      setWholePropertyCollapsed(true);
+      if (wholePropertyBlock) wholePropertyBlock.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+
   // Quick-estimate property-type prefill removed 2026-06-12: this is a custom-only
   // builder, so the customer adds each room themselves via the Quick add buttons.
 

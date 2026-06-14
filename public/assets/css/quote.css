@@ -25,6 +25,15 @@
 .calc-block-head { margin-bottom: 18px; }
 .calc-block-head h2 { margin: 0 0 4px; font-size: 22px; color: var(--c-navy); font-weight: 800; letter-spacing: -0.015em; }
 .calc-block-head p { margin: 0; color: var(--c-text-mute); font-size: 14.5px; }
+.calc-block-head-collapsible { display: flex; align-items: flex-start; gap: 12px; }
+.calc-block-head-collapsible .calc-block-head-text { flex: 1; }
+.calc-block-minimise {
+  flex-shrink: 0; background: transparent; border: 1px solid transparent; cursor: pointer;
+  color: var(--c-text-mute); font-size: 20px; padding: 4px 12px; line-height: 1; border-radius: var(--r-sm);
+}
+.calc-block-minimise:hover { color: var(--c-navy); background: var(--c-bg-soft); border-color: var(--c-border); }
+.calc-block.is-collapsed .calc-rows { display: none; }
+.calc-block.is-collapsed .calc-block-head { margin-bottom: 0; }
 
 .calc-rows { display: grid; gap: 12px; }
 .calc-row {

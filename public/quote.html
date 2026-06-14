@@ -71,12 +71,15 @@
         <p>Picture the job as a walk-round. Start on your driveway. Walk through each ground-floor room and picture what you want, and where. Don't forget the garden. Then head upstairs and do the rest.</p>
       </div>
 
-      <div class="calc-block">
-        <div class="calc-block-head">
-          <h2>Whole-property items</h2>
-          <p>Add the bits that aren&rsquo;t room-specific.</p>
+      <div class="calc-block" id="wholePropertyBlock">
+        <div class="calc-block-head calc-block-head-collapsible">
+          <div class="calc-block-head-text">
+            <h2>Whole-property items</h2>
+            <p>Add the bits that aren&rsquo;t room-specific.</p>
+          </div>
+          <button type="button" class="calc-block-minimise" id="wholePropertyToggle" aria-label="Minimise whole-property items" title="Minimise this section">&minus;</button>
         </div>
-        <div class="calc-rows">
+        <div class="calc-rows" id="wholePropertyRows">
           <div class="calc-row" data-key="consumer_unit_count">
             <div class="calc-row-label">
               <strong>RCBO Consumer Unit (up to 12 ways) with surge suppression</strong>
@@ -161,6 +164,7 @@
               <button type="button" class="calc-row-step-button" data-step="1" aria-label="increase">&plus;</button>
             </div>
           </div>
+          <div class="room-done-row"><button type="button" class="room-done" id="wholePropertyDone">Done &check;</button></div>
         </div>
       </div>
 
