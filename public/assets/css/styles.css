@@ -198,6 +198,12 @@ a:hover { text-decoration: underline; }
   font-family: inherit;
 }
 .btn-amber:hover { background: #FFB42E; transform: translateY(-1px); text-decoration: none; color: var(--c-navy); }
+.btn-awaiting {
+  display: inline-flex; align-items: center; justify-content: center;
+  padding: 14px 22px; border-radius: var(--r-sm); font-weight: 600; font-size: 14px;
+  background: #F1F3F7; color: var(--c-text-mute); border: 1px solid #E6E8EE;
+  cursor: not-allowed;
+}
 .btn-block { display: flex; width: 100%; padding: 16px; font-size: 16px; }
 
 .btn-ghost-dark {
