@@ -28,7 +28,7 @@ the standard head/meta, header, footer and script include.
 
 - **Header** (`<header class="site-header" id="siteHeader">`): logo (links Home),
   6-item `primary-nav` (Rewires, New Build, Instant Quote [`.nav-cta`], Reviews,
-  FAQs, Contact), `.header-call` (icon + number), and the `#menuBtn` hamburger.
+  FAQs, Contact), `.header-call` (icon + number, GREEN `--c-green` / hover `--c-green-2` - the "call now" CTA, matching the homepage call button; pairs with the amber Instant Quote), and the `#menuBtn` hamburger.
   Every page MUST include `#menuBtn` AND load `script.js` or the mobile menu will
   not open. Path rule: root pages link `index.html#...`; pages in `/pages/` link
   `../index.html#...` and `../quote.html`, `../reviews.html`.

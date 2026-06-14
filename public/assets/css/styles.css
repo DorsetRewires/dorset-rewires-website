@@ -84,12 +84,12 @@ a:hover { text-decoration: underline; }
 
 .header-call {
   display: inline-flex; align-items: center; gap: 8px;
-  background: var(--c-navy); color: #fff;
+  background: var(--c-green); color: #fff;
   padding: 10px 16px; border-radius: var(--r-sm);
   font-weight: 700;
   letter-spacing: 0.01em;
 }
-.header-call:hover { background: var(--c-amber); color: var(--c-navy); text-decoration: none; }
+.header-call:hover { background: var(--c-green-2); color: #fff; text-decoration: none; }
 .hc-icon { flex-shrink: 0; }
 
 .menu-btn {
