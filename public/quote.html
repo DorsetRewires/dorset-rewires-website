@@ -299,8 +299,8 @@
   .quote-modal-status { font-size: 13.5px; margin: 2px 0 12px; min-height: 18px; }
   .quote-modal-status.is-error { color: #C0392B; }
   .quote-modal-status.is-ok { color: #1FA45A; font-weight: 600; }
-  .summary-reset { display: block; width: 100%; margin-top: 10px; padding: 6px; background: none; border: 0; color: #7E8EA8; font: inherit; font-size: 13px; text-decoration: underline; cursor: pointer; }
-  .summary-reset:hover { color: #C0392B; }
+  .summary-reset { display: flex; justify-content: center; align-items: center; width: 100%; margin-top: 10px; padding: 11px 16px; background: none; border: 1px solid rgba(255,255,255,0.22); border-radius: var(--r-sm); color: #B6C2D6; font: inherit; font-size: 14px; font-weight: 600; cursor: pointer; transition: background 0.12s, border-color 0.12s, color 0.12s; }
+  .summary-reset:hover { background: rgba(192,57,43,0.15); border-color: #C0392B; color: #FF8A7A; }
   .summary-reset[hidden] { display: none; }
 </style>
 <div class="quote-modal" id="quoteModal" hidden>
