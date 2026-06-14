@@ -447,6 +447,7 @@ section { padding: var(--pad-md) 0; }
 .inline-cta:hover { background: var(--c-green-2); color: #fff; text-decoration: none; transform: translateY(-1px); }
 .ic-text { font-size: 15.5px; line-height: 1.35; flex: 1; }
 .ic-text strong { display: block; font-size: 17px; margin-bottom: 2px; }
+.ic-text a { color: #fff; text-decoration: underline; font-weight: 700; }
 .ic-btn { background: #fff; color: var(--c-green); padding: 12px 20px; border-radius: var(--r-sm); font-weight: 800; font-size: 16px; white-space: nowrap; }
 
 /* Developer cards */
