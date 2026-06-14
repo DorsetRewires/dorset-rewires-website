@@ -76,9 +76,9 @@
     window.addEventListener('scroll', function () {
       var y = window.scrollY || window.pageYOffset;
       if (y > 8) {
-        header.style.boxShadow = '0 4px 18px rgba(15,37,64,0.08)';
+        header.style.boxShadow = '0 4px 18px rgba(15,37,64,0.10)';
       } else {
-        header.style.boxShadow = '0 1px 0 rgba(15,37,64,0.04)';
+        header.style.boxShadow = '0 1px 6px rgba(15,37,64,0.06)';
       }
       lastY = y;
     }, { passive: true });
