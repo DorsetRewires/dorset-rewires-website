@@ -117,6 +117,7 @@
   var csCount = document.getElementById('csCount');
   var csCta = document.getElementById('csCta');
   var csReset = document.getElementById('csReset');
+  var wholePropertySubtotalEl = document.getElementById('wholePropertySubtotal');
 
   var lastLines = [];
   var lastTotal = 0;
@@ -318,6 +319,20 @@
         '\n\nPlease can you book a free home survey to confirm.';
       csCta.href = 'mailto:info@dorsetrewires.co.uk?subject=' + encodeURIComponent('Instant quote: ' + formatAsCurrency(total)) +
         '&body=' + encodeURIComponent(body);
+    }
+
+    // Whole-property block subtotal, shown in its header (like each room's) so
+    // the total is visible even when the block is minimised.
+    if (wholePropertySubtotalEl) {
+      var wholePropertySubtotal =
+        state.consumer_unit_count * PRICES.consumer_unit_price +
+        state.smoke_detector_count * PRICES.smoke_detector_price +
+        state.tv_aerial_count * PRICES.tv_aerial_price +
+        state.wired_ring_doorbell_count * PRICES.wired_ring_doorbell_cam_price +
+        state.garage_consumer_unit_count * PRICES.garage_consumer_unit_price +
+        state.water_bonding_count * PRICES.water_bonding_price +
+        state.gas_bonding_count * PRICES.gas_bonding_price;
+      wholePropertySubtotalEl.textContent = wholePropertySubtotal > 0 ? formatAsCurrency(wholePropertySubtotal) : '£0';
     }
 
     if (csReset) csReset.hidden = (itemCount === 0 && state.rooms.length === 0);
