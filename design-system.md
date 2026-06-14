@@ -46,6 +46,10 @@ the standard head/meta, header, footer and script include.
   link) containing the pitch text + a tel-link Call button; secondary links inside
   use `.ic-text a` (white, underlined). Do not make the whole banner a single anchor.
 - **Summary reset** `.summary-reset` (quote tool): outlined button, red on hover.
+- **Jump list** `.page-toc` (long SEO/article pages): a white "On this page" card of in-page anchor links (each H2 has an `id`). Helps the ADHD reader skip to one answer and can earn Google jump-to sitelinks. Use on any page with 5+ sections.
+- **Includes / excludes lists** `ul.tick-list` (green tick) and `ul.cross-list` (grey cross) - for "what's included vs what's extra" style lists. Bold the key term in each `<li>`.
+- **Image placeholder** `figure.page-figure > .img-placeholder` (+ `figcaption`): a dashed-border box that reserves a real photo slot before a shoot, so layout is final and the photo just drops in later. The `.page-toc` "On this page" label also carries an amber underline (brand cue).
+- **FAQ accordion** `.faq` wrapping native `<details>/<summary>` (NO JavaScript) - amber "+" that rotates to a cross when open. Mirror each visible Q&A in a `FAQPage` JSON-LD block in the page `@graph` so it is eligible for rich results. All decided 2026-06-14 on the Cost Guide page (the pilot detailed SEO page).
 
 ## Page anatomy / "blog feel" (open decision)
 
