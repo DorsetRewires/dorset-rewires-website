@@ -8,7 +8,7 @@
     "light": 90,
     "fused_spur": 90,
     "one_way_switch": 0,
-    "two_way_switch": 80,
+    "two_way_switch": 45,
     "extractor_fan": 160,
     "humidity_extractor_fan": 190,
     "data_point": 80,

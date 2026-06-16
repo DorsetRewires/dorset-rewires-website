@@ -1,10 +1,10 @@
 ﻿(function () {
   'use strict';
 
-  // Price book fallback. Live values are fetched from /ops-hq/data/price-list.json below.
+  // Price book fallback. Live values are fetched from /data/price-list.json below.
   var PRICES = {
     socket_price: 90, light_point_price: 90, fused_spur_price: 90,
-    one_way_switch_price: 0, two_way_switch_price: 40,
+    one_way_switch_price: 0, two_way_switch_price: 45,
     extractor_fan_price: 160, data_point_price: 80, smoke_detector_price: 110,
     consumer_unit_price: 625,
     radial_16amp_base_price: 120, radial_16amp_per_extra_metre_price: 2,
@@ -94,7 +94,7 @@
     { key: 'lights',           label: 'How many light fittings?',                typical: '£90 each. Pendants, downlights, wall lights, outdoor lights all count.' },
     { key: 'fused_spurs',      label: 'How many fused spurs?',                   typical: '£90 each. Permanently wired stuff: boiler, towel rail, cooker hood, garage door opener.' },
     { key: 'one_way_switches', label: 'How many normal (1-way) light switches?', typical: 'Included free with the lights. One press on, one press off.' },
-    { key: 'two_way_switches', label: 'How many 2-way switches?',                typical: '£40 each. Switches at both ends of a corridor, stairs or large room.' },
+    { key: 'two_way_switches', label: 'How many 2-way switches?',                typical: '£45 each. Switches at both ends of a corridor, stairs or large room.' },
     { key: 'extractor_fans',   label: 'How many extractor fans?',                typical: '£160 each. Timer or non-timer. Bathrooms, en-suites, utility.' },
     { key: 'data_points',      label: 'How many data points?',                   typical: '£80 each. Wired internet sockets (CAT6). One per desk, TV, smart device.' }
   ];
