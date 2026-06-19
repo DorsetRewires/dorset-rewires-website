@@ -24,7 +24,7 @@
 }
 .page h2 {
   font-size: 24px;
-  margin: 36px 0 12px;
+  margin: 48px 0 14px;
   color: var(--c-navy);
   font-weight: 800;
   letter-spacing: -0.015em;
@@ -35,7 +35,7 @@
   color: var(--c-navy);
   font-weight: 700;
 }
-.page p { color: var(--c-text-soft); font-size: 17px; line-height: 1.6; margin: 0 0 14px; max-width: 760px; }
+.page p { color: var(--c-text-soft); font-size: 17px; line-height: 1.65; margin: 0 0 18px; max-width: 760px; }
 .page .lede-page { color: var(--c-text); font-size: 19px; line-height: 1.55; max-width: 760px; }
 .page article { max-width: 900px; }
 
@@ -44,7 +44,8 @@
   padding: 18px 22px 18px 38px; margin: 14px 0 24px;
   color: var(--c-text-soft);
 }
-.page ul.todo-list li { margin-bottom: 6px; }
+.page ul.todo-list { padding: 20px 24px 20px 40px; }
+.page ul.todo-list li { margin-bottom: 10px; line-height: 1.5; }
 
 .price-table-stub {
   width: 100%; max-width: 720px; border-collapse: collapse;
@@ -82,7 +83,7 @@
 
 /* Includes / excludes lists */
 .page ul.tick-list, .page ul.cross-list { list-style: none; padding-left: 0; margin: 8px 0 18px; max-width: 760px; }
-.page ul.tick-list li, .page ul.cross-list li { position: relative; padding-left: 28px; margin-bottom: 8px; color: var(--c-text-soft); font-size: 16px; line-height: 1.5; }
+.page ul.tick-list li, .page ul.cross-list li { position: relative; padding-left: 28px; margin-bottom: 12px; color: var(--c-text-soft); font-size: 16px; line-height: 1.55; }
 .page ul.tick-list li::before { content: "\2713"; position: absolute; left: 0; color: var(--c-green); font-weight: 800; }
 .page ul.cross-list li::before { content: "\2715"; position: absolute; left: 0; color: var(--c-text-mute); font-weight: 800; }
 .page ul.tick-list li strong, .page ul.cross-list li strong { color: var(--c-navy); }
