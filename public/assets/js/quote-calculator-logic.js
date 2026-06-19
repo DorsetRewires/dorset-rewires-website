@@ -510,7 +510,7 @@
       buildOneInputRow(
         'radial_32amp_count',
         'How many 32A radial circuits?',
-        'Typical: EV (car charger), hob, oven, electric shower. £190 base + £4 per metre over 20m.',
+        'Typical: EV (car charger), hob, oven, electric shower. £190 base + £5 per metre over 20m.',
         room.radial_32amp_count
       ) +
       buildExtraMetresRow('radial_32amp_extra_metres', 'Extra metres beyond 20m (32A)', room.radial_32amp_extra_metres);
