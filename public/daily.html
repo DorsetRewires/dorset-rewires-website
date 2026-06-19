@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Daily checklist - Dorset Rewires</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#0F2540">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cpath fill='%23F4A300' d='M18 2 6 18h7l-3 12 12-16h-7z'/%3E%3C/svg%3E">
+<style>
+  :root {
+    --navy: #0F2540; --amber: #F4A300; --green: #1FA45A; --green-2: #178548;
+    --bg: #F4F6FA; --card: #fff; --line: #E4E8EF; --text: #22293A; --mute: #6B7484;
+  }
+  * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  body {
+    margin: 0; background: var(--bg); color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    line-height: 1.45; padding-bottom: 48px;
+  }
+  header.bar {
+    background: var(--navy); color: #fff; padding: 16px 18px;
+    display: flex; align-items: center; gap: 10px; position: sticky; top: 0; z-index: 5;
+  }
+  header.bar svg { flex: 0 0 auto; }
+  header.bar h1 { font-size: 18px; margin: 0; font-weight: 800; }
+  header.bar .day { margin-left: auto; font-size: 13px; color: #AEB9CC; }
+  main { max-width: 640px; margin: 0 auto; padding: 16px; }
+  .card { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 16px 16px 8px; margin-bottom: 18px; }
+  .card-head { display: flex; align-items: center; gap: 10px; margin-bottom: 4px; }
+  .card-head h2 { font-size: 16px; margin: 0; color: var(--navy); font-weight: 800; flex: 1; }
+  .card-sub { font-size: 13.5px; color: var(--mute); margin: 0 0 10px; }
+  .reset {
+    background: none; border: 1px solid var(--line); color: var(--mute);
+    font: inherit; font-size: 12.5px; padding: 6px 12px; border-radius: 999px; cursor: pointer;
+  }
+  .reset:active { background: var(--bg); }
+  label.item {
+    display: flex; align-items: flex-start; gap: 12px;
+    padding: 12px 4px; border-top: 1px solid var(--line); cursor: pointer;
+  }
+  label.item:first-of-type { border-top: 0; }
+  label.item input { position: absolute; opacity: 0; }
+  .box {
+    flex: 0 0 auto; width: 26px; height: 26px; border-radius: 7px;
+    border: 2px solid #C6CDD9; background: #fff; margin-top: 1px; position: relative;
+  }
+  label.item input:checked + .box { background: var(--green); border-color: var(--green); }
+  label.item input:checked + .box::after {
+    content: ""; position: absolute; left: 8px; top: 3px; width: 7px; height: 13px;
+    border: 2.5px solid #fff; border-top: 0; border-left: 0; transform: rotate(40deg);
+  }
+  .txt { flex: 1; font-size: 15.5px; }
+  label.item input:checked ~ .txt { color: var(--mute); text-decoration: line-through; }
+  .txt b { color: var(--navy); }
+  .txt small { display: block; color: var(--mute); font-size: 12.5px; text-decoration: none; margin-top: 2px; }
+  label.item input:checked ~ .txt small { text-decoration: none; }
+  .tip { background: #FFF8EC; border: 1px solid #FCE6B6; border-radius: 10px; padding: 12px 14px; font-size: 13.5px; color: #6a5320; margin: 0 0 16px; }
+  footer { text-align: center; font-size: 12px; color: var(--mute); padding: 10px; }
+</style>
+</head>
+<body>
+<header class="bar">
+  <svg width="22" height="22" viewBox="0 0 32 32" aria-hidden="true"><path fill="#F4A300" d="M18 2 6 18h7l-3 12 12-16h-7z"/></svg>
+  <h1>Daily checklist</h1>
+  <span class="day" id="todayLabel"></span>
+</header>
+<main>
+  <p class="tip"><b>First, once a day:</b> Settings &rarr; Privacy &rarr; Location Services &rarr; Camera &rarr; <b>While Using</b>. This stamps GPS and time into every photo.</p>
+
+  <div class="card">
+    <div class="card-head">
+      <h2>On every job</h2>
+      <button class="reset" data-reset="daily">Reset</button>
+    </div>
+    <p class="card-sub">Resets itself each morning. Tick as you go.</p>
+    <label class="item"><input type="checkbox" class="daily" id="d-town"><span class="box"></span><span class="txt"><b>Town or area</b> noted (not the full address)</span></label>
+    <label class="item"><input type="checkbox" class="daily" id="d-before"><span class="box"></span><span class="txt"><b>Before</b> photos - old board, the problem</span></label>
+    <label class="item"><input type="checkbox" class="daily" id="d-after"><span class="box"></span><span class="txt"><b>After</b> photos - new board, tidy work</span></label>
+    <label class="item"><input type="checkbox" class="daily" id="d-notes"><span class="box"></span><span class="txt"><b>What was wrong</b> and what I did (voice memo is fine)</span></label>
+    <label class="item"><input type="checkbox" class="daily" id="d-time"><span class="box"></span><span class="txt"><b>Time</b> on site</span></label>
+    <label class="item"><input type="checkbox" class="daily" id="d-review"><span class="box"></span><span class="txt"><b>Review</b> - ask the customer for one line</span></label>
+    <label class="item"><input type="checkbox" class="daily" id="d-perm"><span class="box"></span><span class="txt"><b>Photo permission</b> - a verbal yes is fine</span></label>
+  </div>
+
+  <div class="card">
+    <div class="card-head">
+      <h2>Photo missions</h2>
+      <button class="reset" data-reset="mission">Reset</button>
+    </div>
+    <p class="card-sub">Collect these over the next few jobs. They stay ticked until done.</p>
+    <label class="item"><input type="checkbox" class="mission" id="m-rcbo"><span class="box"></span><span class="txt"><b>RCBO board</b><small>A test button on EVERY breaker. The gold standard. Get the whole board in frame.</small></span></label>
+    <label class="item"><input type="checkbox" class="mission" id="m-dual"><span class="box"></span><span class="txt"><b>Dual-RCD split board</b><small>Two RCDs, each with its own test button. Show both test buttons clearly.</small></span></label>
+    <label class="item"><input type="checkbox" class="mission" id="m-single"><span class="box"></span><span class="txt"><b>Single-RCD board</b><small>One RCD feeding the whole board. Show the single test button.</small></span></label>
+    <label class="item"><input type="checkbox" class="mission" id="m-old"><span class="box"></span><span class="txt"><b>Old fuse-wire / no-RCD board</b><small>No test buttons at all. The "needs replacing" example.</small></span></label>
+    <label class="item"><input type="checkbox" class="mission" id="m-ir"><span class="box"></span><span class="txt"><b>Insulation resistance</b> shot<small>Done - the &gt;999 M&Omega; reading. Keep one clean copy.</small></span></label>
+    <label class="item"><input type="checkbox" class="mission" id="m-rcdtime"><span class="box"></span><span class="txt"><b>RCD trip time</b> shot<small>Done - the ms reading (e.g. 85.3 ms).</small></span></label>
+    <label class="item"><input type="checkbox" class="mission" id="m-ze"><span class="box"></span><span class="txt"><b>Ze / Zs loop</b> shot<small>The &Omega; reading with the dial on the loop setting visible.</small></span></label>
+    <label class="item"><input type="checkbox" class="mission" id="m-r1r2"><span class="box"></span><span class="txt"><b>R1+R2 continuity</b> shot<small>Still needed. Show the reading and the dial setting.</small></span></label>
+    <label class="item"><input type="checkbox" class="mission" id="m-pfc"><span class="box"></span><span class="txt"><b>PFC / fault current</b> shot<small>Still needed. The prospective fault current reading.</small></span></label>
+  </div>
+
+  <p class="card-sub" style="text-align:center;">Every photo rule: <b>portrait, upright</b>. Screen and what it is clamped to both sharp. No sideways shots.</p>
+</main>
+<footer>Dorset Rewires - private daily tool. Not listed on the website.</footer>
+
+<script>
+(function () {
+  'use strict';
+  var todayStamp = new Date().toISOString().slice(0, 10);
+  document.getElementById('todayLabel').textContent = todayStamp;
+  var DAILY_KEY = 'dr-daily-' + todayStamp;
+  var MISSION_KEY = 'dr-photo-missions';
+
+  // Tidy up old daily keys from previous days
+  for (var i = localStorage.length - 1; i >= 0; i--) {
+    var k = localStorage.key(i);
+    if (k && k.indexOf('dr-daily-') === 0 && k !== DAILY_KEY) localStorage.removeItem(k);
+  }
+
+  function load(key) { try { return JSON.parse(localStorage.getItem(key) || '{}'); } catch (e) { return {}; } }
+  function wire(selector, storageKey) {
+    var saved = load(storageKey);
+    document.querySelectorAll(selector).forEach(function (box) {
+      if (saved[box.id]) box.checked = true;
+      box.addEventListener('change', function () {
+        var state = load(storageKey);
+        state[box.id] = box.checked;
+        localStorage.setItem(storageKey, JSON.stringify(state));
+      });
+    });
+  }
+  wire('.daily', DAILY_KEY);
+  wire('.mission', MISSION_KEY);
+
+  document.querySelectorAll('[data-reset]').forEach(function (btn) {
+    btn.addEventListener('click', function () {
+      var which = btn.getAttribute('data-reset');
+      var key = which === 'daily' ? DAILY_KEY : MISSION_KEY;
+      localStorage.removeItem(key);
+      document.querySelectorAll('.' + which).forEach(function (box) { box.checked = false; });
+    });
+  });
+})();
+</script>
+</body>
+</html>

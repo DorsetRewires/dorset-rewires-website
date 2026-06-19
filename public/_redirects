@@ -25,5 +25,9 @@
 /manifest.json                   /manifest.json                   200
 /quote-tool-service-worker.js    /quote-tool-service-worker.js    200
 
+# Pete-only daily checklist (noindex). Stable URL so it can be bookmarked on the phone.
+/daily                           /daily                           200
+/daily.html                      /daily                           200
+
 # Everything else: serve the holding page in place at its clean URL (no loop)
 /*                               /holding                         200
