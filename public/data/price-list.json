@@ -40,6 +40,13 @@
     "radial_32a_base_first_20m": 190,
     "radial_32a_per_extra_metre": 5
   },
+  "rewire_size_ranges": {
+    "1 bed": [2800, 4000],
+    "2 bed": [3800, 5500],
+    "3 bed": [4500, 7000],
+    "4 bed": [6500, 11000],
+    "5 bed+": [10000, 16000]
+  },
   "eicr_by_circuit_count": [
     {
       "label": "1-bed flat (up to 6 circuits)",
