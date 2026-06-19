@@ -348,6 +348,14 @@
   function updateQuickAddBadges() {
     document.querySelectorAll('.quick-add-button[data-preset]').forEach(function (button) {
       var presetKey = button.getAttribute('data-preset');
+      // The custom-room chip is an "add another" button, not a room type to count.
+      // A count badge there is meaningless and confusing (each custom room has its
+      // own name, e.g. "Dining Room"), so never badge it - and clear any stale one.
+      if (presetKey === 'blank') {
+        var staleBadge = button.querySelector('.quick-add-count');
+        if (staleBadge) staleBadge.remove();
+        return;
+      }
       var count = countRoomsByPresetKey(presetKey);
       var existing = button.querySelector('.quick-add-count');
       if (count > 0) {
