@@ -38,3 +38,6 @@ CLAUDE.md
 
 # Internal scratch / prompts (not for the public website repo)
 non context website checks.txt
+
+# Client / architect job files (e.g. tender drawings, specs) - NEVER commit; repo may be public
+projects/
