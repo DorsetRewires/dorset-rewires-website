@@ -542,6 +542,8 @@
       minimiseButton.innerHTML = isCollapsed ? '&plus;' : '&minus;';
       minimiseButton.setAttribute('aria-label', isCollapsed ? 'Expand room' : 'Minimise room');
       minimiseButton.setAttribute('title', isCollapsed ? 'Expand this room' : 'Minimise this room');
+      room.collapsed = isCollapsed;
+      saveQuoteState();
     });
 
     // "Done" button at the foot of the room: folds the room up (same as the
@@ -552,8 +554,21 @@
       minimiseButton.innerHTML = '&plus;';
       minimiseButton.setAttribute('aria-label', 'Expand room');
       minimiseButton.setAttribute('title', 'Expand this room');
+      room.collapsed = true;
       el.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+      saveQuoteState();
     });
+
+    // Keep a "Done" / minimised room folded up across a refresh. The collapsed
+    // flag is saved with the room, so a hard reload restores the one-line summary
+    // until the user taps + to expand it.
+    if (room.collapsed) {
+      el.classList.add('room-collapsed');
+      var restoredMinimiseButton = el.querySelector('.room-minimise');
+      restoredMinimiseButton.innerHTML = '&plus;';
+      restoredMinimiseButton.setAttribute('aria-label', 'Expand room');
+      restoredMinimiseButton.setAttribute('title', 'Expand this room');
+    }
 
     el.querySelector('.room-extras-toggle').addEventListener('click', function () {
       var content = el.querySelector('.room-extras-content');
