@@ -102,7 +102,7 @@
 .faq summary { cursor: pointer; padding: 16px 0; font-weight: 700; color: var(--c-navy); font-size: 16px; list-style: none; display: flex; justify-content: space-between; align-items: center; gap: 14px; }
 .faq summary::-webkit-details-marker { display: none; }
 .faq summary::after { content: "+"; color: var(--c-amber); font-size: 24px; font-weight: 700; line-height: 1; transition: transform .15s ease; }
-.faq details[open] summary::after { transform: rotate(45deg); }
+.faq details[open] summary::after { content: "-"; transform: none; }
 .faq details p { margin: 0 0 16px; font-size: 16px; }
 
 @media (max-width: 720px) {

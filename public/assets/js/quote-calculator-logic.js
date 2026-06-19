@@ -84,6 +84,11 @@
     hallway:  buildEmptyRoomPreset('Hallway / landing'),
     utility:  buildEmptyRoomPreset('Utility'),
     garage:   buildEmptyRoomPreset('Garage / outbuilding'),
+    dining:   buildEmptyRoomPreset('Dining room'),
+    loft:     buildEmptyRoomPreset('Loft'),
+    office:   buildEmptyRoomPreset('Office'),
+    conservatory: buildEmptyRoomPreset('Conservatory'),
+    ensuite:  buildEmptyRoomPreset('En-suite'),
     blank:    buildEmptyRoomPreset('')
   };
 
