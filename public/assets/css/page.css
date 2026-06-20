@@ -83,12 +83,19 @@
 .page-toc a:hover { color: var(--c-navy); border-bottom-color: var(--c-amber); }
 
 /* In-content prose links: navy + amber underline (brand link standard, 2026-06-20).
-   Scoped to paragraphs and list items so it never touches buttons (.btn-*),
-   the breadcrumb, the jump-list nav, or figure links - those carry a class. */
+   Scoped to paragraphs and list items so it never touches buttons (.btn-*) or the
+   breadcrumb - those carry a class on the <a>. The jump-list is exempted just below. */
 .page article p a:not([class]),
 .page article li a:not([class]) { color: var(--c-navy); font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--c-amber); }
 .page article p a:not([class]):hover,
 .page article li a:not([class]):hover { border-bottom-color: var(--c-navy); }
+
+/* Jump-list ("On this page") is EXEMPT from the prose-underline standard: it is a
+   dense list of links, so a persistent underline on every row reads as too much.
+   It keeps its own subtle style (hover-only amber underline). Higher specificity
+   than the rule above so it wins. The toc <a> has no class, hence the explicit path. */
+.page article nav.page-toc li a:not([class]) { color: var(--c-text-soft); font-weight: 500; border-bottom: 1px solid transparent; }
+.page article nav.page-toc li a:not([class]):hover { color: var(--c-navy); border-bottom-color: var(--c-amber); }
 
 /* Includes / excludes lists */
 .page ul.tick-list, .page ul.cross-list { list-style: none; padding-left: 0; margin: 8px 0 18px; max-width: 760px; }
