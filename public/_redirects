@@ -29,5 +29,22 @@
 /daily                           /daily                           200
 /daily.html                      /daily                           200
 
+# --- Live SEO pages: carved out of holding so Google can crawl and rank them. ---
+# Canonical = root clean URL (Pete's choice, 2026-06-20). The page files live in
+# /pages/, so serve each at its root URL with a 200 rewrite. Destinations are clean
+# (NO .html - that 308-loops). Both the clean URL and the .html form are mapped, so
+# the existing relative footer links between these pages keep resolving.
+/house-rewires-bournemouth            /pages/house-rewires-bournemouth            200
+/house-rewires-bournemouth.html       /pages/house-rewires-bournemouth            200
+/house-rewires-poole                  /pages/house-rewires-poole                  200
+/house-rewires-poole.html             /pages/house-rewires-poole                  200
+/house-rewire-cost-guide-dorset-2026       /pages/house-rewire-cost-guide-dorset-2026   200
+/house-rewire-cost-guide-dorset-2026.html  /pages/house-rewire-cost-guide-dorset-2026   200
+
+# Crawl files must serve themselves, NOT the holding page (the catch-all would
+# otherwise rewrite them to /holding and Google would get HTML instead of the sitemap).
+/robots.txt                      /robots.txt                      200
+/sitemap.xml                     /sitemap.xml                     200
+
 # Everything else: serve the holding page in place at its clean URL (no loop)
 /*                               /holding                         200
