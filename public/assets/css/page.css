@@ -82,6 +82,14 @@
 .page-toc a { color: var(--c-text-soft); font-size: 15px; text-decoration: none; border-bottom: 1px solid transparent; }
 .page-toc a:hover { color: var(--c-navy); border-bottom-color: var(--c-amber); }
 
+/* In-content prose links: navy + amber underline (brand link standard, 2026-06-20).
+   Scoped to paragraphs and list items so it never touches buttons (.btn-*),
+   the breadcrumb, the jump-list nav, or figure links - those carry a class. */
+.page article p a:not([class]),
+.page article li a:not([class]) { color: var(--c-navy); font-weight: 600; text-decoration: none; border-bottom: 2px solid var(--c-amber); }
+.page article p a:not([class]):hover,
+.page article li a:not([class]):hover { border-bottom-color: var(--c-navy); }
+
 /* Includes / excludes lists */
 .page ul.tick-list, .page ul.cross-list { list-style: none; padding-left: 0; margin: 8px 0 18px; max-width: 760px; }
 .page ul.tick-list li, .page ul.cross-list li { position: relative; padding-left: 28px; margin-bottom: 12px; color: var(--c-text-soft); font-size: 16px; line-height: 1.55; }

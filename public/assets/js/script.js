@@ -1,4 +1,69 @@
 (function () {
+  // ---------------------------------------------------------------------------
+  // Branded confirm dialog - THE standard popup (see design-system.md).
+  // Replaces window.confirm() everywhere. Returns a Promise that resolves true
+  // (confirmed) or false (cancelled).
+  //   showConfirmDialog({ title, message, confirmLabel, cancelLabel, danger })
+  //     .then(function (confirmed) { if (confirmed) { ... } });
+  // One reusable modal node is built on first use, then reused. Loaded site-wide
+  // because every page includes script.js.
+  // ---------------------------------------------------------------------------
+  var confirmDialogNode = null;
+  var confirmDialogResolve = null;
+  var confirmDialogLastFocus = null;
+
+  function closeConfirmDialog(result) {
+    if (!confirmDialogNode || confirmDialogNode.hidden) return;
+    confirmDialogNode.hidden = true;
+    document.body.classList.remove('dr-confirm-open');
+    if (confirmDialogLastFocus && confirmDialogLastFocus.focus) confirmDialogLastFocus.focus();
+    var resolve = confirmDialogResolve;
+    confirmDialogResolve = null;
+    if (resolve) resolve(result);
+  }
+
+  function buildConfirmDialog() {
+    var overlay = document.createElement('div');
+    overlay.className = 'dr-confirm';
+    overlay.hidden = true;
+    overlay.innerHTML =
+      '<div class="dr-confirm-backdrop" data-confirm-cancel></div>' +
+      '<div class="dr-confirm-card" role="alertdialog" aria-modal="true" aria-labelledby="drConfirmTitle" aria-describedby="drConfirmMessage">' +
+        '<h2 class="dr-confirm-title" id="drConfirmTitle"></h2>' +
+        '<p class="dr-confirm-message" id="drConfirmMessage"></p>' +
+        '<div class="dr-confirm-actions">' +
+          '<button type="button" class="dr-confirm-cancel" data-confirm-cancel></button>' +
+          '<button type="button" class="dr-confirm-ok"></button>' +
+        '</div>' +
+      '</div>';
+    document.body.appendChild(overlay);
+    overlay.querySelectorAll('[data-confirm-cancel]').forEach(function (el) {
+      el.addEventListener('click', function () { closeConfirmDialog(false); });
+    });
+    overlay.querySelector('.dr-confirm-ok').addEventListener('click', function () { closeConfirmDialog(true); });
+    overlay.addEventListener('keydown', function (e) { if (e.key === 'Escape') closeConfirmDialog(false); });
+    return overlay;
+  }
+
+  window.showConfirmDialog = function (options) {
+    options = options || {};
+    if (!confirmDialogNode) confirmDialogNode = buildConfirmDialog();
+    var node = confirmDialogNode;
+    node.querySelector('.dr-confirm-title').textContent = options.title || 'Are you sure?';
+    node.querySelector('.dr-confirm-message').textContent = options.message || '';
+    var okButton = node.querySelector('.dr-confirm-ok');
+    var cancelButton = node.querySelector('.dr-confirm-cancel');
+    okButton.textContent = options.confirmLabel || 'Confirm';
+    cancelButton.textContent = options.cancelLabel || 'Cancel';
+    okButton.className = 'dr-confirm-ok' + (options.danger ? ' is-danger' : '');
+    confirmDialogLastFocus = document.activeElement;
+    node.hidden = false;
+    document.body.classList.add('dr-confirm-open');
+    // Default focus to the safe choice (Cancel) when the action is destructive.
+    (options.danger ? cancelButton : okButton).focus();
+    return new Promise(function (resolve) { confirmDialogResolve = resolve; });
+  };
+
   var menuBtn = document.getElementById('menuBtn');
   var nav = document.querySelector('.primary-nav');
   if (menuBtn && nav) {

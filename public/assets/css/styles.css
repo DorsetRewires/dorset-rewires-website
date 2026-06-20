@@ -8,6 +8,8 @@
   --c-amber-line:#FCE6B6;
   --c-green:     #1FA45A;
   --c-green-2:   #178548;
+  --c-danger:    #C0392B;
+  --c-danger-2:  #A93226;
   --c-text:      #22293A;
   --c-text-soft: #4A5468;
   --c-text-mute: #56627A;
@@ -881,3 +883,21 @@ section { padding: var(--pad-md) 0; }
   gap: 8px;
 }
 .primary-nav.open a { padding: 12px 6px; border-bottom: 1px solid var(--c-bg-soft); }
+
+/* ===== Branded confirm dialog (the standard popup - see design-system.md) ===== */
+/* Replaces window.confirm() site-wide. Driven by window.showConfirmDialog() in script.js. */
+.dr-confirm[hidden] { display: none; }
+.dr-confirm { position: fixed; inset: 0; z-index: 3000; display: flex; align-items: center; justify-content: center; padding: 16px; }
+.dr-confirm-backdrop { position: absolute; inset: 0; background: rgba(15,37,64,0.55); }
+.dr-confirm-card { position: relative; background: var(--c-card); border-radius: var(--r-lg); max-width: 400px; width: 100%; padding: 24px 24px 20px; box-shadow: 0 24px 60px rgba(0,0,0,0.3); text-align: left; }
+.dr-confirm-title { margin: 0 0 8px; color: var(--c-navy); font-size: 19px; font-weight: 700; }
+.dr-confirm-message { margin: 0 0 20px; color: var(--c-text-soft); font-size: 14.5px; line-height: 1.5; }
+.dr-confirm-actions { display: flex; gap: 10px; justify-content: flex-end; flex-wrap: wrap; }
+.dr-confirm-actions button { font: inherit; font-size: 14.5px; font-weight: 600; padding: 10px 18px; border-radius: var(--r-sm); cursor: pointer; border: 1px solid transparent; transition: background 0.12s; }
+.dr-confirm-cancel { background: var(--c-bg-soft); color: var(--c-text-soft); border-color: var(--c-border); }
+.dr-confirm-cancel:hover { background: #E6EBF2; }
+.dr-confirm-ok { background: var(--c-amber); color: var(--c-navy); }
+.dr-confirm-ok:hover { background: #FFB42E; }
+.dr-confirm-ok.is-danger { background: var(--c-danger); color: #fff; }
+.dr-confirm-ok.is-danger:hover { background: var(--c-danger-2); }
+body.dr-confirm-open { overflow: hidden; }

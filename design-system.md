@@ -15,6 +15,7 @@ shared component, change it on ALL pages and re-run `ops/tools/check-consistency
 Do not hardcode hex values in new CSS - use the variables.
 
 - Brand: `--c-navy #0F2540`, `--c-amber #F4A300` (the brand yellow), `--c-green #1FA45A`.
+- Danger/destructive: `--c-danger #C0392B` (hover `--c-danger-2 #A93226`). Red is for destructive actions ONLY (reset, delete) - never a normal CTA. Added 2026-06-20.
 - Amber tints: `--c-amber-soft #FFF8EC`, `--c-amber-line #FCE6B6`.
 - Text: `--c-text #22293A`, `--c-text-soft`, `--c-text-mute`, `--c-text-faint`.
 - Surfaces: `--c-bg`, `--c-bg-soft #F4F6FA`, `--c-card #fff`, `--c-border #EAECEF`.
@@ -45,7 +46,9 @@ the standard head/meta, header, footer and script include.
 - **Green CTA banner** `.inline-cta` (navy text on `--c-green`): a `<div>` (not a
   link) containing the pitch text + a tel-link Call button; secondary links inside
   use `.ic-text a` (white, underlined). Do not make the whole banner a single anchor.
-- **Summary reset** `.summary-reset` (quote tool): outlined button, red on hover.
+- **Summary reset** `.summary-reset` (quote tool): a destructive action, so a permanent red outline (red border + red text + faint red wash), intensifying on hover. Stays visually SECONDARY to the green Send CTA. Updated 2026-06-20 (was a faint ghost that only reddened on hover - too easy to miss).
+- **Confirm dialog (THE standard popup, 2026-06-20)** `.dr-confirm`: the ONLY way to ask "are you sure?" - never use the browser's `window.confirm/alert`. Call `window.showConfirmDialog({ title, message, confirmLabel, cancelLabel, danger })` (defined in `script.js`, loaded site-wide); it returns a Promise resolving true/false. Branded card: navy title, soft-grey Cancel + amber OK; pass `danger: true` for destructive actions (red OK button, and focus defaults to Cancel). One reusable node, built on first use. Markup/CSS live in `styles.css` (`.dr-confirm*`). Any new popup MUST use this - do not hand-roll modals or native dialogs.
+- **In-content links (brand link standard, 2026-06-20)**: prose links inside `.page article` paragraphs and list items render navy + bold + a 2px amber underline (the link cousin of `.text-highlight`), so links are obvious without the old-school blue. Implemented in `page.css` via `.page article p a:not([class])` / `li a:not([class])` - the `:not([class])` keeps it off buttons, the breadcrumb and the jump-list. Do not restyle individual prose links inline.
 - **Jump list** `.page-toc` (long SEO/article pages): a white "On this page" card of in-page anchor links (each H2 has an `id`). Helps the ADHD reader skip to one answer and can earn Google jump-to sitelinks. Use on any page with 5+ sections.
 - **Includes / excludes lists** `ul.tick-list` (green tick) and `ul.cross-list` (grey cross) - for "what's included vs what's extra" style lists. Bold the key term in each `<li>`.
 - **Image placeholder** `figure.page-figure > .img-placeholder` (+ `figcaption`): a dashed-border box that reserves a real photo slot before a shoot, so layout is final and the photo just drops in later. The `.page-toc` "On this page" label also carries an amber underline (brand cue).

@@ -585,16 +585,23 @@
     });
 
     el.querySelector('.room-remove').addEventListener('click', function () {
-      var activeItemCount = countActiveItemsInRoom(room);
-      if (activeItemCount > 0) {
-        var roomNameForConfirm = (room.name && room.name.trim()) ? room.name : 'Unnamed room';
-        var message = 'This room (' + roomNameForConfirm + ') has ' + activeItemCount + ' item' + (activeItemCount === 1 ? '' : 's') + ' selected.\n\nDelete the room and lose all the inputs?';
-        if (!window.confirm(message)) return;
+      function removeRoomNow() {
+        state.rooms = state.rooms.filter(function (r) { return r.id !== room.id; });
+        el.remove();
+        updateQuickAddBadges();
+        recalculateAndUpdateDisplay();
       }
-      state.rooms = state.rooms.filter(function (r) { return r.id !== room.id; });
-      el.remove();
-      updateQuickAddBadges();
-      recalculateAndUpdateDisplay();
+      var activeItemCount = countActiveItemsInRoom(room);
+      if (activeItemCount === 0) { removeRoomNow(); return; }
+      var roomNameForConfirm = (room.name && room.name.trim()) ? room.name : 'this room';
+      var message = roomNameForConfirm + ' has ' + activeItemCount + ' item' + (activeItemCount === 1 ? '' : 's') + ' added. Deleting the room loses those inputs.';
+      window.showConfirmDialog({
+        title: 'Delete this room?',
+        message: message,
+        confirmLabel: 'Delete room',
+        cancelLabel: 'Keep it',
+        danger: true
+      }).then(function (confirmed) { if (confirmed) removeRoomNow(); });
     });
 
     el.querySelectorAll('.room-item-step-button').forEach(function (btn) {
@@ -694,21 +701,29 @@
   // Reset button: deliberate clear of the whole quote back to zero (confirm first).
   if (csReset) {
     csReset.addEventListener('click', function () {
-      if (!window.confirm('Reset the whole quote back to £0? This clears every room and item.')) return;
-      state.rooms = [];
-      state.consumer_unit_count = 0;
-      state.smoke_detector_count = 0;
-      state.tv_aerial_count = 0;
-      state.wired_ring_doorbell_count = 0;
-      state.garage_consumer_unit_count = 0;
-      state.water_bonding_count = 0;
-      state.gas_bonding_count = 0;
-      nextRoomId = 1;
-      roomsList.innerHTML = '';
-      document.querySelectorAll('.calc-row[data-key] .calc-row-quantity').forEach(function (input) { input.value = 0; });
-      try { localStorage.removeItem(QUOTE_STORAGE_KEY); } catch (e) { /* ignore */ }
-      updateQuickAddBadges();
-      recalculateAndUpdateDisplay();
+      window.showConfirmDialog({
+        title: 'Reset the whole quote?',
+        message: 'This clears every room and item and sets your quote back to £0. You cannot undo this.',
+        confirmLabel: 'Reset to £0',
+        cancelLabel: 'Keep my quote',
+        danger: true
+      }).then(function (confirmed) {
+        if (!confirmed) return;
+        state.rooms = [];
+        state.consumer_unit_count = 0;
+        state.smoke_detector_count = 0;
+        state.tv_aerial_count = 0;
+        state.wired_ring_doorbell_count = 0;
+        state.garage_consumer_unit_count = 0;
+        state.water_bonding_count = 0;
+        state.gas_bonding_count = 0;
+        nextRoomId = 1;
+        roomsList.innerHTML = '';
+        document.querySelectorAll('.calc-row[data-key] .calc-row-quantity').forEach(function (input) { input.value = 0; });
+        try { localStorage.removeItem(QUOTE_STORAGE_KEY); } catch (e) { /* ignore */ }
+        updateQuickAddBadges();
+        recalculateAndUpdateDisplay();
+      });
     });
   }
 
