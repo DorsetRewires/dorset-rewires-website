@@ -52,6 +52,8 @@
 /house-rewires-poole.html             /pages/house-rewires-poole                  200
 /house-rewire-cost-guide-dorset-2026       /pages/house-rewire-cost-guide-dorset-2026   200
 /house-rewire-cost-guide-dorset-2026.html  /pages/house-rewire-cost-guide-dorset-2026   200
+/electrician-christchurch                  /pages/electrician-christchurch              200
+/electrician-christchurch.html             /pages/electrician-christchurch              200
 
 # Homepage carved out of holding (2026-06-21) so it can be indexed and start the SEO
 # clock. Self-rewrite (source = dest, NO .html) exempts / from the catch-all, exactly
