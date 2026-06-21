@@ -1,5 +1,5 @@
 {
-  "_note": "Single source of truth for Dorset Rewires business facts (NAP + hours). The site is no-build, so these values are physically duplicated in the HTML - this file is the CANONICAL source the linter (ops/tools/check-business-info.py) checks every page against, the same way price-list.json + check-prices.py guard prices. Change a value here, run preflight, and the linter names every page that drifted. Prices are NOT here - they live in price-list.json.",
+  "_note": "Single source of truth for Dorset Rewires business facts (NAP + hours). The site is no-build, so these values are physically duplicated in the HTML - this file is the CANONICAL source the linter (ops/tools/check-business-info.py) checks every page against, the same way price-list.json + check-prices.py guard prices. Change a value here, run preflight, and the linter names every page that drifted. Quote-tool prices are NOT here - they live in price-list.json; this file also holds stated contract rates such as the daywork hourly rate.",
   "name": "Dorset Rewires",
   "phone_display": "07836 535100",
   "phone_tel": "+447836535100",
@@ -11,5 +11,6 @@
   "public_liability_millions": "5",
   "deposit_percent": "5",
   "years_experience": "20+",
-  "platinum_promise": "up to 6 years / £25,000 per installation"
+  "platinum_promise": "up to 6 years / £25,000 per installation",
+  "daywork_hourly_rate": "50"
 }
