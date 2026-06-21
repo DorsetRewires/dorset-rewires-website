@@ -87,12 +87,6 @@
   "labour_baselines": {
     "single_sparky_day_rate": 300,
     "two_man_team_day_rate": 510,
-    "hourly_fallback": 60,
-    "variation_hourly_rate": 45
-  },
-  "markup_percentages": {
-    "cable_and_accessories": 20,
-    "consumer_units_and_rcbos": 20,
-    "small_consumables": 50
+    "hourly_fallback": 60
   }
 }
