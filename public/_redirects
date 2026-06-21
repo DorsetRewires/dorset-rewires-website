@@ -33,6 +33,11 @@
 /review-request                  /review-request                  200
 /review-request.html             /review-request                  200
 
+# Public reviews page carved out so the sitewide "Reviews" nav link works. Shows an
+# honest "awaiting reviews" state for now; kept OUT of sitemap.xml until it has content.
+/reviews                         /reviews                         200
+/reviews.html                    /reviews                         200
+
 # Privacy policy + Terms carved out of holding so the sitewide footer links work.
 # Indexable (index,follow) but deliberately kept OUT of sitemap.xml - legal pages have
 # no search value (see check-sitemap.py). Clean dest (NO .html - that 308-loops).
@@ -54,6 +59,12 @@
 /house-rewire-cost-guide-dorset-2026.html  /pages/house-rewire-cost-guide-dorset-2026   200
 /electrician-christchurch                  /pages/electrician-christchurch              200
 /electrician-christchurch.html             /pages/electrician-christchurch              200
+/consumer-unit-upgrade-bournemouth         /pages/consumer-unit-upgrade-bournemouth     200
+/consumer-unit-upgrade-bournemouth.html    /pages/consumer-unit-upgrade-bournemouth     200
+/eicr-bournemouth                          /pages/eicr-bournemouth                      200
+/eicr-bournemouth.html                     /pages/eicr-bournemouth                      200
+/new-build-electrician-dorset              /pages/new-build-electrician-dorset          200
+/new-build-electrician-dorset.html         /pages/new-build-electrician-dorset          200
 
 # Homepage carved out of holding (2026-06-21) so it can be indexed and start the SEO
 # clock. Self-rewrite (source = dest, NO .html) exempts / from the catch-all, exactly
