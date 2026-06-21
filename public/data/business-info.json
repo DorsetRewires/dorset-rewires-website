@@ -1,0 +1,10 @@
+{
+  "_note": "Single source of truth for Dorset Rewires business facts (NAP + hours). The site is no-build, so these values are physically duplicated in the HTML - this file is the CANONICAL source the linter (ops/tools/check-business-info.py) checks every page against, the same way price-list.json + check-prices.py guard prices. Change a value here, run preflight, and the linter names every page that drifted. Prices are NOT here - they live in price-list.json.",
+  "name": "Dorset Rewires",
+  "phone_display": "07836 535100",
+  "phone_tel": "+447836535100",
+  "email": "info@dorsetrewires.co.uk",
+  "open_days": "Mon-Sat",
+  "hours_display": "Mon-Sat 7am-7pm",
+  "accreditation": "NICEIC Approved"
+}
