@@ -84,7 +84,7 @@
   // info@dorsetrewires.co.uk via Brevo.
   var callbackForm = document.getElementById('callbackForm');
   if (callbackForm) {
-    var CALLBACK_WORKER_URL = 'https://dorset-rewires-quote.silent-star-0bcc.workers.dev';
+    var CALLBACK_WORKER_URL = (window.DR_CONFIG || {}).quoteWorkerUrl;  // single source: assets/js/dr-config.js
     var callbackStatus = document.getElementById('callbackStatus');
     var callbackSubmit = document.getElementById('callbackSubmit');
 

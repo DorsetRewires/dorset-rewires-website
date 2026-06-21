@@ -126,7 +126,7 @@
 
   var lastLines = [];
   var lastTotal = 0;
-  var QUOTE_WORKER_URL = 'https://dorset-rewires-quote.silent-star-0bcc.workers.dev';
+  var QUOTE_WORKER_URL = (window.DR_CONFIG || {}).quoteWorkerUrl;  // single source: assets/js/dr-config.js
 
   // ===== QUOTE PERSISTENCE =====
   // The whole quote is saved to this browser's localStorage on every change, so
