@@ -29,6 +29,10 @@
 /daily                           /daily                           200
 /daily.html                      /daily                           200
 
+# Pete-only review-request tool (noindex). Bookmarkable on the phone; used after a job.
+/review-request                  /review-request                  200
+/review-request.html             /review-request                  200
+
 # --- Live SEO pages: carved out of holding so Google can crawl and rank them. ---
 # Canonical = root clean URL (Pete's choice, 2026-06-20). The page files live in
 # /pages/, so serve each at its root URL with a 200 rewrite. Destinations are clean
