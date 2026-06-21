@@ -58,6 +58,11 @@
 # like /quote below. Header-trace / after deploy to confirm 200 + no loop.
 /                                /                                200
 
+# /index.html must reach the real homepage, not holding. It is NOT covered by the "/"
+# carve-out above, so the catch-all was serving it the holding page (the logo + nav
+# links point at index.html). 301 to the clean root - dest has NO .html, so no loop.
+/index.html                      /                                301
+
 # Crawl files must serve themselves, NOT the holding page (the catch-all would
 # otherwise rewrite them to /holding and Google would get HTML instead of the sitemap).
 /robots.txt                      /robots.txt                      200
