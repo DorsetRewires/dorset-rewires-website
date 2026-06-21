@@ -85,5 +85,10 @@
 /robots.txt                      /robots.txt                      200
 /sitemap.xml                     /sitemap.xml                     200
 
-# Everything else: serve the holding page in place at its clean URL (no loop)
-/*                               /holding                         200
+# HOLDING MODE LIFTED 2026-06-21 - the site is fully live. There is NO catch-all, so any
+# path with no matching file or rule returns the custom 404 page (public/404.html) with a
+# real 404 status. (To re-instate holding, add back:  /*  /holding  200  as the last line.)
+#
+# The pages live in /pages/ but are served at their root clean URLs by the carve-outs above.
+# Redirect any direct /pages/* hit to the clean root URL so it is not duplicate content.
+/pages/*                         /:splat                          301
