@@ -65,6 +65,10 @@
 /eicr-bournemouth.html                     /pages/eicr-bournemouth                      200
 /new-build-electrician-dorset              /pages/new-build-electrician-dorset          200
 /new-build-electrician-dorset.html         /pages/new-build-electrician-dorset          200
+/electrician-bournemouth                   /pages/electrician-bournemouth               200
+/electrician-bournemouth.html              /pages/electrician-bournemouth               200
+/electrician-poole                         /pages/electrician-poole                     200
+/electrician-poole.html                    /pages/electrician-poole                     200
 
 # Homepage carved out of holding (2026-06-21) so it can be indexed and start the SEO
 # clock. Self-rewrite (source = dest, NO .html) exempts / from the catch-all, exactly
