@@ -12,5 +12,7 @@
   "deposit_percent": "5",
   "years_experience": "20+",
   "platinum_promise": "up to 6 years / £25,000 per installation",
-  "daywork_hourly_rate": "50"
+  "daywork_hourly_rate": "50",
+  "stage_payment_threshold_gbp": "3,000",
+  "stage_payment_schedule_percent": "5,20,25,25,15,10"
 }
