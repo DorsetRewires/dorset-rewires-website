@@ -1,5 +1,5 @@
 ﻿/* Dorset Rewires - quote tool offline service worker */
-const VERSION = 'v20-2026-06-21';
+const VERSION = 'v21-2026-06-22';
 const SHELL_CACHE = 'dorset-rewires-shell-' + VERSION;
 const RUNTIME_CACHE = 'dorset-rewires-runtime-' + VERSION;
 
@@ -37,6 +37,11 @@ self.addEventListener('fetch', (event) => {
 
   const url = new URL(req.url);
 
+  // Never touch the local-only Ops HQ. This SW has origin-wide scope, so on
+  // localhost it was serving STALE Ops HQ pages, nav (ops.js) and data (clients.json)
+  // cache-first. Ops HQ must always be fresh - let it go straight to the network.
+  if (url.pathname.startsWith('/ops-hq/')) return;
+
   // HTML: network-first, fall back to cache (so updates land fast)
   if (req.mode === 'navigate' || (req.headers.get('accept') || '').includes('text/html')) {
     event.respondWith(
@@ -49,10 +54,24 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Static assets: cache-first
+  // JSON data (price-list, business-info): network-first so prices/facts never go
+  // stale. Cache-first here once shipped a stale price list. Falls back to the last
+  // cached copy only when offline.
+  if (/\.json$/.test(url.pathname)) {
+    event.respondWith(
+      fetch(req).then((r) => {
+        const copy = r.clone();
+        caches.open(RUNTIME_CACHE).then((c) => c.put(req, copy));
+        return r;
+      }).catch(() => caches.match(req))
+    );
+    return;
+  }
+
+  // Other static assets (css, js, icons, images): cache-first
   event.respondWith(
     caches.match(req).then((cached) => cached || fetch(req).then((r) => {
-      if (r.ok && (url.pathname.startsWith('/assets/icons/') || /\.(css|js|json|png|svg|woff2)$/.test(url.pathname))) {
+      if (r.ok && (url.pathname.startsWith('/assets/icons/') || /\.(css|js|png|svg|woff2)$/.test(url.pathname))) {
         const copy = r.clone();
         caches.open(RUNTIME_CACHE).then((c) => c.put(req, copy));
       }
