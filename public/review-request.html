@@ -64,6 +64,9 @@
 (function () {
   var DEFAULT_TEMPLATE =
     "Hi {name}, thanks for choosing Dorset Rewires. If you were happy with the work, would you mind leaving a quick Google review? It really helps a small local business like ours, and it only takes 30 seconds: {link} Thanks, Pete.";
+  // Canonical Google review link (mirrors business-info.json google_review_url; guarded by
+  // check-business-info.py). Used as the default if nothing is saved on this device yet.
+  var DEFAULT_REVIEW_LINK = "https://g.page/r/CaqZW0VgL1BPEBM/review";
 
   var reviewLink = document.getElementById('reviewLink');
   var customerName = document.getElementById('customerName');
@@ -73,7 +76,7 @@
   var savedNote = document.getElementById('savedNote');
 
   // Restore saved link + template (persist on this device).
-  reviewLink.value = localStorage.getItem('dr_review_link') || '';
+  reviewLink.value = localStorage.getItem('dr_review_link') || DEFAULT_REVIEW_LINK;
   template.value = localStorage.getItem('dr_review_template') || DEFAULT_TEMPLATE;
 
   reviewLink.addEventListener('input', function () {
