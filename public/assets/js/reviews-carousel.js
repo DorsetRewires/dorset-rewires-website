@@ -16,18 +16,36 @@
     return out;
   }
 
+  function reviewWord(n) { return n === 1 ? 'review' : 'reviews'; }
+
   function render(data) {
     var revs = (data.reviews || []).filter(function (r) { return r.stars >= 5; });
     var agg = data.aggregate || {};
+    var hasReviews = (data.reviews || []).length > 0;
+    var ratingStr = (typeof agg.rating === 'number') ? agg.rating.toFixed(1) : (agg.rating || '?');
+
+    // Homepage hero badge + social-proof Google cell. These read reviews.json too, so
+    // there is ONE source for every review display and nothing can drift.
+    var heroCount = document.getElementById('heroReviewCount');
+    if (heroCount) {
+      heroCount.textContent = hasReviews
+        ? ratingStr + ' from ' + agg.count + ' ' + reviewWord(agg.count)
+        : 'Awaiting reviews';
+    }
+    var googleScore = document.getElementById('googleScore');
+    if (googleScore) {
+      googleScore.innerHTML = hasReviews
+        ? '<strong>' + ratingStr + '</strong><span>' + agg.count + ' ' + reviewWord(agg.count) + '</span>'
+        : '<span>Awaiting reviews</span>';
+    }
 
     // Page meta (reviews.html aggregate strip)
     if (pageMeta) {
-      var hasReviews = (data.reviews || []).length > 0;
       pageMeta.innerHTML =
         '<div class="reviews-meta" style="display:inline-flex;">' +
           '<div class="rm-stars" aria-hidden="true">' + stars(hasReviews ? Math.round(agg.rating || 0) : 5) + '</div>' +
           '<div class="rm-text">' + (hasReviews
-            ? '<strong>' + agg.rating + ' from ' + agg.count + ' ' + (agg.source || 'Google') + ' reviews</strong><br>Live feed - updated when new reviews land'
+            ? '<strong>' + ratingStr + ' from ' + agg.count + ' ' + (agg.source || 'Google') + ' ' + reviewWord(agg.count) + '</strong><br>Live feed - updated when new reviews land'
             : '<strong>Awaiting our first reviews</strong><br>We are newly listed online - check back soon') +
           '</div>' +
         '</div>';
@@ -63,7 +81,7 @@
       '<div class="rc-head">' +
         '<div class="rc-agg">' +
           '<span class="rc-agg-stars" aria-hidden="true">' + stars(Math.round(agg.rating || 0)) + '</span>' +
-          '<span class="rc-agg-text"><strong>' + (agg.rating || '?') + '</strong> from ' + (agg.count || '?') + ' ' + (agg.source || 'Google') + ' reviews</span>' +
+          '<span class="rc-agg-text"><strong>' + ratingStr + '</strong> from ' + (agg.count || '?') + ' ' + (agg.source || 'Google') + ' ' + reviewWord(agg.count) + '</span>' +
         '</div>' +
         '<a class="rc-viewall" href="reviews.html">See all reviews &rarr;</a>' +
       '</div>' +

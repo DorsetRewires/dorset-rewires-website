@@ -1,8 +1,17 @@
 {
   "aggregate": {
-    "rating": 0,
-    "count": 0,
+    "rating": 5.0,
+    "count": 1,
     "source": "Google"
   },
-  "reviews": []
+  "reviews": [
+    {
+      "stars": 5,
+      "body": "Pete at Dorset Rewires did an amazing job installing our ceiling fans. It was a last minute request...",
+      "author": "Sophia T.",
+      "location": "Verwood",
+      "date": "June 2026",
+      "source": "Google"
+    }
+  ]
 }
