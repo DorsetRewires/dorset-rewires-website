@@ -119,10 +119,10 @@ a:hover { text-decoration: underline; }
 }
 .eyebrow {
   display: inline-flex; align-items: center; gap: 8px;
-  background: rgba(244,163,0,0.18);
-  color: #FFD37A;
-  padding: 6px 14px; border-radius: var(--r-pill);
-  font-size: 13px; font-weight: 600; letter-spacing: 0.04em;
+  background: rgba(244,163,0,0.26);
+  color: #FFE6B0;
+  padding: 7px 15px; border-radius: var(--r-pill);
+  font-size: 13.5px; font-weight: 700; letter-spacing: 0.04em;
   margin: 0 0 18px;
 }
 .eb-dot {
