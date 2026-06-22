@@ -259,7 +259,7 @@ a:hover { text-decoration: underline; }
   padding: 28px 0;
 }
 .sp-grid {
-  display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px;
+  display: grid; grid-template-columns: repeat(2, 1fr); gap: 1px;
   background: var(--c-amber-line);
   border-radius: var(--r-md);
   overflow: hidden;
