@@ -32,11 +32,15 @@
         ? ratingStr + ' from ' + agg.count + ' ' + reviewWord(agg.count)
         : 'Awaiting reviews';
     }
-    var googleScore = document.getElementById('googleScore');
-    if (googleScore) {
-      googleScore.innerHTML = hasReviews
-        ? '<strong>' + ratingStr + '</strong><span>' + agg.count + ' ' + reviewWord(agg.count) + '</span>'
-        : '<span>Awaiting reviews</span>';
+    var googleRating = document.getElementById('googleRating');
+    if (googleRating) googleRating.textContent = hasReviews ? ratingStr : '';
+    var googleStars = document.getElementById('googleStars');
+    if (googleStars) googleStars.textContent = stars(hasReviews ? Math.round(agg.rating || 0) : 5);
+    var googleReviewCount = document.getElementById('googleReviewCount');
+    if (googleReviewCount) {
+      googleReviewCount.textContent = hasReviews
+        ? 'from ' + agg.count + ' ' + reviewWord(agg.count)
+        : 'Awaiting reviews';
     }
 
     // Page meta (reviews.html aggregate strip)
