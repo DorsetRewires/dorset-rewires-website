@@ -1,10 +1,26 @@
 {
   "aggregate": {
     "rating": 5.0,
-    "count": 1,
+    "count": 3,
     "source": "Google"
   },
   "reviews": [
+    {
+      "stars": 5,
+      "body": "These guys were fantastic, they wired my new build house in Lilliput and the work was perfect. Very tidy tradesmen and very easy to work with. Highly recommend and will use for any electrical work moving forward. Thanks",
+      "author": "Jake C",
+      "location": "Lilliput",
+      "date": "June 2026",
+      "source": "Google"
+    },
+    {
+      "stars": 5,
+      "body": "Thank you to Pete, who wired up our heat pump in Parkstone, he then proceeded to set it up to operate at its maximum efficiency, this was completed in January 2026 but I wanted to give it a good test before leaving this 5 star review, highly recommend and will be using him again for other electrical work.",
+      "author": "Gold Boiler Care",
+      "location": "Parkstone",
+      "date": "June 2026",
+      "source": "Google"
+    },
     {
       "stars": 5,
       "body": "Pete at Dorset Rewires did an amazing job installing our ceiling fans. It was a last minute request...",

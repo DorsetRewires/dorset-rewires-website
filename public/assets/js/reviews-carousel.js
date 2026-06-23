@@ -49,7 +49,7 @@
         '<div class="reviews-meta" style="display:inline-flex;">' +
           '<div class="rm-stars" aria-hidden="true">' + stars(hasReviews ? Math.round(agg.rating || 0) : 5) + '</div>' +
           '<div class="rm-text">' + (hasReviews
-            ? '<strong>' + ratingStr + ' from ' + agg.count + ' ' + (agg.source || 'Google') + ' ' + reviewWord(agg.count) + '</strong><br>Live feed - updated when new reviews land'
+            ? '<strong>' + ratingStr + ' from ' + agg.count + ' ' + (agg.source || 'Google') + ' ' + reviewWord(agg.count) + '</strong><br>Updated as new reviews come in'
             : '<strong>Awaiting our first reviews</strong><br>We are newly listed online - check back soon') +
           '</div>' +
         '</div>';

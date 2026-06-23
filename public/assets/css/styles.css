@@ -601,15 +601,16 @@ section { padding: var(--pad-md) 0; }
   pointer-events: auto;
   position: relative;
 }
+.rc-card { text-align: center; }
 .rc-card .rc-stars { color: var(--c-amber); font-size: 18px; letter-spacing: 2px; margin-bottom: 10px; }
 .rc-card blockquote {
-  margin: 0 0 14px;
+  margin: 0 auto 14px; max-width: 640px;
   font-size: 19px; line-height: 1.55; color: var(--c-text); font-style: normal;
   font-weight: 500; letter-spacing: -0.005em;
 }
-.rc-card footer { font-size: 13.5px; color: var(--c-text-mute); display: flex; flex-wrap: wrap; gap: 6px; align-items: baseline; }
+.rc-card footer { font-size: 13.5px; color: var(--c-text-mute); display: flex; flex-wrap: wrap; gap: 6px; align-items: baseline; justify-content: center; }
 .rc-card footer strong { color: var(--c-navy); font-size: 14.5px; }
-.rc-source { color: var(--c-text-faint); font-size: 12.5px; margin-left: auto; }
+.rc-source { color: var(--c-text-faint); font-size: 12.5px; }
 
 .rc-dots {
   display: flex; justify-content: center; gap: 8px; margin-top: 18px;
