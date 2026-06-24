@@ -1,6 +1,6 @@
 # Dorset Rewires & New Builds
 
-Customer-facing website + internal Operations HQ for Pete's NICEIC-approved electrical business in Bournemouth, Poole and Dorset.
+Customer-facing website + internal Operations HQ for Pete's electrical business in Bournemouth, Poole and Dorset.
 
 ## What's where
 
@@ -60,7 +60,7 @@ For persistent running, see `claude-memory-files/stack.md` (NSSM decisions).
 
 ## Naming convention
 
-Plain English, kebab-case, no abbreviations beyond industry-standard ones (EICR, NICEIC, CIS, VAT, PWA, CU).
+Plain English, kebab-case, no abbreviations beyond industry-standard ones (EICR, CIS, VAT, PWA, CU).
 
 Spec-locked names (must not be renamed): `index.html`, `manifest.json`, files under `/pages/` (URL slug = SEO target). Everything else, including the service worker (`quote-tool-service-worker.js`), gets a descriptive name.
 
