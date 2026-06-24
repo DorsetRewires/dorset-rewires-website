@@ -69,6 +69,8 @@
 /electrician-bournemouth.html              /pages/electrician-bournemouth               200
 /electrician-poole                         /pages/electrician-poole                     200
 /electrician-poole.html                    /pages/electrician-poole                     200
+/for-electricians                          /pages/for-electricians                      200
+/for-electricians.html                     /pages/for-electricians                      200
 
 # Homepage carved out of holding (2026-06-21) so it can be indexed and start the SEO
 # clock. Self-rewrite (source = dest, NO .html) exempts / from the catch-all, exactly
