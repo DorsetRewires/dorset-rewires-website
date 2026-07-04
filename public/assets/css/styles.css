@@ -135,6 +135,15 @@ a:hover { text-decoration: underline; }
   font-size: 13.5px; font-weight: 800; letter-spacing: 0.05em;
   text-transform: uppercase; margin: 0 0 18px;
 }
+/* Plain eyebrow for light pages - bold near-black text, NO pill (a pill reads as
+   a skippable badge). Amber accent on the key word/number so it still pops.
+   Added 2026-07-04 after the pill eyebrow tested as "banner-blind". */
+.eyebrow-plain {
+  display: inline-block; margin: 0 0 14px;
+  color: #0F2540; font-size: 14px; font-weight: 800;
+  letter-spacing: 0.06em; text-transform: uppercase;
+}
+.eyebrow-plain .accent { color: #F4A300; }
 .eb-dot {
   width: 6px; height: 6px; background: #F4A300; border-radius: 50%;
   box-shadow: 0 0 0 0 rgba(244,163,0,0.6);
