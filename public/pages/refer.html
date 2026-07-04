@@ -16,8 +16,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/styles.css">
-<link rel="stylesheet" href="../assets/css/page.css">
+<link rel="stylesheet" href="../assets/css/styles.css?v=6286cfb2">
+<link rel="stylesheet" href="../assets/css/page.css?v=6286cfb2">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -54,6 +54,7 @@
       <h1>Know someone doing up their house? Earn £300.</h1>
       <p class="lede-page">Send a friend our way for a <span class="text-highlight">rewire, renovation or extension</span>. When they go ahead, <strong>you get £300</strong>. Your friend gets <strong>free electrical safety kit worth hundreds</strong> to start their job right. Your mate is renovating anyway - might as well be £300 in your pocket.</p>
       <p class="lede-page"><strong>No limit.</strong> Refer three friends this year and that is £900. It costs you nothing and takes ten seconds.</p>
+      <p><a class="btn-amber wa-share" href="https://dorsetrewires.co.uk">Recommend us on WhatsApp</a></p>
 
       <h2>How it works</h2>
       <ol class="tick-list">
@@ -73,7 +74,7 @@
       <div class="page-cta cta-spaced">
         <h3>Refer a friend now</h3>
         <p>Two easy ways. Share our link, or pop their details in and we will look after the rest.</p>
-        <p><a class="btn-amber btn-block" id="waShare" href="https://dorsetrewires.co.uk">Share on WhatsApp</a></p>
+        <p><a class="btn-amber btn-block wa-share" id="waShare" href="https://dorsetrewires.co.uk">Share on WhatsApp</a></p>
         <p style="text-align:center;margin:14px 0 6px;color:#4A5468"><strong>Or send us their details</strong></p>
         <form class="quote-form" id="referralForm" novalidate>
           <label>Your name<input type="text" name="referrer_name" autocomplete="name" required></label>
@@ -132,8 +133,8 @@
     <p>&copy; 2026 Dorset Rewires All rights reserved. <a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a></p>
   </div>
 </footer>
-<script src="../assets/js/dr-config.js"></script>
-<script src="../assets/js/script.js"></script>
+<script src="../assets/js/dr-config.js?v=6286cfb2"></script>
+<script src="../assets/js/script.js?v=6286cfb2"></script>
 <script>
 // (1) Inject the free-check value LIVE from the price list (never hardcode a price).
 // (2) Build the WhatsApp share link with a pre-written, friendly message.
@@ -151,11 +152,12 @@
     }
   }).catch(function () {});
 
-  var share = document.getElementById('waShare');
-  if (share) {
-    var msg = "This is Pete the electrician - he owns Dorset Rewires and he's brilliant. "
+  var shareButtons = document.querySelectorAll('.wa-share');
+  if (shareButtons.length) {
+    var msg = "This is Pete the electrician - he owns Dorset Rewires. "
             + "https://dorsetrewires.co.uk";
-    share.href = 'https://wa.me/?text=' + encodeURIComponent(msg);
+    var waUrl = 'https://wa.me/?text=' + encodeURIComponent(msg);
+    shareButtons.forEach(function (el) { el.href = waUrl; });
   }
 })();
 </script>

@@ -1,16 +1,16 @@
 ﻿/* Dorset Rewires - quote tool offline service worker */
-const VERSION = 'v25-2026-07-04';
+const VERSION = 'sv-6286cfb2';
 const SHELL_CACHE = 'dorset-rewires-shell-' + VERSION;
 const RUNTIME_CACHE = 'dorset-rewires-runtime-' + VERSION;
 
 const SHELL = [
   '/quote.html',
-  '/assets/css/quote.css',
-  '/assets/js/dr-config.js',
-  '/assets/js/quote-calculator-logic.js',
-  '/assets/css/styles.css',
-  '/assets/js/script.js',
-  '/assets/js/reviews-carousel.js',
+  '/assets/css/quote.css?v=6286cfb2',
+  '/assets/js/dr-config.js?v=6286cfb2',
+  '/assets/js/quote-calculator-logic.js?v=6286cfb2',
+  '/assets/css/styles.css?v=6286cfb2',
+  '/assets/js/script.js?v=6286cfb2',
+  '/assets/js/reviews-carousel.js?v=6286cfb2',
   '/manifest.json',
   '/assets/icons/icon-192.png',
   '/assets/icons/icon-512.png',
