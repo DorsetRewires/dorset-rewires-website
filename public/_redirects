@@ -72,10 +72,11 @@
 /for-electricians                          /pages/for-electricians                      200
 /for-electricians.html                     /pages/for-electricians                      200
 
-# Referral-partner landing (2026-07-04). Private B2B page we point cold outreach at -
-# noindex, kept OUT of sitemap.xml. Clean dest (NO .html - that 308-loops).
-/partners                                  /pages/partners                              200
-/partners.html                             /pages/partners                              200
+# Referral-partner landing (built 2026-07-04, DISABLED 2026-07-04 to focus on /refer for
+# the mums word-of-mouth channel). File kept at public/pages/partners.html; re-enable by
+# uncommenting the two rules below. noindex, out of sitemap.
+# /partners                                /pages/partners                              200
+# /partners.html                           /pages/partners                              200
 
 # Refer-a-friend page (2026-07-04) - the £300 word-of-mouth program, shared via
 # WhatsApp/social. noindex, out of sitemap. Clean dest (NO .html - that 308-loops).
