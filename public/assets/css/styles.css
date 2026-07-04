@@ -140,6 +140,8 @@ a:hover { text-decoration: underline; }
    Added 2026-07-04 after the pill eyebrow tested as "banner-blind". */
 .eyebrow-plain {
   display: inline-block; margin: 0 0 14px;
+  background: #ffffff; border: 1px solid #E4E8EE;
+  padding: 7px 15px; border-radius: var(--r-pill);
   color: #0F2540; font-size: 15px; font-weight: 800;
   letter-spacing: 0.01em;
 }
