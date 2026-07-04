@@ -194,6 +194,62 @@
     });
   }
 
+  // Refer-a-friend form (public/pages/refer.html). Posts to the same lead worker,
+  // branched on form_type: 'referral'. Emails Pete at info@dorsetrewires.co.uk.
+  var referralForm = document.getElementById('referralForm');
+  if (referralForm) {
+    var REFERRAL_WORKER_URL = (window.DR_CONFIG || {}).quoteWorkerUrl;  // single source: assets/js/dr-config.js
+    var referralStatus = document.getElementById('referralStatus');
+    var referralSubmit = document.getElementById('referralSubmit');
+
+    function setReferralStatus(message, kind) {
+      if (!referralStatus) return;
+      referralStatus.hidden = false;
+      referralStatus.textContent = message;
+      referralStatus.className = 'form-msg' + (kind ? ' is-' + kind : '');
+    }
+
+    referralForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var fd = new FormData(referralForm);
+      var referrerName = (fd.get('referrer_name') || '').toString().trim();
+      var friendName = (fd.get('friend_name') || '').toString().trim();
+      if (!referrerName || !friendName) {
+        setReferralStatus('Please add your name and your friend\'s name.', 'error');
+        return;
+      }
+      var payload = {
+        form_type: 'referral',
+        referrer_name: referrerName,
+        referrer_contact: (fd.get('referrer_contact') || '').toString().trim(),
+        friend_name: friendName,
+        friend_contact: (fd.get('friend_contact') || '').toString().trim(),
+        message: (fd.get('message') || '').toString().trim(),
+        company: (fd.get('company') || '').toString()
+      };
+      if (referralSubmit) referralSubmit.disabled = true;
+      setReferralStatus('Sending...', null);
+      fetch(REFERRAL_WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (r) {
+        return r.json().catch(function () { return { ok: false }; });
+      }).then(function (j) {
+        if (j && j.ok) {
+          setReferralStatus('Thanks - we\'ve got it. We\'ll look after your friend and sort your £300.', 'ok');
+          referralForm.reset();
+        } else {
+          setReferralStatus((j && j.error) ? j.error : 'Could not send. Please email info@dorsetrewires.co.uk instead.', 'error');
+        }
+      }).catch(function () {
+        setReferralStatus('Could not send. Please email info@dorsetrewires.co.uk instead.', 'error');
+      }).then(function () {
+        if (referralSubmit) referralSubmit.disabled = false;
+      });
+    });
+  }
+
   var header = document.getElementById('siteHeader');
   if (header) {
     var lastY = 0;

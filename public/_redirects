@@ -77,6 +77,11 @@
 /partners                                  /pages/partners                              200
 /partners.html                             /pages/partners                              200
 
+# Refer-a-friend page (2026-07-04) - the £300 word-of-mouth program, shared via
+# WhatsApp/social. noindex, out of sitemap. Clean dest (NO .html - that 308-loops).
+/refer                                     /pages/refer                                 200
+/refer.html                                /pages/refer                                 200
+
 # Homepage carved out of holding (2026-06-21) so it can be indexed and start the SEO
 # clock. Self-rewrite (source = dest, NO .html) exempts / from the catch-all, exactly
 # like /quote below. Header-trace / after deploy to confirm 200 + no loop.
