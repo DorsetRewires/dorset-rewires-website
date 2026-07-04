@@ -72,6 +72,11 @@
 /for-electricians                          /pages/for-electricians                      200
 /for-electricians.html                     /pages/for-electricians                      200
 
+# Referral-partner landing (2026-07-04). Private B2B page we point cold outreach at -
+# noindex, kept OUT of sitemap.xml. Clean dest (NO .html - that 308-loops).
+/partners                                  /pages/partners                              200
+/partners.html                             /pages/partners                              200
+
 # Homepage carved out of holding (2026-06-21) so it can be indexed and start the SEO
 # clock. Self-rewrite (source = dest, NO .html) exempts / from the catch-all, exactly
 # like /quote below. Header-trace / after deploy to confirm 200 + no loop.

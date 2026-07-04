@@ -135,6 +135,65 @@
     });
   }
 
+  // Referral-partner "register your interest" form (public/pages/partners.html).
+  // Posts to the same lead worker as the quote/callback forms, branched on
+  // form_type: 'partner'. Emails Pete at info@dorsetrewires.co.uk via Brevo.
+  var partnerForm = document.getElementById('partnerForm');
+  if (partnerForm) {
+    var PARTNER_WORKER_URL = (window.DR_CONFIG || {}).quoteWorkerUrl;  // single source: assets/js/dr-config.js
+    var partnerStatus = document.getElementById('partnerStatus');
+    var partnerSubmit = document.getElementById('partnerSubmit');
+
+    function setPartnerStatus(message, kind) {
+      if (!partnerStatus) return;
+      partnerStatus.hidden = false;
+      partnerStatus.textContent = message;
+      partnerStatus.className = 'form-msg' + (kind ? ' is-' + kind : '');
+    }
+
+    partnerForm.addEventListener('submit', function (e) {
+      e.preventDefault();
+      var fd = new FormData(partnerForm);
+      var name = (fd.get('name') || '').toString().trim();
+      var emailAddr = (fd.get('email') || '').toString().trim();
+      if (!name || !emailAddr) {
+        setPartnerStatus('Please fill in your name and email.', 'error');
+        return;
+      }
+      var payload = {
+        form_type: 'partner',
+        name: name,
+        business: (fd.get('business') || '').toString().trim(),
+        profession: (fd.get('profession') || '').toString().trim(),
+        email: emailAddr,
+        phone: (fd.get('phone') || '').toString().trim(),
+        area: (fd.get('area') || '').toString().trim(),
+        message: (fd.get('message') || '').toString().trim(),
+        company: (fd.get('company') || '').toString()
+      };
+      if (partnerSubmit) partnerSubmit.disabled = true;
+      setPartnerStatus('Sending...', null);
+      fetch(PARTNER_WORKER_URL, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(payload)
+      }).then(function (r) {
+        return r.json().catch(function () { return { ok: false }; });
+      }).then(function (j) {
+        if (j && j.ok) {
+          setPartnerStatus('Thanks - we\'ve got your details. Pete will be in touch personally.', 'ok');
+          partnerForm.reset();
+        } else {
+          setPartnerStatus((j && j.error) ? j.error : 'Could not send. Please email info@dorsetrewires.co.uk instead.', 'error');
+        }
+      }).catch(function () {
+        setPartnerStatus('Could not send. Please email info@dorsetrewires.co.uk instead.', 'error');
+      }).then(function () {
+        if (partnerSubmit) partnerSubmit.disabled = false;
+      });
+    });
+  }
+
   var header = document.getElementById('siteHeader');
   if (header) {
     var lastY = 0;
