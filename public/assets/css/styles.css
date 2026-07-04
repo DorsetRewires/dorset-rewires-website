@@ -125,6 +125,16 @@ a:hover { text-decoration: underline; }
   font-size: 13.5px; font-weight: 700; letter-spacing: 0.04em;
   margin: 0 0 18px;
 }
+/* High-contrast eyebrow for LIGHT page backgrounds (the .eyebrow above is tuned
+   for the dark navy hero; on white it renders pale-on-pale). Solid amber pill,
+   navy text - use on sales pages like /refer. */
+.eyebrow-solid {
+  display: inline-flex; align-items: center;
+  background: #F4A300; color: #0F2540;
+  padding: 7px 15px; border-radius: var(--r-pill);
+  font-size: 13.5px; font-weight: 800; letter-spacing: 0.05em;
+  text-transform: uppercase; margin: 0 0 18px;
+}
 .eb-dot {
   width: 6px; height: 6px; background: #F4A300; border-radius: 50%;
   box-shadow: 0 0 0 0 rgba(244,163,0,0.6);

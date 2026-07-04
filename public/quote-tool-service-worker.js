@@ -1,5 +1,5 @@
 ﻿/* Dorset Rewires - quote tool offline service worker */
-const VERSION = 'v22-2026-07-04';
+const VERSION = 'v23-2026-07-04';
 const SHELL_CACHE = 'dorset-rewires-shell-' + VERSION;
 const RUNTIME_CACHE = 'dorset-rewires-runtime-' + VERSION;
 

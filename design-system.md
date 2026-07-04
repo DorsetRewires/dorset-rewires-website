@@ -39,6 +39,10 @@ the standard head/meta, header, footer and script include.
 - **Highlight** `.text-highlight` = navy bold text + 2px amber underline (decided
   2026-06-14, option C). Use it to emphasise a short phrase or a key promise. Do
   NOT use the old amber-marker style (it broke across line wraps).
+- **Eyebrow** (pre-headline pill): `.eyebrow` is tuned for the DARK navy hero
+  (translucent amber bg + pale cream text) - on a LIGHT/white page it renders
+  pale-on-pale (invisible). On light pages use `.eyebrow-solid` (solid amber bg,
+  navy text, uppercase). Added 2026-07-04 for sales-page eyebrows like /refer.
 - **Buttons**: `.btn-amber` (primary CTA, amber fill / navy text); `.btn-ghost-cta`
   and `.btn-ghost-dark` (secondary outlined); `.btn-call` (green call button);
   `.btn-awaiting` (disabled grey "awaiting" placeholder). Amber is reserved for the
