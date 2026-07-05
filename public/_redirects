@@ -1,5 +1,5 @@
 # Holding mode ("coming soon"), with ONE exception: the instant quote tool stays
-# public so Pete can price jobs on it and customers can self-serve a rough quote.
+# public so Pete can price jobs on it and customers can self-serve their own price.
 #
 # CRITICAL Cloudflare Pages rule: clean URLs are ON, so NEVER put .html in a
 # destination. A rewrite whose target ends in .html (e.g. /holding.html) makes
@@ -59,6 +59,10 @@
 /house-rewire-cost-guide-dorset-2026.html  /pages/house-rewire-cost-guide-dorset-2026   200
 /electrician-christchurch                  /pages/electrician-christchurch              200
 /electrician-christchurch.html             /pages/electrician-christchurch              200
+/electrician-ferndown                      /pages/electrician-ferndown                  200
+/electrician-ferndown.html                 /pages/electrician-ferndown                  200
+/electrician-wimborne-minster              /pages/electrician-wimborne-minster          200
+/electrician-wimborne-minster.html         /pages/electrician-wimborne-minster          200
 /consumer-unit-upgrade-bournemouth         /pages/consumer-unit-upgrade-bournemouth     200
 /consumer-unit-upgrade-bournemouth.html    /pages/consumer-unit-upgrade-bournemouth     200
 /eicr-bournemouth                          /pages/eicr-bournemouth                      200

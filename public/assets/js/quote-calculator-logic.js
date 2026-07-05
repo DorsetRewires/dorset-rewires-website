@@ -319,7 +319,7 @@
     lastLines = lines;
     lastTotal = total;
     if (csCta && total > 0) {
-      var body = 'Hi Pete,\n\nMy rough rewire quote is ' + formatAsCurrency(total) + '. Breakdown:\n\n' +
+      var body = 'Hi Pete,\n\nMy rewire quote is ' + formatAsCurrency(total) + '. Breakdown:\n\n' +
         lines.map(function (l) { return '- ' + l.name + ' = ' + formatAsCurrency(l.value); }).join('\n') +
         '\n\nPlease can you book a free home survey to confirm.';
       csCta.href = 'mailto:info@dorsetrewires.co.uk?subject=' + encodeURIComponent('Instant quote: ' + formatAsCurrency(total)) +

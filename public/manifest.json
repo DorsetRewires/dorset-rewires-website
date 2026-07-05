@@ -1,7 +1,7 @@
 ﻿{
   "name": "Dorset Rewires - Instant Quote",
   "short_name": "Dorset Rewires Quote",
-  "description": "Build a rough rewire quote on site in 60 seconds. Per-room socket/light/switch counter with running total.",
+  "description": "Build a rewire quote on site in 60 seconds. Per-room socket/light/switch counter with running total.",
   "start_url": "/quote.html?source=pwa",
   "scope": "/",
   "display": "standalone",
