@@ -64,7 +64,7 @@
           return '<article class="review-card">' +
             '<div class="rev-stars" aria-hidden="true">' + stars(r.stars) + '</div>' +
             '<blockquote>' + escapeHtml(r.body) + '</blockquote>' +
-            '<footer><strong>' + escapeHtml(r.author) + '</strong> &middot; ' + escapeHtml(r.location) + ' &middot; ' + escapeHtml(r.date) + '<span class="rev-source"> &middot; via ' + escapeHtml(r.source || 'Google') + '</span></footer>' +
+            '<footer><strong>' + escapeHtml(r.author) + '</strong> &middot; ' + (r.location ? escapeHtml(r.location) + ' &middot; ' : '') + escapeHtml(r.date) + '<span class="rev-source"> &middot; via ' + escapeHtml(r.source || 'Google') + '</span></footer>' +
           '</article>';
         }).join('');
       }
@@ -98,7 +98,7 @@
               '<blockquote>' + escapeHtml(r.body) + '</blockquote>' +
               '<footer>' +
                 '<strong>' + escapeHtml(r.author) + '</strong>' +
-                '<span> &middot; ' + escapeHtml(r.location) + ' &middot; ' + escapeHtml(r.date) + '</span>' +
+                '<span> &middot; ' + (r.location ? escapeHtml(r.location) + ' &middot; ' : '') + escapeHtml(r.date) + '</span>' +
                 '<span class="rc-source">via ' + escapeHtml(r.source || 'Google') + '</span>' +
               '</footer>' +
             '</article>';

@@ -1,10 +1,18 @@
 {
   "aggregate": {
     "rating": 5.0,
-    "count": 3,
+    "count": 4,
     "source": "Google"
   },
   "reviews": [
+    {
+      "stars": 5,
+      "body": "Dorset Rewires were brilliant from start to finish. Great communication, turned up when they said they would, and carried out the work to a really high standard. Everything was left tidy and they were professional throughout. Would definitely recommend and use again.",
+      "author": "Max Jones",
+      "location": "",
+      "date": "June 2026",
+      "source": "Google"
+    },
     {
       "stars": 5,
       "body": "These guys were fantastic, they wired my new build house in Lilliput and the work was perfect. Very tidy tradesmen and very easy to work with. Highly recommend and will use for any electrical work moving forward. Thanks",
