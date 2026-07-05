@@ -51,12 +51,12 @@
     {
       "label": "1-bed flat (up to 6 circuits)",
       "max_circuits": 6,
-      "price": 140
+      "price": 160
     },
     {
       "label": "2-3 bed (7-10 circuits)",
       "max_circuits": 10,
-      "price": 195
+      "price": 210
     },
     {
       "label": "4-5 bed (11-15 circuits)",
@@ -85,7 +85,7 @@
     "ashp_with_cu_upgrade_from": 1100
   },
   "labour_baselines": {
-    "single_sparky_day_rate": 300,
+    "single_sparky_day_rate": 400,
     "two_man_team_day_rate": 510,
     "hourly_fallback": 60
   }

@@ -21,6 +21,15 @@
     usb_socket_price: 100, water_bonding_price: 90, gas_bonding_price: 90
   };
 
+  // EICR banded prices - standalone from the rewire calc. Fallback matches
+  // /data/price-list.json eicr_by_circuit_count; the live fetch below overrides it.
+  var eicrCircuitBands = [
+    { max_circuits: 6, price: 160 },
+    { max_circuits: 10, price: 210 },
+    { max_circuits: 15, price: 265 },
+    { max_circuits: null, price: 345, per_extra_circuit: 20 }
+  ];
+
   // Load live prices and re-render if calculator is already running
   fetch('/data/price-list.json', { cache: 'no-cache' })
     .then(function (r) { return r.ok ? r.json() : null; })
@@ -60,6 +69,8 @@
       if (pp.usb_socket != null) PRICES.usb_socket_price = pp.usb_socket;
       if (pw.water_bonding != null) PRICES.water_bonding_price = pw.water_bonding;
       if (pw.gas_bonding != null) PRICES.gas_bonding_price = pw.gas_bonding;
+      if (Array.isArray(j.eicr_by_circuit_count) && j.eicr_by_circuit_count.length) eicrCircuitBands = j.eicr_by_circuit_count;
+      if (typeof refreshEicrPrice === 'function') refreshEicrPrice();
       if (typeof recalculateAndUpdateDisplay === 'function') recalculateAndUpdateDisplay();
     })
     .catch(function () { /* offline or missing - keep fallbacks */ });
@@ -541,7 +552,10 @@
 
     el.querySelector('.room-name').addEventListener('input', function (e) { room.name = e.target.value; recalculateAndUpdateDisplay(); });
 
-    el.querySelector('.room-minimise').addEventListener('click', function () {
+    // Click anywhere on the room head to collapse/expand, EXCEPT the name field and
+    // the remove (x) button, which do their own jobs. The minimise +/- button bubbles here.
+    el.querySelector('.room-head').addEventListener('click', function (event) {
+      if (event.target.closest('.room-name, .room-remove')) return;
       var isCollapsed = el.classList.toggle('room-collapsed');
       var minimiseButton = el.querySelector('.room-minimise');
       minimiseButton.innerHTML = isCollapsed ? '&plus;' : '&minus;';
@@ -683,8 +697,11 @@
       wholePropertyToggle.setAttribute('title', collapsed ? 'Expand this section' : 'Minimise this section');
     }
   }
-  if (wholePropertyToggle) {
-    wholePropertyToggle.addEventListener('click', function () {
+  // Click anywhere on the card head to collapse/expand (the +/- button bubbles up too).
+  var wholePropertyHead = wholePropertyBlock ? wholePropertyBlock.querySelector('.calc-block-head-collapsible') : null;
+  if (wholePropertyHead) {
+    wholePropertyHead.addEventListener('click', function (event) {
+      if (event.target.closest('a, input')) return;
       setWholePropertyCollapsed(!wholePropertyBlock.classList.contains('is-collapsed'));
     });
   }
@@ -693,6 +710,77 @@
       setWholePropertyCollapsed(true);
       if (wholePropertyBlock) wholePropertyBlock.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     });
+  }
+
+  // EICR safety-check card: standalone banded price by trip-switch (circuit) count.
+  // Reads eicrCircuitBands (live from price-list.json). Does NOT feed the rewire total.
+  var eicrBlock = document.getElementById('eicrBlock');
+  var eicrToggle = document.getElementById('eicrToggle');
+  var eicrCircuitInput = document.getElementById('eicrCircuitCount');
+  var eicrPriceDisplayEl = document.getElementById('eicrPriceDisplay');
+  var eicrResultEl = document.getElementById('eicrResult');
+
+  function eicrPriceForCircuits(circuits) {
+    if (!circuits || circuits < 1) return null;
+    var previousBandMaxCircuits = 0;
+    for (var i = 0; i < eicrCircuitBands.length; i++) {
+      var band = eicrCircuitBands[i];
+      if (band.max_circuits == null) {
+        var firstCircuitInBand = previousBandMaxCircuits + 1;
+        var extraCircuits = Math.max(0, circuits - firstCircuitInBand);
+        return band.price + extraCircuits * (band.per_extra_circuit || 0);
+      }
+      if (circuits <= band.max_circuits) return band.price;
+      previousBandMaxCircuits = band.max_circuits;
+    }
+    return null;
+  }
+
+  function refreshEicrPrice() {
+    if (!eicrCircuitInput) return;
+    var circuits = parseInt(eicrCircuitInput.value, 10) || 0;
+    var price = eicrPriceForCircuits(circuits);
+    if (price == null) {
+      if (eicrPriceDisplayEl) eicrPriceDisplayEl.textContent = '-';
+      if (eicrResultEl) eicrResultEl.textContent = 'Enter your trip-switch count to see your fixed EICR price.';
+      return;
+    }
+    if (eicrPriceDisplayEl) eicrPriceDisplayEl.textContent = '£' + price;
+    if (eicrResultEl) {
+      eicrResultEl.innerHTML = '<strong>Your EICR price: £' + price + '.</strong> Fixed price. Full report within 24 hours. No VAT to add. <a href="tel:+447836535100">Call 07836 535100 to book.</a>';
+    }
+  }
+
+  function setEicrCollapsed(collapsed) {
+    if (!eicrBlock) return;
+    eicrBlock.classList.toggle('is-collapsed', collapsed);
+    if (eicrToggle) {
+      eicrToggle.innerHTML = collapsed ? '&plus;' : '&minus;';
+      eicrToggle.setAttribute('aria-label', collapsed ? 'Expand EICR check' : 'Minimise EICR check');
+      eicrToggle.setAttribute('title', collapsed ? 'Expand this section' : 'Minimise this section');
+    }
+  }
+  // Click anywhere on the card head to collapse/expand (the +/- button bubbles up too).
+  var eicrHead = eicrBlock ? eicrBlock.querySelector('.calc-block-head-collapsible') : null;
+  if (eicrHead) {
+    eicrHead.addEventListener('click', function (event) {
+      if (event.target.closest('a, input')) return;
+      setEicrCollapsed(!eicrBlock.classList.contains('is-collapsed'));
+    });
+  }
+  if (eicrCircuitInput) {
+    eicrCircuitInput.addEventListener('input', refreshEicrPrice);
+    var eicrStepButtons = document.querySelectorAll('[data-eicr-step]');
+    for (var eicrStepIndex = 0; eicrStepIndex < eicrStepButtons.length; eicrStepIndex++) {
+      eicrStepButtons[eicrStepIndex].addEventListener('click', function (event) {
+        var step = parseInt(event.currentTarget.getAttribute('data-eicr-step'), 10) || 0;
+        var current = parseInt(eicrCircuitInput.value, 10) || 0;
+        var next = Math.max(0, Math.min(40, current + step));
+        eicrCircuitInput.value = next;
+        refreshEicrPrice();
+      });
+    }
+    refreshEicrPrice();
   }
 
   // Quick-estimate property-type prefill removed 2026-06-12: this is a custom-only

@@ -29,8 +29,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=2add7d87">
-<link rel="stylesheet" href="assets/css/quote.css?v=2add7d87">
+<link rel="stylesheet" href="assets/css/styles.css?v=f329d1be">
+<link rel="stylesheet" href="assets/css/quote.css?v=f329d1be">
 </head>
 <body>
 
@@ -78,6 +78,31 @@
       <div class="quote-tip">
         <span class="quote-tip-label">Tip</span>
         <p>Picture the job as a walk-round. Start on your driveway. Walk through each ground-floor room and picture what you want, and where. Don't forget the garden. Then head upstairs and do the rest.</p>
+      </div>
+
+      <div class="calc-block is-collapsed" id="eicrBlock">
+        <div class="calc-block-head calc-block-head-collapsible">
+          <div class="calc-block-head-text">
+            <h2>EICR safety check</h2>
+            <p>Just need an electrical safety report? Price it here.</p>
+          </div>
+          <span class="room-subtotal" id="eicrPriceDisplay">-</span>
+          <button type="button" class="calc-block-minimise" id="eicrToggle" aria-label="Expand EICR check" title="Expand this section">&plus;</button>
+        </div>
+        <div class="calc-rows" id="eicrRows">
+          <div class="calc-row">
+            <div class="calc-row-label">
+              <strong>How many trip switches are on your fuseboard?</strong>
+              <span>The little on/off switches in your consumer unit. Count them all.</span>
+            </div>
+            <div class="calc-row-controls">
+              <button type="button" class="calc-row-step-button" data-eicr-step="-1" aria-label="decrease">&minus;</button>
+              <input type="number" class="calc-row-quantity" id="eicrCircuitCount" value="0" min="0" max="40" inputmode="numeric" aria-label="number of trip switches">
+              <button type="button" class="calc-row-step-button" data-eicr-step="1" aria-label="increase">&plus;</button>
+            </div>
+          </div>
+          <p class="eicr-result" id="eicrResult">Enter your trip-switch count to see your fixed EICR price.</p>
+        </div>
       </div>
 
       <div class="calc-block is-collapsed" id="wholePropertyBlock">
@@ -344,9 +369,9 @@
   </div>
 </div>
 
-<script src="assets/js/dr-config.js?v=2add7d87"></script>
-<script src="assets/js/script.js?v=2add7d87"></script>
-<script src="assets/js/quote-calculator-logic.js?v=2add7d87"></script>
-<script src="assets/js/pwa.js?v=2add7d87"></script>
+<script src="assets/js/dr-config.js?v=f329d1be"></script>
+<script src="assets/js/script.js?v=f329d1be"></script>
+<script src="assets/js/quote-calculator-logic.js?v=f329d1be"></script>
+<script src="assets/js/pwa.js?v=f329d1be"></script>
 </body>
 </html>

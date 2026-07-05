@@ -34,6 +34,9 @@
 .calc-block-minimise:hover { color: var(--c-navy); background: var(--c-bg-soft); border-color: var(--c-border); }
 .calc-block.is-collapsed .calc-rows { display: none; }
 .calc-block.is-collapsed .calc-block-head { margin-bottom: 0; }
+.eicr-result { margin: 6px 0 2px; line-height: 1.5; }
+.calc-block-head-collapsible, .room-head { cursor: pointer; }
+.room-head .room-name { cursor: text; }
 
 .calc-rows { display: grid; gap: 12px; }
 .calc-row {
