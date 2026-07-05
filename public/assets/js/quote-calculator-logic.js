@@ -29,6 +29,9 @@
     { max_circuits: 15, price: 265 },
     { max_circuits: null, price: 345, per_extra_circuit: 20 }
   ];
+  // Commercial uplift: when the "commercial property" box is ticked, the EICR price is
+  // multiplied by (1 + this/100). Fallback matches price-list.json eicr_extras.
+  var eicrCommercialUpliftPercent = 75;
 
   // Load live prices and re-render if calculator is already running
   fetch('/data/price-list.json', { cache: 'no-cache' })
@@ -70,6 +73,7 @@
       if (pw.water_bonding != null) PRICES.water_bonding_price = pw.water_bonding;
       if (pw.gas_bonding != null) PRICES.gas_bonding_price = pw.gas_bonding;
       if (Array.isArray(j.eicr_by_circuit_count) && j.eicr_by_circuit_count.length) eicrCircuitBands = j.eicr_by_circuit_count;
+      if (j.eicr_extras && j.eicr_extras.commercial_uplift_percent != null) eicrCommercialUpliftPercent = j.eicr_extras.commercial_uplift_percent;
       if (typeof refreshEicrPrice === 'function') refreshEicrPrice();
       if (typeof recalculateAndUpdateDisplay === 'function') recalculateAndUpdateDisplay();
     })
@@ -776,6 +780,7 @@
   var eicrCircuitInput = document.getElementById('eicrCircuitCount');
   var eicrPriceDisplayEl = document.getElementById('eicrPriceDisplay');
   var eicrResultEl = document.getElementById('eicrResult');
+  var eicrCommercialToggle = document.getElementById('eicrCommercialToggle');
 
   function eicrPriceForCircuits(circuits) {
     if (!circuits || circuits < 1) return null;
@@ -802,9 +807,18 @@
       if (eicrResultEl) eicrResultEl.textContent = 'Enter your trip-switch count to see your fixed EICR price.';
       return;
     }
+    var isCommercial = eicrCommercialToggle && eicrCommercialToggle.checked;
+    if (isCommercial) {
+      // Commercial / 3-phase uplift, rounded to the nearest 5 pounds for a clean figure.
+      price = Math.round((price * (1 + eicrCommercialUpliftPercent / 100)) / 5) * 5;
+    }
     if (eicrPriceDisplayEl) eicrPriceDisplayEl.textContent = '£' + price;
     if (eicrResultEl) {
-      eicrResultEl.innerHTML = '<strong>Your EICR price: £' + price + '.</strong> Fixed price. Full report within 24 hours. No VAT to add. <a href="tel:+447836535100">Call 07836 535100 to book.</a>';
+      if (isCommercial) {
+        eicrResultEl.innerHTML = '<strong>Commercial guide price: £' + price + '.</strong> Business and 3-phase sites vary, so we confirm your exact price at a quick site visit. No VAT to add. <a href="tel:+447836535100">Call 07836 535100.</a>';
+      } else {
+        eicrResultEl.innerHTML = '<strong>Your EICR price: £' + price + '.</strong> Fixed price. Full report within 24 hours. No VAT to add. <a href="tel:+447836535100">Call 07836 535100 to book.</a>';
+      }
     }
   }
 
@@ -824,6 +838,9 @@
       if (event.target.closest('a, input')) return;
       setEicrCollapsed(!eicrBlock.classList.contains('is-collapsed'));
     });
+  }
+  if (eicrCommercialToggle) {
+    eicrCommercialToggle.addEventListener('change', refreshEicrPrice);
   }
   if (eicrCircuitInput) {
     eicrCircuitInput.addEventListener('input', refreshEicrPrice);

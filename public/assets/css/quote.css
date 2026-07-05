@@ -35,6 +35,8 @@
 .calc-block.is-collapsed .calc-rows { display: none; }
 .calc-block.is-collapsed .calc-block-head { margin-bottom: 0; }
 .eicr-result { margin: 6px 0 2px; line-height: 1.5; }
+.eicr-commercial { display: flex; align-items: center; gap: 8px; margin: 8px 0 2px; cursor: pointer; font-size: 14px; }
+.eicr-commercial input { width: 18px; height: 18px; cursor: pointer; flex: 0 0 auto; }
 .calc-block-head-collapsible, .room-head { cursor: pointer; }
 .room-head .room-name { cursor: text; }
 

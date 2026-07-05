@@ -73,7 +73,8 @@
   "eicr_extras": {
     "retest_within_90_days": 85,
     "landlord_portfolio_discount_percent": 10,
-    "landlord_portfolio_min_properties": 3
+    "landlord_portfolio_min_properties": 3,
+    "commercial_uplift_percent": 75
   },
   "heating_wiring": {
     "combi_basic": 175,
