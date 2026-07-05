@@ -86,7 +86,7 @@
   },
   "labour_baselines": {
     "single_sparky_day_rate": 400,
-    "two_man_team_day_rate": 510,
+    "two_man_team_day_rate": 800,
     "hourly_fallback": 60
   }
 }

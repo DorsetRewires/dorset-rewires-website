@@ -169,6 +169,14 @@
   background: var(--c-amber); color: var(--c-navy);
   border-radius: 999px; font-size: 11px; font-weight: 800; line-height: 1;
 }
+.quick-add-remove {
+  display: inline-flex; align-items: center; justify-content: center;
+  margin-left: 4px; width: 18px; height: 18px;
+  background: #C13B3B; color: #fff;
+  border-radius: 999px; font-size: 13px; font-weight: 800; line-height: 1;
+  cursor: pointer;
+}
+.quick-add-remove:hover { background: #A93226; }
 
 /* ==== Unified room item rows ====
    Every item in a room (sockets, lights, radials, etc.) uses the SAME row

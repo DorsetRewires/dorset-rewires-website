@@ -359,6 +359,39 @@
     return state.rooms.filter(function (r) { return r.preset_key === presetKey; }).length;
   }
 
+  // Remove a room by id. Shared by the room's own x button and the quick-add x.
+  // Mirrors the per-room remove: state + DOM card + badges + totals + save.
+  function removeRoomById(roomId) {
+    state.rooms = state.rooms.filter(function (r) { return r.id !== roomId; });
+    var card = document.querySelector('[data-room-id="' + roomId + '"]');
+    if (card) card.remove();
+    updateQuickAddBadges();
+    recalculateAndUpdateDisplay();
+    saveQuoteState();
+  }
+
+  // Quick-add x: remove ONE room of this type per click. Empty rooms go first
+  // with no warning. If every room of the type has items, warn before deleting one.
+  function removeOneRoomOfType(presetKey) {
+    var roomsOfType = state.rooms.filter(function (r) { return r.preset_key === presetKey; });
+    if (roomsOfType.length === 0) return;
+    var emptyRooms = roomsOfType.filter(function (r) { return countActiveItemsInRoom(r) === 0; });
+    if (emptyRooms.length > 0) {
+      removeRoomById(emptyRooms[emptyRooms.length - 1].id);
+      return;
+    }
+    var target = roomsOfType[roomsOfType.length - 1];
+    var itemCount = countActiveItemsInRoom(target);
+    var roomName = (target.name && target.name.trim()) ? target.name : 'this room';
+    window.showConfirmDialog({
+      title: 'Remove this room?',
+      message: roomName + ' has ' + itemCount + ' item' + (itemCount === 1 ? '' : 's') + ' added. Removing it loses those inputs.',
+      confirmLabel: 'Remove room',
+      cancelLabel: 'Keep it',
+      danger: true
+    }).then(function (confirmed) { if (confirmed) removeRoomById(target.id); });
+  }
+
   // Refresh the small "n" badge on each quick-add button so Pete can see at
   // a glance how many kitchens / bedrooms / etc. are already in the list.
   function updateQuickAddBadges() {
@@ -374,6 +407,7 @@
       }
       var count = countRoomsByPresetKey(presetKey);
       var existing = button.querySelector('.quick-add-count');
+      var removeControl = button.querySelector('.quick-add-remove');
       if (count > 0) {
         if (existing) {
           existing.textContent = count;
@@ -384,8 +418,31 @@
           badge.textContent = count;
           button.appendChild(badge);
         }
-      } else if (existing) {
-        existing.remove();
+        // The red x that removes one room of this type. Created once, then reused.
+        if (!removeControl) {
+          removeControl = document.createElement('span');
+          removeControl.className = 'quick-add-remove';
+          removeControl.setAttribute('role', 'button');
+          removeControl.setAttribute('tabindex', '0');
+          removeControl.setAttribute('aria-label', 'Remove one ' + (PRESETS[presetKey] ? PRESETS[presetKey].name : 'room'));
+          removeControl.innerHTML = '&times;';
+          removeControl.addEventListener('click', function (event) {
+            event.stopPropagation();
+            event.preventDefault();
+            removeOneRoomOfType(presetKey);
+          });
+          removeControl.addEventListener('keydown', function (event) {
+            if (event.key === 'Enter' || event.key === ' ') {
+              event.preventDefault();
+              event.stopPropagation();
+              removeOneRoomOfType(presetKey);
+            }
+          });
+          button.appendChild(removeControl);
+        }
+      } else {
+        if (existing) existing.remove();
+        if (removeControl) removeControl.remove();
       }
     });
   }
