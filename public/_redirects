@@ -61,8 +61,10 @@
 /electrician-christchurch.html             /pages/electrician-christchurch              200
 /electrician-ferndown                      /pages/electrician-ferndown                  200
 /electrician-ferndown.html                 /pages/electrician-ferndown                  200
-/electrician-wimborne-minster              /pages/electrician-wimborne-minster          200
-/electrician-wimborne-minster.html         /pages/electrician-wimborne-minster          200
+/electrician-wimborne                      /pages/electrician-wimborne                  200
+/electrician-wimborne.html                 /pages/electrician-wimborne                  200
+/electrician-wimborne-minster              /electrician-wimborne                        301
+/electrician-wimborne-minster.html         /electrician-wimborne                        301
 /consumer-unit-upgrade-bournemouth         /pages/consumer-unit-upgrade-bournemouth     200
 /consumer-unit-upgrade-bournemouth.html    /pages/consumer-unit-upgrade-bournemouth     200
 /eicr-bournemouth                          /pages/eicr-bournemouth                      200
