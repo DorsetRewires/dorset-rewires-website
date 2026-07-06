@@ -264,7 +264,7 @@ a:hover { text-decoration: underline; }
 
 /* Real board photography (replaces the photo-stub placeholders) */
 .hero-img {
-  width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover;
+  width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover;
   border-radius: var(--r-lg); display: block;
   box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04), 0 30px 60px -20px rgba(0,0,0,0.55);
 }
