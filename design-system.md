@@ -70,6 +70,26 @@ and SEO pages are content/article pages ("blog feel") on white. To stop the head
 blending into white content, the header has a persistent bottom divider. (If we
 later decide sub-pages should get a navy title band instead, record that here.)
 
+## Board / install photography (added 2026-07-06)
+
+Real photos of Pete's boards. Replaces the old `.photo-stub` placeholders.
+
+- **Files**: WebP only, in `public/assets/img/`, descriptive kebab-case names
+  (`consumer-unit-surge-protection-device.webp`). Source originals stay in the
+  local-only `ops/photos-raw/` (gitignored) - never ship the raw JPEGs.
+- **Processing** (see the one-off `scratchpad/process_board_photos.py` recipe):
+  EXIF auto-rotate, light polish, resize to 1300px wide, WebP q80, **strip all
+  metadata** (no GPS/EXIF ever ships). Target under ~110 KB per image.
+- **Hero image** (`.hero-img`): fills the 4/3 hero-photo box (`object-fit: cover`),
+  `fetchpriority="high"`, no lazy-load (it is the LCP element).
+- **Content figure** (`.board-figure` > `img` + `figcaption`): rounded, soft
+  shadow, muted centered caption. Below-the-fold images get `loading="lazy"`;
+  the first (near-top) image does not.
+- **Every image needs** `width`/`height` attributes (stops layout shift) and
+  **honest, descriptive alt text**. These are bench-built boards, so alt/captions
+  describe what is shown ("wired and labelled by Dorset Rewires") - never imply a
+  specific customer job. No NICEIC in shot. Keyword-relevant but not stuffed.
+
 ## Governance - how this stays true
 
 1. **Reuse first**: before building a component, check this doc + `ops/templates/`.

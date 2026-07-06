@@ -262,6 +262,20 @@ a:hover { text-decoration: underline; }
 .photo-stub-portrait { aspect-ratio: 4 / 5; }
 .photo-label { font-size: 13px; padding: 0 24px; text-align: center; color: rgba(255,255,255,0.55); }
 
+/* Real board photography (replaces the photo-stub placeholders) */
+.hero-img {
+  width: 100%; height: auto; aspect-ratio: 4 / 3; object-fit: cover;
+  border-radius: var(--r-lg); display: block;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,0.04), 0 30px 60px -20px rgba(0,0,0,0.55);
+}
+.board-figure { margin: 26px 0; }
+.board-figure img {
+  width: 100%; height: auto; display: block;
+  border-radius: var(--r-lg);
+  box-shadow: 0 14px 34px -16px rgba(20,37,63,0.35);
+}
+.board-figure figcaption { font-size: 13.5px; color: var(--c-text-mute); margin-top: 10px; text-align: center; }
+
 .hero-badge {
   position: absolute; bottom: -16px; left: 16px;
   background: #fff; color: var(--c-navy);
