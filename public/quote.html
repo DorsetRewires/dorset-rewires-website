@@ -29,8 +29,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=0820d46a">
-<link rel="stylesheet" href="assets/css/quote.css?v=0820d46a">
+<link rel="stylesheet" href="assets/css/styles.css?v=d4ac9c60">
+<link rel="stylesheet" href="assets/css/quote.css?v=d4ac9c60">
 </head>
 <body>
 
@@ -109,16 +109,16 @@
         </div>
       </div>
 
-      <div class="calc-block is-collapsed" id="wholePropertyBlock">
+      <div class="calc-block is-collapsed" id="consumerUnitBlock">
         <div class="calc-block-head calc-block-head-collapsible">
           <div class="calc-block-head-text">
-            <h2>Whole-property items</h2>
-            <p>Add the bits that aren&rsquo;t room-specific.</p>
+            <h2>Consumer unit (fuse board swap)</h2>
+            <p>Swapping an old fusebox for a modern board? Add it here.</p>
           </div>
-          <span class="room-subtotal" id="wholePropertySubtotal">&pound;0</span>
-          <button type="button" class="calc-block-minimise" id="wholePropertyToggle" aria-label="Expand whole-property items" title="Expand this section">&plus;</button>
+          <span class="room-subtotal" id="consumerUnitSubtotal">&pound;0</span>
+          <button type="button" class="calc-block-minimise" id="consumerUnitToggle" aria-label="Expand consumer unit" title="Expand this section">&plus;</button>
         </div>
-        <div class="calc-rows" id="wholePropertyRows">
+        <div class="calc-rows" id="consumerUnitRows">
           <div class="calc-row" data-key="consumer_unit_count">
             <div class="calc-row-label">
               <strong>RCBO Consumer Unit (up to 12 ways) with surge suppression</strong>
@@ -131,6 +131,19 @@
               <button type="button" class="calc-row-step-button" data-step="1" aria-label="increase">&plus;</button>
             </div>
           </div>
+        </div>
+      </div>
+
+      <div class="calc-block is-collapsed" id="wholePropertyBlock">
+        <div class="calc-block-head calc-block-head-collapsible">
+          <div class="calc-block-head-text">
+            <h2>Whole-property items</h2>
+            <p>Add the bits that aren&rsquo;t room-specific.</p>
+          </div>
+          <span class="room-subtotal" id="wholePropertySubtotal">&pound;0</span>
+          <button type="button" class="calc-block-minimise" id="wholePropertyToggle" aria-label="Expand whole-property items" title="Expand this section">&plus;</button>
+        </div>
+        <div class="calc-rows" id="wholePropertyRows">
           <div class="calc-row" data-key="smoke_detector_count">
             <div class="calc-row-label">
               <strong>Heat/Smoke detector</strong>
@@ -246,6 +259,13 @@
           <div class="summary-sub" id="csCount">0 items added</div>
         </div>
         <div class="summary-line-list" id="csLines"></div>
+        <div class="consumer-unit-prompt" id="consumerUnitPrompt" hidden>
+          <p><strong>Add a new fuse board?</strong> Almost every rewire needs a new consumer unit. Add a 12-way RCBO board with surge protection for &pound;625.</p>
+          <div class="consumer-unit-prompt-actions">
+            <button type="button" class="consumer-unit-prompt-add" id="consumerUnitPromptAdd">Add it - &pound;625</button>
+            <button type="button" class="consumer-unit-prompt-dismiss" id="consumerUnitPromptDismiss">No, already covered</button>
+          </div>
+        </div>
         <div class="summary-vat">No VAT to add - Dorset Rewires is not VAT registered.<span class="summary-vat-cheeky">Yes, really - grab a bargain while you can.</span></div>
         <a class="btn-amber btn-block summary-cta" id="csCta" href="mailto:info@dorsetrewires.co.uk?subject=Instant%20quote%20enquiry">Send my quote to Pete</a>
         <a class="btn-ghost-cta" href="tel:+447836535100">Or call 07836 535100</a>
@@ -373,9 +393,9 @@
   </div>
 </div>
 
-<script src="assets/js/dr-config.js?v=0820d46a"></script>
-<script src="assets/js/script.js?v=0820d46a"></script>
-<script src="assets/js/quote-calculator-logic.js?v=0820d46a"></script>
-<script src="assets/js/pwa.js?v=0820d46a"></script>
+<script src="assets/js/dr-config.js?v=d4ac9c60"></script>
+<script src="assets/js/script.js?v=d4ac9c60"></script>
+<script src="assets/js/quote-calculator-logic.js?v=d4ac9c60"></script>
+<script src="assets/js/pwa.js?v=d4ac9c60"></script>
 </body>
 </html>

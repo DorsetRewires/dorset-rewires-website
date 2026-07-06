@@ -138,6 +138,9 @@
   var csCta = document.getElementById('csCta');
   var csReset = document.getElementById('csReset');
   var wholePropertySubtotalEl = document.getElementById('wholePropertySubtotal');
+  var consumerUnitSubtotalEl = document.getElementById('consumerUnitSubtotal');
+  var consumerUnitPromptEl = document.getElementById('consumerUnitPrompt');
+  var consumerUnitPromptDismissed = false;
 
   var lastLines = [];
   var lastTotal = 0;
@@ -250,6 +253,7 @@
   function recalculateAndUpdateDisplay() {
     var total = 0;
     var itemCount = 0;
+    var roomItemCount = 0;
     var lines = [];
 
     if (state.consumer_unit_count > 0) {
@@ -300,6 +304,7 @@
       var roomItems = room.sockets + room.lights + room.fused_spurs + room.one_way_switches + room.two_way_switches + room.extractor_fans + room.data_points
         + (room.shaver_sockets || 0) + (room.usb_sockets || 0) + (room.flip_lid_floor_sockets || 0) + (room.five_amp_sockets || 0) + (room.external_ip_fittings || 0) + (room.tv_points || 0) + (room.sky_points || 0) + (room.telephone_points || 0)
         + room.led_strip_continuous_count + room.led_strip_section_count + room.radial_16amp_count + room.radial_32amp_count;
+      roomItemCount += roomItems;
       if (sub > 0 || roomItems > 0) {
         total += sub;
         itemCount += roomItems;
@@ -345,7 +350,6 @@
     // the total is visible even when the block is minimised.
     if (wholePropertySubtotalEl) {
       var wholePropertySubtotal =
-        state.consumer_unit_count * PRICES.consumer_unit_price +
         state.smoke_detector_count * PRICES.smoke_detector_price +
         state.tv_aerial_count * PRICES.tv_aerial_price +
         state.wired_ring_doorbell_count * PRICES.wired_ring_doorbell_cam_price +
@@ -353,6 +357,16 @@
         state.water_bonding_count * PRICES.water_bonding_price +
         state.gas_bonding_count * PRICES.gas_bonding_price;
       wholePropertySubtotalEl.textContent = wholePropertySubtotal > 0 ? formatAsCurrency(wholePropertySubtotal) : '£0';
+    }
+
+    if (consumerUnitSubtotalEl) {
+      var consumerUnitSubtotal = state.consumer_unit_count * PRICES.consumer_unit_price;
+      consumerUnitSubtotalEl.textContent = consumerUnitSubtotal > 0 ? formatAsCurrency(consumerUnitSubtotal) : '£0';
+    }
+
+    // Prompt to add a consumer unit when a rewire is being built without one.
+    if (consumerUnitPromptEl) {
+      consumerUnitPromptEl.hidden = !(roomItemCount > 0 && state.consumer_unit_count === 0 && !consumerUnitPromptDismissed);
     }
 
     if (csReset) csReset.hidden = (itemCount === 0 && state.rooms.length === 0);
@@ -770,6 +784,43 @@
     wholePropertyDone.addEventListener('click', function () {
       setWholePropertyCollapsed(true);
       if (wholePropertyBlock) wholePropertyBlock.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    });
+  }
+
+  // Consumer-unit card: collapsible like the others, plus the "add a board" prompt.
+  var consumerUnitBlock = document.getElementById('consumerUnitBlock');
+  var consumerUnitToggle = document.getElementById('consumerUnitToggle');
+  function setConsumerUnitCollapsed(collapsed) {
+    if (!consumerUnitBlock) return;
+    consumerUnitBlock.classList.toggle('is-collapsed', collapsed);
+    if (consumerUnitToggle) {
+      consumerUnitToggle.innerHTML = collapsed ? '&plus;' : '&minus;';
+      consumerUnitToggle.setAttribute('aria-label', collapsed ? 'Expand consumer unit' : 'Minimise consumer unit');
+      consumerUnitToggle.setAttribute('title', collapsed ? 'Expand this section' : 'Minimise this section');
+    }
+  }
+  var consumerUnitHead = consumerUnitBlock ? consumerUnitBlock.querySelector('.calc-block-head-collapsible') : null;
+  if (consumerUnitHead) {
+    consumerUnitHead.addEventListener('click', function (event) {
+      if (event.target.closest('a, input')) return;
+      setConsumerUnitCollapsed(!consumerUnitBlock.classList.contains('is-collapsed'));
+    });
+  }
+  var consumerUnitPromptAddButton = document.getElementById('consumerUnitPromptAdd');
+  var consumerUnitPromptDismissButton = document.getElementById('consumerUnitPromptDismiss');
+  if (consumerUnitPromptAddButton) {
+    consumerUnitPromptAddButton.addEventListener('click', function () {
+      state.consumer_unit_count = 1;
+      var consumerUnitInput = consumerUnitBlock ? consumerUnitBlock.querySelector('.calc-row-quantity') : null;
+      if (consumerUnitInput) consumerUnitInput.value = 1;
+      setConsumerUnitCollapsed(false);
+      recalculateAndUpdateDisplay();
+    });
+  }
+  if (consumerUnitPromptDismissButton) {
+    consumerUnitPromptDismissButton.addEventListener('click', function () {
+      consumerUnitPromptDismissed = true;
+      if (consumerUnitPromptEl) consumerUnitPromptEl.hidden = true;
     });
   }
 

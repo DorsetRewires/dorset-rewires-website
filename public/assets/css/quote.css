@@ -377,3 +377,22 @@
 @media all and (display-mode: standalone) {
   .pwa-install, .site-header, .mobile-call-bar, footer.site-footer { /* keep header + bar */ }
 }
+
+/* Consumer-unit "add a board" prompt in the running-total summary */
+.consumer-unit-prompt {
+  background: var(--c-amber-soft);
+  border: 1px solid var(--c-amber-line);
+  border-radius: var(--r-md);
+  padding: 14px 16px;
+  margin: 14px 0;
+}
+.consumer-unit-prompt p { margin: 0 0 10px; font-size: 14px; line-height: 1.4; color: var(--c-text); }
+.consumer-unit-prompt-actions { display: flex; gap: 8px; flex-wrap: wrap; }
+.consumer-unit-prompt-add {
+  background: var(--c-amber); color: var(--c-navy); border: none;
+  border-radius: var(--r-sm); padding: 9px 14px; font-weight: 800; font-size: 14px; cursor: pointer;
+}
+.consumer-unit-prompt-dismiss {
+  background: transparent; border: 1px solid var(--c-border); color: var(--c-text-soft);
+  border-radius: var(--r-sm); padding: 9px 14px; font-size: 14px; cursor: pointer;
+}
