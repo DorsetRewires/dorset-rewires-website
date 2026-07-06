@@ -75,8 +75,11 @@ later decide sub-pages should get a navy title band instead, record that here.)
 Real photos of Pete's boards. Replaces the old `.photo-stub` placeholders.
 
 - **Files**: WebP only, in `public/assets/img/`, descriptive kebab-case names
-  (`consumer-unit-surge-protection-device.webp`). Source originals stay in the
-  local-only `ops/photos-raw/` (gitignored) - never ship the raw JPEGs.
+  (`consumer-unit-surge-protection-device.webp`). Source originals stay local-only
+  (gitignored) in `ops/Images/YYYYMMDD__Subject/Originals/`, with the exact shots
+  that went live copied to a `web-source-originals/` subfolder named to match their
+  `.webp`. Never ship the raw JPEGs. One source of truth: live images live ONLY in
+  `public/assets/img/` - do not keep an "edited" mirror in ops.
 - **Processing** (see the one-off `scratchpad/process_board_photos.py` recipe):
   EXIF auto-rotate, light polish, resize to 1300px wide, WebP q80, **strip all
   metadata** (no GPS/EXIF ever ships). Target under ~110 KB per image.
