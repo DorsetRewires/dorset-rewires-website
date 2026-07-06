@@ -84,10 +84,5 @@
     "s_plan_with_cores_run": 475,
     "ashp_existing_cu": 650,
     "ashp_with_cu_upgrade_from": 1100
-  },
-  "labour_baselines": {
-    "single_sparky_day_rate": 400,
-    "two_man_team_day_rate": 800,
-    "hourly_fallback": 60
   }
 }
