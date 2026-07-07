@@ -78,6 +78,7 @@
       if (j.eicr_extras && j.eicr_extras.commercial_uplift_percent != null) eicrCommercialUpliftPercent = j.eicr_extras.commercial_uplift_percent;
       if (typeof refreshEicrPrice === 'function') refreshEicrPrice();
       if (typeof recalculateAndUpdateDisplay === 'function') recalculateAndUpdateDisplay();
+      if (typeof updateConsumerUnitWhatsAppLink === 'function') updateConsumerUnitWhatsAppLink();
     })
     .catch(function () { /* offline or missing - keep fallbacks */ });
 
@@ -144,6 +145,7 @@
   var consumerUnitSubtotalEl = document.getElementById('consumerUnitSubtotal');
   var consumerUnitPriceEl = document.getElementById('consumerUnitPrice');
   var consumerUnitSizeSelect = document.getElementById('consumerUnitSize');
+  var consumerUnitWhatsAppLink = document.getElementById('consumerUnitWhatsApp');
   var consumerUnitPromptEl = document.getElementById('consumerUnitPrompt');
   var consumerUnitPromptDismissed = false;
 
@@ -224,6 +226,18 @@
   function consumerUnitSizeLabel() {
     return state.consumer_unit_size === 'large' ? 'up to 15-way' : 'up to 7-way';
   }
+
+  // "Send us a photo of your board" WhatsApp link. Built from the LIVE prices so
+  // the pre-filled message always names the current tier prices.
+  var CONSUMER_UNIT_WHATSAPP_NUMBER = '447836535100';  // public DR business number, no leading +
+  function updateConsumerUnitWhatsAppLink() {
+    if (!consumerUnitWhatsAppLink) return;
+    var message = "Hi Pete, here's a photo of my fuse board. Is this an average board change (" +
+      formatAsCurrency(PRICES.consumer_unit_price) + ") or a large one (" +
+      formatAsCurrency(PRICES.consumer_unit_large_price) + ")?";
+    consumerUnitWhatsAppLink.href = 'https://wa.me/' + CONSUMER_UNIT_WHATSAPP_NUMBER + '?text=' + encodeURIComponent(message);
+  }
+  updateConsumerUnitWhatsAppLink();  // set now with fallback prices; refreshed after the live fetch
 
   function calculateRoomSubtotal(room) {
     var sub = 0;
