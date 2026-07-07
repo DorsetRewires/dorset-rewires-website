@@ -93,6 +93,38 @@ Real photos of Pete's boards. Replaces the old `.photo-stub` placeholders.
   describe what is shown ("wired and labelled by Dorset Rewires") - never imply a
   specific customer job. No NICEIC in shot. Keyword-relevant but not stuffed.
 
+## OG / social preview images (the "bare Hormozi" standard, 2026-07-07)
+
+Every shared link (WhatsApp, Facebook, X, iMessage) shows a 1200x630 card. ONE
+house style, so a link to any page looks like the same brand.
+
+- **Format**: plain navy field (`--c-navy`), a couple of BIG words, centred. One
+  cream context line stacked above one amber (`--c-amber`) hero line. NO wordmark,
+  NO strapline, NO trust bar, NO photo. Bold and sparse - the URL under the card
+  already carries the brand name, so the picture just lands one hook. This is the
+  treatment the `/refer` ("Earn / £300 / Refer us") and consumer-unit
+  ("10-year / warranty") cards set; everything else now matches it.
+- **What the amber hero says**: LOCATION pages lead with the town in amber
+  (`Electrician in` / **`Bournemouth`**); OFFER pages lead with the hook in amber
+  (`Your quote` / **`in 60 seconds`**). Amber is the one thing the eye should land on.
+- **Copy rules**: a few words only, and only NON-DRIFT claims - no live prices
+  (the fixed `£300` referral and `10-year` guarantee are safe; a quote price is
+  not), and never "NICEIC" (application still pending - see the compliance memo).
+- **Square-crop safe zone**: WhatsApp centre-crops the thumbnail to a SQUARE,
+  keeping only the middle ~560px of the 1200 width. Every line MUST fit inside
+  that or it clips (this ate the left edge of the old cards). The generator
+  auto-shrinks a long word (Christchurch) to fit; keep hand-tuned cards short.
+- **How to make/change one**: they are generated, never hand-edited -
+  `python ops/tools/make-og-images.py` (Pillow, Arial Bold substituting for Inter,
+  JPEG q90, overwrites `public/og-*.jpg` in place). Add a page to the `PAGES` list
+  (filename, context line, hero line) and re-run. Then `check-og-images.py`
+  (bundled in preflight) confirms every page's `og:image` points to a real file.
+- **Deliberate exceptions** (leave these alone): the homepage `public/og-image.jpg`
+  ("Quotes, not estimates.") is a hand-built Playwright render
+  (`ops/tools/_review/og-card.html`), kept on purpose; `/refer` and the
+  consumer-unit card are multi-line but the same bare aesthetic, hand-tuned in
+  `build_refer()` / `build_cu()`.
+
 ## Governance - how this stays true
 
 1. **Reuse first**: before building a component, check this doc + `ops/templates/`.
