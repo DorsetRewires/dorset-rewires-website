@@ -16,5 +16,6 @@
   "stage_payment_threshold_gbp": "3,000",
   "stage_payment_schedule_percent": "5,20,25,25,15,10",
   "retention_percent": "2.5",
+  "referral_rewards": { "full_rewire_new_build_renovation": 300, "partial_rewire_extension": 150, "fuseboard_smaller_job": 50 },
   "google_review_url": "https://g.page/r/CaqZW0VgL1BPEBM/review"
 }
