@@ -120,11 +120,12 @@ house style, so a link to any page looks like the same brand.
   JPEG q90, overwrites `public/og-*.jpg` in place). Add a page to the `PAGES` list
   (filename, context line, hero line) and re-run. Then `check-og-images.py`
   (bundled in preflight) confirms every page's `og:image` points to a real file.
-- **Deliberate exceptions** (leave these alone): the homepage `public/og-image.jpg`
-  ("Quotes, not estimates.") is a hand-built Playwright render
-  (`ops/tools/_review/og-card.html`), kept on purpose; `/refer` and the
-  consumer-unit card are multi-line but the same bare aesthetic, hand-tuned in
-  `build_refer()` / `build_cu()`.
+- **Homepage card** `public/og-image.jpg` = "Quotes, not / estimates." generated
+  bare via `build_bare` (was a chrome-heavy Playwright render that turned to mush
+  at WhatsApp thumbnail size; the old `ops/tools/_review/og-card.html` is retired).
+- **Deliberate exceptions** (leave these alone): `/refer` and the consumer-unit
+  card are multi-line but the same bare aesthetic, hand-tuned in `build_refer()` /
+  `build_cu()`.
 
 ## Governance - how this stays true
 
