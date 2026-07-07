@@ -6,7 +6,8 @@
     socket_price: 90, light_point_price: 90, fused_spur_price: 90,
     one_way_switch_price: 0, two_way_switch_price: 45,
     extractor_fan_price: 160, data_point_price: 80, smoke_detector_price: 110,
-    consumer_unit_price: 625,
+    consumer_unit_price: 625,        // average board, up to 7 ways
+    consumer_unit_large_price: 745,  // large board, up to 15 ways
     radial_16amp_base_price: 120, radial_16amp_per_extra_metre_price: 2,
     radial_32amp_base_price: 190, radial_32amp_per_extra_metre_price: 5,
     led_strip_continuous_base_first_5_metres_price: 190,
@@ -48,7 +49,8 @@
       if (pp.extractor_fan != null) PRICES.extractor_fan_price = pp.extractor_fan;
       if (pp.data_point != null) PRICES.data_point_price = pp.data_point;
       if (pp.mains_smoke_detector != null) PRICES.smoke_detector_price = pp.mains_smoke_detector;
-      if (pw.rcbo_consumer_unit_12way_with_surge != null) PRICES.consumer_unit_price = pw.rcbo_consumer_unit_12way_with_surge;
+      if (pw.rcbo_consumer_unit_7way_with_surge != null) PRICES.consumer_unit_price = pw.rcbo_consumer_unit_7way_with_surge;
+      if (pw.rcbo_consumer_unit_15way_with_surge != null) PRICES.consumer_unit_large_price = pw.rcbo_consumer_unit_15way_with_surge;
       if (pw.radial_16a_base_first_20m != null) PRICES.radial_16amp_base_price = pw.radial_16a_base_first_20m;
       if (pw.radial_16a_per_extra_metre != null) PRICES.radial_16amp_per_extra_metre_price = pw.radial_16a_per_extra_metre;
       if (pw.radial_32a_base_first_20m != null) PRICES.radial_32amp_base_price = pw.radial_32a_base_first_20m;
@@ -122,6 +124,7 @@
   var state = {
     rooms: [],
     consumer_unit_count: 0,
+    consumer_unit_size: 'average',   // 'average' (up to 7 ways) or 'large' (up to 15 ways)
     smoke_detector_count: 0,
     tv_aerial_count: 0,
     wired_ring_doorbell_count: 0,
@@ -139,6 +142,8 @@
   var csReset = document.getElementById('csReset');
   var wholePropertySubtotalEl = document.getElementById('wholePropertySubtotal');
   var consumerUnitSubtotalEl = document.getElementById('consumerUnitSubtotal');
+  var consumerUnitPriceEl = document.getElementById('consumerUnitPrice');
+  var consumerUnitSizeSelect = document.getElementById('consumerUnitSize');
   var consumerUnitPromptEl = document.getElementById('consumerUnitPrompt');
   var consumerUnitPromptDismissed = false;
 
@@ -160,6 +165,7 @@
       localStorage.setItem(QUOTE_STORAGE_KEY, JSON.stringify({
         rooms: state.rooms,
         consumer_unit_count: state.consumer_unit_count,
+        consumer_unit_size: state.consumer_unit_size,
         smoke_detector_count: state.smoke_detector_count,
         tv_aerial_count: state.tv_aerial_count,
         wired_ring_doorbell_count: state.wired_ring_doorbell_count,
@@ -180,6 +186,7 @@
     if (!saved || !Array.isArray(saved.rooms)) return false;
 
     state.consumer_unit_count = saved.consumer_unit_count || 0;
+    state.consumer_unit_size = saved.consumer_unit_size === 'large' ? 'large' : 'average';
     state.smoke_detector_count = saved.smoke_detector_count || 0;
     state.tv_aerial_count = saved.tv_aerial_count || 0;
     state.wired_ring_doorbell_count = saved.wired_ring_doorbell_count || 0;
@@ -198,6 +205,8 @@
       var qtyInput = row.querySelector('.calc-row-quantity');
       if (qtyInput && typeof state[key] === 'number') qtyInput.value = state[key];
     });
+    // Put the saved board size back into the size picker.
+    if (consumerUnitSizeSelect) consumerUnitSizeSelect.value = state.consumer_unit_size;
 
     updateQuickAddBadges();
     return true;
@@ -205,6 +214,15 @@
 
   function formatAsCurrency(n) {
     return '£' + Math.round(n).toLocaleString('en-GB');
+  }
+
+  // Consumer unit comes in two board sizes. The customer picks by counting the
+  // trips (switches) on their board: average = up to 7 ways, large = up to 15.
+  function consumerUnitUnitPrice() {
+    return state.consumer_unit_size === 'large' ? PRICES.consumer_unit_large_price : PRICES.consumer_unit_price;
+  }
+  function consumerUnitSizeLabel() {
+    return state.consumer_unit_size === 'large' ? 'up to 15-way' : 'up to 7-way';
   }
 
   function calculateRoomSubtotal(room) {
@@ -257,10 +275,10 @@
     var lines = [];
 
     if (state.consumer_unit_count > 0) {
-      var v = state.consumer_unit_count * PRICES.consumer_unit_price;
+      var v = state.consumer_unit_count * consumerUnitUnitPrice();
       total += v;
       itemCount += state.consumer_unit_count;
-      lines.push({ name: state.consumer_unit_count + ' x RCBO consumer unit', value: v });
+      lines.push({ name: state.consumer_unit_count + ' x RCBO consumer unit (' + consumerUnitSizeLabel() + ')', value: v });
     }
     if (state.smoke_detector_count > 0) {
       var v2 = state.smoke_detector_count * PRICES.smoke_detector_price;
@@ -360,9 +378,11 @@
     }
 
     if (consumerUnitSubtotalEl) {
-      var consumerUnitSubtotal = state.consumer_unit_count * PRICES.consumer_unit_price;
+      var consumerUnitSubtotal = state.consumer_unit_count * consumerUnitUnitPrice();
       consumerUnitSubtotalEl.textContent = consumerUnitSubtotal > 0 ? formatAsCurrency(consumerUnitSubtotal) : '£0';
     }
+    // Keep the row's price figure in step with the chosen board size.
+    if (consumerUnitPriceEl) consumerUnitPriceEl.textContent = formatAsCurrency(consumerUnitUnitPrice());
 
     // Prompt to add a consumer unit when a rewire is being built without one.
     if (consumerUnitPromptEl) {
@@ -823,6 +843,14 @@
       if (consumerUnitPromptEl) consumerUnitPromptEl.hidden = true;
     });
   }
+  // Board-size picker: average (up to 7 ways) or large (up to 15 ways).
+  if (consumerUnitSizeSelect) {
+    consumerUnitSizeSelect.value = state.consumer_unit_size;  // match a restored quote
+    consumerUnitSizeSelect.addEventListener('change', function () {
+      state.consumer_unit_size = consumerUnitSizeSelect.value === 'large' ? 'large' : 'average';
+      recalculateAndUpdateDisplay();
+    });
+  }
 
   // EICR safety-check card: standalone banded price by trip-switch (circuit) count.
   // Reads eicrCircuitBands (live from price-list.json). Does NOT feed the rewire total.
@@ -924,6 +952,8 @@
         if (!confirmed) return;
         state.rooms = [];
         state.consumer_unit_count = 0;
+        state.consumer_unit_size = 'average';
+        if (consumerUnitSizeSelect) consumerUnitSizeSelect.value = 'average';
         state.smoke_detector_count = 0;
         state.tv_aerial_count = 0;
         state.wired_ring_doorbell_count = 0;

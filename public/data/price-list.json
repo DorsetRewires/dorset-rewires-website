@@ -1,6 +1,6 @@
 {
-  "version": "1.0.9",
-  "updated": "2026-06-10",
+  "version": "1.1.0",
+  "updated": "2026-07-07",
   "notes": "Single source of truth for all prices on the site and in the quote calculator. Edit via /ops-hq/pricing-admin.html or by hand. After editing, drop in place and reload any open page.",
   "rewire_per_point": {
     "socket": 90,
@@ -31,7 +31,8 @@
     "telephone_point": 90
   },
   "rewire_whole_property": {
-    "rcbo_consumer_unit_12way_with_surge": 625,
+    "rcbo_consumer_unit_7way_with_surge": 625,
+    "rcbo_consumer_unit_15way_with_surge": 745,
     "garage_consumer_unit_4way_rcbo": 180,
     "water_bonding": 90,
     "gas_bonding": 90,

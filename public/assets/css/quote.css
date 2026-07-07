@@ -49,6 +49,7 @@
 .calc-row:first-child { border-top: 0; padding-top: 6px; }
 .calc-row-label strong { display: block; font-size: 15.5px; color: var(--c-navy); font-weight: 700; }
 .calc-row-label span { display: block; color: var(--c-text-mute); font-size: 13.5px; margin-top: 2px; }
+.calc-row-size { display: block; margin-top: 8px; max-width: 260px; padding: 6px 8px; font-size: 13.5px; color: var(--c-navy); background: #fff; border: 1px solid var(--c-border-2); border-radius: var(--r-sm); }
 .calc-row-price { font-weight: 700; color: var(--c-green); font-size: 15px; white-space: nowrap; }
 .calc-row-controls { display: inline-flex; align-items: center; gap: 6px; }
 .calc-row-step-button {

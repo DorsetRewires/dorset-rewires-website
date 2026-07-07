@@ -29,8 +29,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=d4ac9c60">
-<link rel="stylesheet" href="assets/css/quote.css?v=d4ac9c60">
+<link rel="stylesheet" href="assets/css/styles.css?v=9a29fda5">
+<link rel="stylesheet" href="assets/css/quote.css?v=9a29fda5">
 </head>
 <body>
 
@@ -121,10 +121,14 @@
         <div class="calc-rows" id="consumerUnitRows">
           <div class="calc-row" data-key="consumer_unit_count">
             <div class="calc-row-label">
-              <strong>RCBO Consumer Unit (up to 12 ways) with surge suppression</strong>
-              <span>Replaces old fusebox. Required on any full rewire.</span>
+              <strong>RCBO consumer unit with surge protection</strong>
+              <span>Replaces your old fusebox. Not sure of the size? Count the trips (switches) on your board.</span>
+              <select class="calc-row-size" id="consumerUnitSize" aria-label="Board size">
+                <option value="average">Average board - about 7 ways (&pound;625)</option>
+                <option value="large">Large board - up to 15 ways (&pound;745)</option>
+              </select>
             </div>
-            <div class="calc-row-price" data-unit="625">&pound;625</div>
+            <div class="calc-row-price" id="consumerUnitPrice" data-unit="625">&pound;625</div>
             <div class="calc-row-controls">
               <button type="button" class="calc-row-step-button" data-step="-1" aria-label="decrease">&minus;</button>
               <input type="number" class="calc-row-quantity" value="0" min="0" max="2" inputmode="numeric" aria-label="quantity">
@@ -260,7 +264,7 @@
         </div>
         <div class="summary-line-list" id="csLines"></div>
         <div class="consumer-unit-prompt" id="consumerUnitPrompt" hidden>
-          <p><strong>Add a new fuse board?</strong> Almost every rewire needs a new consumer unit. Add a 12-way RCBO board with surge protection for &pound;625.</p>
+          <p><strong>Add a new fuse board?</strong> Almost every rewire needs a new consumer unit. Add a modern RCBO board with surge protection for &pound;625.</p>
           <div class="consumer-unit-prompt-actions">
             <button type="button" class="consumer-unit-prompt-add" id="consumerUnitPromptAdd">Add it - &pound;625</button>
             <button type="button" class="consumer-unit-prompt-dismiss" id="consumerUnitPromptDismiss">No, already covered</button>
@@ -294,7 +298,8 @@
             <tr><td>16A radial - each extra metre</td><td>&pound;2</td></tr>
             <tr><td>32A radial - first 20m</td><td>&pound;190</td></tr>
             <tr><td>32A radial - each extra metre</td><td>&pound;5</td></tr>
-            <tr><td>RCBO consumer unit (12 way, surge)</td><td>&pound;625</td></tr>
+            <tr><td>RCBO consumer unit (up to 7 way, surge)</td><td>&pound;625</td></tr>
+            <tr><td>RCBO consumer unit (up to 15 way, surge)</td><td>&pound;745</td></tr>
           </tbody>
         </table>
       </div>
@@ -393,9 +398,9 @@
   </div>
 </div>
 
-<script src="assets/js/dr-config.js?v=d4ac9c60"></script>
-<script src="assets/js/script.js?v=d4ac9c60"></script>
-<script src="assets/js/quote-calculator-logic.js?v=d4ac9c60"></script>
-<script src="assets/js/pwa.js?v=d4ac9c60"></script>
+<script src="assets/js/dr-config.js?v=9a29fda5"></script>
+<script src="assets/js/script.js?v=9a29fda5"></script>
+<script src="assets/js/quote-calculator-logic.js?v=9a29fda5"></script>
+<script src="assets/js/pwa.js?v=9a29fda5"></script>
 </body>
 </html>
