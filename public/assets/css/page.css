@@ -112,6 +112,7 @@
   padding: 40px 20px; text-align: center; font-size: 14px;
 }
 .page figure.page-figure figcaption { font-size: 14px; color: var(--c-text-mute); margin-top: 8px; }
+.table-wrap { margin: 22px 0 30px; overflow-x: auto; }
 .page figure.page-figure img { max-width: 100%; height: auto; display: block; border: 1px solid var(--c-border); border-radius: var(--r-md); }
 
 /* Referral reward tiers (/refer "What you earn"): an amber "pill" amount next to

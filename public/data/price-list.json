@@ -72,7 +72,7 @@
     }
   ],
   "eicr_extras": {
-    "retest_within_90_days": 85,
+    "retest_within_30_days_of_our_remedials": 0,
     "landlord_portfolio_discount_percent": 10,
     "landlord_portfolio_min_properties": 3,
     "commercial_uplift_percent": 75
