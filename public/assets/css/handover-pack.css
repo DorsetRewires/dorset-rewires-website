@@ -1,11 +1,12 @@
-/* Handover pack - Pete-only print pack for on-site quotes.
-   Screen: only the small "Handover pack" card in the summary column shows
-   (revealed by visiting /quote#pete - see assets/js/handover-pack.js).
-   Print: when Pete taps "Print handover pack", the body gets the class
+/* Handover pack - the printable quote pack on the quote tool.
+   Screen: the "Print or save this quote" card in the summary column (public -
+   customers and Pete use the same button; Pete prints it in the van on big jobs).
+   Print: when the print button is tapped, the body gets the class
    handover-print-active, the normal page is hidden and the three pack pages
-   (cover, itemised quote, how-the-price-is-built) are printed on A4. */
+   (cover, itemised quote, how-the-price-is-built) are printed on A4.
+   See assets/js/handover-pack.js. */
 
-/* ===== Screen: the Pete-only controls card ===== */
+/* ===== Screen: the print/share controls card ===== */
 
 .handover-card {
   background: #fff;
@@ -15,22 +16,9 @@
   margin-top: 14px;
 }
 .handover-card h3 {
-  display: flex;
-  align-items: center;
-  gap: 8px;
   margin: 0 0 6px;
   color: var(--c-navy);
   font-size: 16px;
-}
-.handover-badge {
-  font-size: 11px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  color: #fff;
-  background: var(--c-navy);
-  border-radius: 999px;
-  padding: 3px 9px;
 }
 .handover-hint {
   margin: 0 0 12px;
@@ -61,6 +49,24 @@
   outline: 2px solid var(--c-amber);
   border-color: var(--c-amber);
 }
+.handover-share-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  margin-top: 10px;
+  padding: 11px 16px;
+  background: #fff;
+  border: 1px solid var(--c-navy);
+  border-radius: var(--r-sm);
+  color: var(--c-navy);
+  font: inherit;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+}
+.handover-share-button:hover { background: var(--c-bg-soft); }
+.handover-share-button[hidden] { display: none; }
 
 /* The pack itself never shows on screen. */
 .handover-pack { display: none; }
@@ -69,10 +75,10 @@
 
 @media print {
 
-  @page { size: A4; margin: 13mm; }
+  @page { size: A4; margin: 0; }
 
-  /* Only when Pete triggered the pack print - a customer printing the page
-     normally still gets the normal page. */
+  /* Only when the pack print was triggered - printing /quote normally still
+     gives the normal web page. */
   body.handover-print-active > *:not(.handover-pack) { display: none !important; }
   body.handover-print-active .handover-pack {
     display: block;
@@ -83,31 +89,54 @@
     print-color-adjust: exact;
   }
 
-  .handover-page { page-break-after: always; }
+  /* Zero page margin so the navy bands run edge to edge; the content gets its
+     side padding back via .handover-page-body. Each page is a fixed-height
+     flex column so the navy footer strip pins to the page foot. */
+  .handover-page {
+    height: 296mm;               /* a hair under A4 (297mm) so rounding never spills */
+    display: flex;
+    flex-direction: column;
+    page-break-after: always;
+    overflow: hidden;
+  }
   .handover-page:last-child { page-break-after: auto; }
+  .handover-page-body { padding: 8mm 14mm 4mm; }
 
   .handover-pack h1,
   .handover-pack h2,
   .handover-pack h3 { color: #0F2540; }
   .handover-pack a { color: #0F2540; text-decoration: none; }
 
-  /* Shared brand header strip at the top of every page */
+  /* Navy brand band across the top of every page, amber keel line under it. */
   .handover-brand {
     display: flex;
     align-items: center;
     gap: 10px;
-    padding-bottom: 12px;
-    border-bottom: 3px solid #F4A300;
-    margin-bottom: 22px;
+    background: #0F2540;
+    border-bottom: 3mm solid #F4A300;
+    padding: 7mm 14mm;
   }
-  .handover-brand-name { font-size: 17pt; font-weight: 800; color: #0F2540; }
-  .handover-brand-sub { display: block; font-size: 9.5pt; font-weight: 500; color: #4A5468; }
+  .handover-brand-name { font-size: 17pt; font-weight: 800; color: #fff; }
+  .handover-brand-sub { display: block; font-size: 9.5pt; font-weight: 500; color: #D7DEE9; }
+
+  /* Navy contact strip pinned to the foot of every page. */
+  .handover-page-footer {
+    margin-top: auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: #0F2540;
+    padding: 4mm 14mm;
+    font-size: 11pt;
+    font-weight: 700;
+  }
+  .handover-page-footer a { color: #fff !important; }
+  .handover-page-footer .handover-footer-tagline { color: #F4A300; font-size: 9.5pt; font-weight: 600; }
 
   /* --- Page 1: cover --- */
-  .handover-cover { text-align: center; }
-  .handover-cover .handover-brand { justify-content: center; }
-  .handover-cover h1 { font-size: 26pt; margin: 26px 0 4px; }
-  .handover-cover-promise { font-size: 13pt; color: #4A5468; margin: 0 0 26px; }
+  .handover-cover .handover-page-body { text-align: center; padding-top: 14mm; }
+  .handover-cover h1 { font-size: 26pt; margin: 0 0 4px; }
+  .handover-cover-promise { font-size: 13pt; color: #4A5468; margin: 0 0 12mm; }
   .handover-prepared {
     display: inline-block;
     text-align: left;
@@ -115,26 +144,36 @@
     border: 1px solid #D5DCE8;
     border-radius: 10px;
     padding: 16px 26px;
-    margin: 0 0 26px;
+    margin: 0 0 12mm;
     min-width: 60%;
   }
   .handover-prepared p { margin: 4px 0; font-size: 12pt; }
+  .handover-prepared p[hidden] { display: none; }
   .handover-prepared strong { color: #0F2540; }
+  /* The price lives in a navy panel with the figure in amber - the loudest
+     thing on the page is the price, in brand colours. */
+  .handover-total-panel {
+    background: #0F2540;
+    border-radius: 12px;
+    padding: 10mm 12mm 9mm;
+    margin: 0 auto 12mm;
+    max-width: 80%;
+  }
   .handover-total-label {
     font-size: 11pt;
     font-weight: 700;
     text-transform: uppercase;
     letter-spacing: 0.06em;
-    color: #4A5468;
+    color: #D7DEE9;
     margin: 0 0 2px;
   }
-  .handover-total-figure { font-size: 40pt; font-weight: 800; color: #0F2540; margin: 0 0 6px; }
-  .handover-total-note { font-size: 11pt; color: #4A5468; margin: 0 0 30px; }
+  .handover-total-figure { font-size: 40pt; font-weight: 800; color: #F4A300; margin: 0 0 4px; }
+  .handover-total-note { font-size: 11pt; color: #fff; margin: 0; }
   .handover-trust-row {
     display: flex;
     justify-content: center;
     gap: 14px;
-    margin: 0 0 30px;
+    margin: 0 0 12mm;
   }
   .handover-trust-row span {
     font-size: 10.5pt;
@@ -165,14 +204,25 @@
     color: #0F2540;
     padding-top: 10px;
   }
-  .handover-small-print { font-size: 10pt; color: #4A5468; margin-top: 16px; }
+  .handover-small-print { font-size: 10pt; color: #4A5468; margin-top: 14px; }
+  .handover-next-steps {
+    margin-top: 8mm;
+    background: #FFF8EC;
+    border: 1px solid #F4A300;
+    border-radius: 10px;
+    padding: 5mm 7mm;
+  }
+  .handover-next-steps h3 { margin: 0 0 3mm; font-size: 13pt; }
+  .handover-next-steps ol { margin: 0; padding-left: 20px; }
+  .handover-next-steps li { font-size: 11pt; padding: 1.5mm 0; }
 
   /* --- Page 3: how the price is built ---
      Metrics are deliberately tight: checklist + 19-row rate card + QR box must
-     all fit ONE A4 page or the pack grows a stray fourth page. */
-  .handover-straight-answers { list-style: none; padding: 0; margin: 8px 0 12px; }
+     all fit ONE A4 page (with the brand band and footer strip) or the pack
+     grows a stray fourth page. */
+  .handover-straight-answers { list-style: none; padding: 0; margin: 6px 0 10px; }
   .handover-straight-answers li {
-    padding: 4px 0 4px 24px;
+    padding: 3px 0 3px 24px;
     position: relative;
     font-size: 11pt;
   }
@@ -187,23 +237,23 @@
      print time (see handover-pack.js) so the pack can never drift from it. */
   .handover-rate-card table { width: 100%; border-collapse: collapse; }
   .handover-rate-card td {
-    padding: 2px 4px;
+    padding: 1.5px 4px;
     border-bottom: 1px solid #E4E9F1;
     font-size: 9pt;
   }
   .handover-rate-card td:last-child { text-align: right; font-weight: 700; white-space: nowrap; }
-  .handover-rate-card-heading { margin: 8px 0 4px; font-size: 13pt; }
+  .handover-rate-card-heading { margin: 6px 0 3px; font-size: 13pt; }
   .handover-quote-tool-push {
     display: flex;
     align-items: center;
-    gap: 16px;
-    margin-top: 12px;
-    padding: 10px 14px;
+    gap: 14px;
+    margin-top: 8px;
+    padding: 8px 12px;
     background: #FFF8EC;
     border: 1px solid #F4A300;
     border-radius: 10px;
   }
-  .handover-quote-tool-push img { width: 24mm; height: 24mm; }
-  .handover-quote-tool-push h3 { margin: 0 0 4px; font-size: 13pt; }
-  .handover-quote-tool-push p { margin: 0; font-size: 10.5pt; }
+  .handover-quote-tool-push img { width: 20mm; height: 20mm; }
+  .handover-quote-tool-push h3 { margin: 0 0 3px; font-size: 12pt; }
+  .handover-quote-tool-push p { margin: 0; font-size: 10pt; }
 }
