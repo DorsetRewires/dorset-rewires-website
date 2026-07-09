@@ -113,6 +113,14 @@
 }
 .page figure.page-figure figcaption { font-size: 14px; color: var(--c-text-mute); margin-top: 8px; }
 .table-wrap { margin: 22px 0 30px; overflow-x: auto; }
+/* Bare tables (EICR prices, terms) get the same card + LEFT-aligned header/cell
+   treatment as .price-table-stub. Without this the browser centres <th> but
+   left-aligns <td>, so the values sit left of their headers (the EICR "Price"
+   column drift). Left-aligning both puts each value directly under its header. */
+.table-wrap table { width: 100%; border-collapse: collapse; background: #fff; border: 1px solid var(--c-border); border-radius: var(--r-md); overflow: hidden; }
+.table-wrap th, .table-wrap td { padding: 13px 16px; text-align: left; border-bottom: 1px solid var(--c-border); vertical-align: top; }
+.table-wrap th { background: var(--c-bg-soft); color: var(--c-navy); font-weight: 700; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.04em; }
+.table-wrap tr:last-child td { border-bottom: 0; }
 .page figure.page-figure img { max-width: 100%; height: auto; display: block; border: 1px solid var(--c-border); border-radius: var(--r-md); }
 
 /* Referral reward tiers (/refer "What you earn"): an amber "pill" amount next to
