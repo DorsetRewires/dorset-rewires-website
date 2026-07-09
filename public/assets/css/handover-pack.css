@@ -1,0 +1,209 @@
+/* Handover pack - Pete-only print pack for on-site quotes.
+   Screen: only the small "Handover pack" card in the summary column shows
+   (revealed by visiting /quote#pete - see assets/js/handover-pack.js).
+   Print: when Pete taps "Print handover pack", the body gets the class
+   handover-print-active, the normal page is hidden and the three pack pages
+   (cover, itemised quote, how-the-price-is-built) are printed on A4. */
+
+/* ===== Screen: the Pete-only controls card ===== */
+
+.handover-card {
+  background: #fff;
+  border: 2px solid var(--c-amber);
+  border-radius: var(--r-sm);
+  padding: 18px 16px;
+  margin-top: 14px;
+}
+.handover-card h3 {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0 0 6px;
+  color: var(--c-navy);
+  font-size: 16px;
+}
+.handover-badge {
+  font-size: 11px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  color: #fff;
+  background: var(--c-navy);
+  border-radius: 999px;
+  padding: 3px 9px;
+}
+.handover-hint {
+  margin: 0 0 12px;
+  color: var(--c-text-mute);
+  font-size: 13.5px;
+}
+.handover-card label {
+  display: block;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--c-navy);
+  margin-bottom: 12px;
+}
+.handover-card input,
+.handover-card textarea {
+  display: block;
+  width: 100%;
+  margin-top: 5px;
+  padding: 11px 12px;
+  border: 1px solid var(--c-border-2);
+  border-radius: var(--r-sm);
+  font: inherit;
+  font-size: 16px;
+  font-weight: 400;
+}
+.handover-card input:focus,
+.handover-card textarea:focus {
+  outline: 2px solid var(--c-amber);
+  border-color: var(--c-amber);
+}
+
+/* The pack itself never shows on screen. */
+.handover-pack { display: none; }
+
+/* ===== Print: the three A4 pack pages ===== */
+
+@media print {
+
+  @page { size: A4; margin: 13mm; }
+
+  /* Only when Pete triggered the pack print - a customer printing the page
+     normally still gets the normal page. */
+  body.handover-print-active > *:not(.handover-pack) { display: none !important; }
+  body.handover-print-active .handover-pack {
+    display: block;
+    color: #1A2333;
+    font-size: 12.5pt;
+    line-height: 1.5;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+
+  .handover-page { page-break-after: always; }
+  .handover-page:last-child { page-break-after: auto; }
+
+  .handover-pack h1,
+  .handover-pack h2,
+  .handover-pack h3 { color: #0F2540; }
+  .handover-pack a { color: #0F2540; text-decoration: none; }
+
+  /* Shared brand header strip at the top of every page */
+  .handover-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding-bottom: 12px;
+    border-bottom: 3px solid #F4A300;
+    margin-bottom: 22px;
+  }
+  .handover-brand-name { font-size: 17pt; font-weight: 800; color: #0F2540; }
+  .handover-brand-sub { display: block; font-size: 9.5pt; font-weight: 500; color: #4A5468; }
+
+  /* --- Page 1: cover --- */
+  .handover-cover { text-align: center; }
+  .handover-cover .handover-brand { justify-content: center; }
+  .handover-cover h1 { font-size: 26pt; margin: 26px 0 4px; }
+  .handover-cover-promise { font-size: 13pt; color: #4A5468; margin: 0 0 26px; }
+  .handover-prepared {
+    display: inline-block;
+    text-align: left;
+    background: #F4F6FA;
+    border: 1px solid #D5DCE8;
+    border-radius: 10px;
+    padding: 16px 26px;
+    margin: 0 0 26px;
+    min-width: 60%;
+  }
+  .handover-prepared p { margin: 4px 0; font-size: 12pt; }
+  .handover-prepared strong { color: #0F2540; }
+  .handover-total-label {
+    font-size: 11pt;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #4A5468;
+    margin: 0 0 2px;
+  }
+  .handover-total-figure { font-size: 40pt; font-weight: 800; color: #0F2540; margin: 0 0 6px; }
+  .handover-total-note { font-size: 11pt; color: #4A5468; margin: 0 0 30px; }
+  .handover-trust-row {
+    display: flex;
+    justify-content: center;
+    gap: 14px;
+    margin: 0 0 30px;
+  }
+  .handover-trust-row span {
+    font-size: 10.5pt;
+    font-weight: 700;
+    color: #0F2540;
+    background: #FFF8EC;
+    border: 1px solid #F4A300;
+    border-radius: 999px;
+    padding: 6px 14px;
+  }
+  .handover-contact { font-size: 12.5pt; margin: 0; }
+  .handover-contact strong { font-size: 15pt; }
+
+  /* --- Page 2: itemised quote --- */
+  .handover-lines-table { width: 100%; border-collapse: collapse; margin: 14px 0 6px; }
+  .handover-lines-table td {
+    padding: 7px 4px;
+    border-bottom: 1px solid #D5DCE8;
+    font-size: 11.5pt;
+    vertical-align: top;
+  }
+  .handover-lines-table td:last-child { text-align: right; font-weight: 700; white-space: nowrap; }
+  .handover-lines-total td {
+    border-bottom: 0;
+    border-top: 3px solid #0F2540;
+    font-size: 14pt;
+    font-weight: 800;
+    color: #0F2540;
+    padding-top: 10px;
+  }
+  .handover-small-print { font-size: 10pt; color: #4A5468; margin-top: 16px; }
+
+  /* --- Page 3: how the price is built ---
+     Metrics are deliberately tight: checklist + 19-row rate card + QR box must
+     all fit ONE A4 page or the pack grows a stray fourth page. */
+  .handover-straight-answers { list-style: none; padding: 0; margin: 8px 0 12px; }
+  .handover-straight-answers li {
+    padding: 4px 0 4px 24px;
+    position: relative;
+    font-size: 11pt;
+  }
+  .handover-straight-answers li::before {
+    content: "\2713";
+    position: absolute;
+    left: 0;
+    color: #F4A300;
+    font-weight: 800;
+  }
+  /* The rate card is CLONED from the on-page "How prices are built" table at
+     print time (see handover-pack.js) so the pack can never drift from it. */
+  .handover-rate-card table { width: 100%; border-collapse: collapse; }
+  .handover-rate-card td {
+    padding: 2px 4px;
+    border-bottom: 1px solid #E4E9F1;
+    font-size: 9pt;
+  }
+  .handover-rate-card td:last-child { text-align: right; font-weight: 700; white-space: nowrap; }
+  .handover-rate-card-heading { margin: 8px 0 4px; font-size: 13pt; }
+  .handover-quote-tool-push {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 12px;
+    padding: 10px 14px;
+    background: #FFF8EC;
+    border: 1px solid #F4A300;
+    border-radius: 10px;
+  }
+  .handover-quote-tool-push img { width: 24mm; height: 24mm; }
+  .handover-quote-tool-push h3 { margin: 0 0 4px; font-size: 13pt; }
+  .handover-quote-tool-push p { margin: 0; font-size: 10.5pt; }
+}

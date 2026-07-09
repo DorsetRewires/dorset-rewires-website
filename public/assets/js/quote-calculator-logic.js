@@ -1079,4 +1079,17 @@
       });
     });
   }
+
+  // Read-only bridge for the Pete-mode handover pack (assets/js/handover-pack.js).
+  // Returns the current quote as display-ready strings so currency formatting
+  // stays in this one place.
+  window.getQuoteSnapshotForHandoverPack = function () {
+    return {
+      total_value: lastTotal,
+      total_display: formatAsCurrency(lastTotal),
+      lines: lastLines.map(function (line) {
+        return { name: line.name, value_display: formatAsCurrency(line.value) };
+      })
+    };
+  };
 })();

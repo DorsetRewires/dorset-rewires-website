@@ -31,8 +31,9 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="assets/css/styles.css?v=cbfeccfd">
-<link rel="stylesheet" href="assets/css/quote.css?v=cbfeccfd">
+<link rel="stylesheet" href="assets/css/styles.css?v=968a1f71">
+<link rel="stylesheet" href="assets/css/quote.css?v=968a1f71">
+<link rel="stylesheet" href="assets/css/handover-pack.css?v=968a1f71">
 </head>
 <body>
 
@@ -312,6 +313,14 @@
           </tbody>
         </table>
       </div>
+
+      <div class="handover-card" id="handoverCard" hidden>
+        <h3>Handover pack <span class="handover-badge">Pete only</span></h3>
+        <p class="handover-hint">Build the quote above. Fill in these two boxes. Then print.</p>
+        <label>Customer name<input type="text" id="handoverClientName" maxlength="80" autocomplete="off"></label>
+        <label>Property address<textarea id="handoverPropertyAddress" rows="2" autocomplete="off"></textarea></label>
+        <button type="button" class="btn-amber btn-block" id="handoverPrintButton">Print handover pack</button>
+      </div>
     </aside>
 
   </div>
@@ -407,9 +416,81 @@
   </div>
 </div>
 
-<script src="assets/js/dr-config.js?v=cbfeccfd"></script>
-<script src="assets/js/script.js?v=cbfeccfd"></script>
-<script src="assets/js/quote-calculator-logic.js?v=cbfeccfd"></script>
-<script src="assets/js/pwa.js?v=cbfeccfd"></script>
+<!-- Handover pack: the three A4 pages Pete prints in the van and hands to the
+     customer before he leaves. Hidden on screen, print-only, filled at print
+     time by assets/js/handover-pack.js. Pete mode = /quote#pete. -->
+<div class="handover-pack" id="handoverPack">
+
+  <section class="handover-page handover-cover">
+    <div class="handover-brand">
+      <svg width="34" height="34" viewBox="0 0 32 32" aria-hidden="true"><path fill="#F4A300" d="M18 2 6 18h7l-3 12 12-16h-7z"/></svg>
+      <span><span class="handover-brand-name">Dorset Rewires</span><span class="handover-brand-sub">Renovations, new builds &amp; all electrical work</span></span>
+    </div>
+    <h1>Your quote</h1>
+    <p class="handover-cover-promise">Quotes, not estimates. Every price on these pages is from our public rate card.</p>
+    <div class="handover-prepared">
+      <p><strong>Prepared for:</strong> <span class="handover-client-name-output"></span></p>
+      <p><strong>Property:</strong> <span class="handover-property-address-output"></span></p>
+      <p><strong>Date:</strong> <span class="handover-date-output"></span></p>
+    </div>
+    <p class="handover-total-label">Your instant quote</p>
+    <p class="handover-total-figure handover-total-output"></p>
+    <p class="handover-total-note">Fixed in writing after your free home survey. No VAT to add - Dorset Rewires is not VAT registered.</p>
+    <div class="handover-trust-row">
+      <span>Part P Registered</span>
+      <span>&pound;5M Public Liability</span>
+      <span>10-Year Workmanship Guarantee</span>
+    </div>
+    <p class="handover-contact"><strong><a href="tel:+447836535100">07836 535100</a></strong><br>
+    <a href="mailto:info@dorsetrewires.co.uk">info@dorsetrewires.co.uk</a><br>
+    Mon-Sat 7am-7pm</p>
+  </section>
+
+  <section class="handover-page">
+    <div class="handover-brand">
+      <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><path fill="#F4A300" d="M18 2 6 18h7l-3 12 12-16h-7z"/></svg>
+      <span><span class="handover-brand-name">Your quote, line by line</span></span>
+    </div>
+    <p>Every line is priced from the same rate card every customer sees. Nothing hidden.</p>
+    <table class="handover-lines-table">
+      <tbody id="handoverLinesBody"></tbody>
+    </table>
+    <div class="handover-small-print">
+      <p><strong>Paying for it:</strong> 5% booking deposit, then staged payments. Free survey before any work.</p>
+      <p>Final price is fixed in writing after a free home survey and may flex if access is difficult, second-fix scope changes, or the consumer unit position has to move. Plaster make-good and decoration are NOT included - we recommend a decorator and will coordinate.</p>
+    </div>
+  </section>
+
+  <section class="handover-page">
+    <div class="handover-brand">
+      <svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><path fill="#F4A300" d="M18 2 6 18h7l-3 12 12-16h-7z"/></svg>
+      <span><span class="handover-brand-name">How your price is built</span></span>
+    </div>
+    <ul class="handover-straight-answers">
+      <li><strong>No markup on materials.</strong> You pay what we pay.</li>
+      <li><strong>No VAT to add.</strong> Dorset Rewires is not VAT registered.</li>
+      <li><strong>10-year workmanship guarantee.</strong> In writing, on every job.</li>
+      <li><strong>&pound;5M public liability insurance.</strong></li>
+      <li><strong>Free survey before any work.</strong> Costs you nothing to be sure.</li>
+      <li><strong>The price only changes if you change the job.</strong></li>
+    </ul>
+    <h3 class="handover-rate-card-heading">The rate card</h3>
+    <div class="handover-rate-card" id="handoverRateCard"></div>
+    <div class="handover-quote-tool-push">
+      <img src="assets/img/quote-tool-qr-code.svg" alt="QR code for the Dorset Rewires instant quote tool" width="120" height="120">
+      <div>
+        <h3>Want to change the job?</h3>
+        <p>Scan the code. Add or remove items. Watch the price change live. Same maths as this pack: <a href="/quote">dorsetrewires.co.uk/quote</a></p>
+      </div>
+    </div>
+  </section>
+
+</div>
+
+<script src="assets/js/dr-config.js?v=968a1f71"></script>
+<script src="assets/js/script.js?v=968a1f71"></script>
+<script src="assets/js/quote-calculator-logic.js?v=968a1f71"></script>
+<script src="assets/js/handover-pack.js?v=968a1f71"></script>
+<script src="assets/js/pwa.js?v=968a1f71"></script>
 </body>
 </html>
