@@ -123,6 +123,13 @@
 .table-wrap tr:last-child td { border-bottom: 0; }
 .page figure.page-figure img { max-width: 100%; height: auto; display: block; border: 1px solid var(--c-border); border-radius: var(--r-md); }
 
+/* Side-by-side figure comparison (e.g. RCBO board vs split-load RCD board on the
+   cost guide). Two figures share a row on desktop and stack on a phone. Each figure
+   inside drops its own max-width so it fills its grid column. */
+.page .figure-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; margin: 18px 0 24px; max-width: 860px; }
+.page .figure-pair figure.page-figure { margin: 0; max-width: none; }
+@media (max-width: 620px) { .page .figure-pair { grid-template-columns: 1fr; } }
+
 /* Referral reward tiers (/refer "What you earn"): an amber "pill" amount next to
    its job label. Uses the amber-tint tokens so it reads as a friendly, on-brand
    callout, not a warning box. Scoped to /refer; reuse if another page needs tiers. */

@@ -80,6 +80,9 @@
   /* Only when the pack print was triggered - printing /quote normally still
      gives the normal web page. */
   body.handover-print-active > *:not(.handover-pack) { display: none !important; }
+  /* The site body carries padding for the sticky header - in print it would
+     shove the navy band off the page top and every page down with it. */
+  body.handover-print-active { margin: 0 !important; padding: 0 !important; }
   body.handover-print-active .handover-pack {
     display: block;
     color: #1A2333;
@@ -98,6 +101,7 @@
     flex-direction: column;
     page-break-after: always;
     overflow: hidden;
+    padding: 0;                  /* the site gives every <section> 72px vertical padding */
   }
   .handover-page:last-child { page-break-after: auto; }
   .handover-page-body { padding: 8mm 14mm 4mm; }

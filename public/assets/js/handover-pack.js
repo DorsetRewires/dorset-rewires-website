@@ -1,42 +1,35 @@
-// Handover pack - Pete-only print pack for on-site quotes.
+// Handover pack - the printable quote pack on the quote tool (public).
 //
 // How it works:
-// 1. Pete opens /quote#pete on his phone (bookmark). The hash reveals the
-//    "Handover pack" card in the summary column. Customers on /quote never see it.
-// 2. Pete builds the quote as normal, types the customer's name and address,
-//    then taps "Print handover pack".
-// 3. This script fills the hidden three-page pack (#handoverPack in quote.html)
-//    with the live quote snapshot, clones the on-page rate card so prices can
-//    never drift, and opens the phone's print dialog (window.print). The van
-//    printer does the rest.
+// 1. The "Print or save this quote" card sits under the rate card for everyone.
+//    Customers print or save their own quote; Pete uses the same button in the
+//    van on big jobs and hands the printed pack over before he leaves.
+// 2. Name and property address are optional - they go on the cover if filled in.
+// 3. The print button fills the hidden three-page pack (#handoverPack in
+//    quote.html) with the live quote snapshot, clones the on-page rate card so
+//    prices can never drift, and opens the print dialog (window.print). Every
+//    phone's print dialog includes "Save as PDF".
+// 4. The share button (shown only where the browser supports sharing) sends a
+//    text summary of the quote to WhatsApp / email / notes via the phone's
+//    native share sheet.
 //
 // The quote snapshot comes from window.getQuoteSnapshotForHandoverPack, a
 // read-only bridge exposed by quote-calculator-logic.js.
 (function () {
   'use strict';
 
-  var HANDOVER_HASH = '#pete';
   var CLIENT_DETAILS_STORAGE_KEY = 'dorset-rewires-handover-client-v1';
 
-  var handoverCard = document.getElementById('handoverCard');
   var clientNameInput = document.getElementById('handoverClientName');
   var propertyAddressInput = document.getElementById('handoverPropertyAddress');
   var printButton = document.getElementById('handoverPrintButton');
+  var shareButton = document.getElementById('handoverShareButton');
   var handoverPack = document.getElementById('handoverPack');
-  if (!handoverCard || !handoverPack || !printButton) return;
-
-  // ----- Pete mode on/off -----
-  // The card shows only when the URL hash is #pete. Checked on load and on
-  // every hash change (so typing #pete after the page loaded also works).
-  function showHandoverCardIfPeteMode() {
-    handoverCard.hidden = (window.location.hash !== HANDOVER_HASH);
-  }
-  window.addEventListener('hashchange', showHandoverCardIfPeteMode);
-  showHandoverCardIfPeteMode();
+  if (!handoverPack || !printButton) return;
 
   // ----- Customer details persistence -----
-  // Saved locally so a page refresh in the van does not lose what Pete typed.
-  // Same pattern as the quote itself (see quote-calculator-logic.js).
+  // Saved locally so a page refresh does not lose what was typed. Same pattern
+  // as the quote itself (see quote-calculator-logic.js).
   function saveClientDetails() {
     try {
       localStorage.setItem(CLIENT_DETAILS_STORAGE_KEY, JSON.stringify({
@@ -65,13 +58,20 @@
       element.textContent = text;
     });
   }
+  // Cover rows for name/address only print when they were filled in - a row
+  // reading "Prepared for: -" looks worse than no row.
+  function toggleCoverRow(rowClass, outputClass, value) {
+    var row = handoverPack.querySelector(rowClass);
+    if (row) row.hidden = !value;
+    if (value) fillTextInAll(outputClass, value);
+  }
 
   function fillHandoverPack(quoteSnapshot) {
-    var clientName = clientNameInput && clientNameInput.value.trim() ? clientNameInput.value.trim() : 'you';
+    var clientName = clientNameInput ? clientNameInput.value.trim() : '';
     var propertyAddress = propertyAddressInput ? propertyAddressInput.value.trim() : '';
 
-    fillTextInAll('.handover-client-name-output', clientName);
-    fillTextInAll('.handover-property-address-output', propertyAddress || '-');
+    toggleCoverRow('.handover-prepared-name-row', '.handover-client-name-output', clientName);
+    toggleCoverRow('.handover-prepared-address-row', '.handover-property-address-output', propertyAddress);
     fillTextInAll('.handover-date-output', new Date().toLocaleDateString('en-GB', {
       day: 'numeric', month: 'long', year: 'numeric'
     }));
@@ -113,11 +113,15 @@
     }
   }
 
-  // ----- Print -----
-  printButton.addEventListener('click', function () {
-    var quoteSnapshot = window.getQuoteSnapshotForHandoverPack
+  function currentQuoteSnapshot() {
+    return window.getQuoteSnapshotForHandoverPack
       ? window.getQuoteSnapshotForHandoverPack()
       : { total_value: 0, total_display: '£0', lines: [] };
+  }
+
+  // ----- Print / save as PDF -----
+  printButton.addEventListener('click', function () {
+    var quoteSnapshot = currentQuoteSnapshot();
     if (!quoteSnapshot.total_value) {
       alert('The quote is still £0. Add the rooms and items first, then print.');
       return;
@@ -136,6 +140,25 @@
   if (window.matchMedia) {
     window.matchMedia('print').addEventListener('change', function (event) {
       if (!event.matches) endHandoverPrint();
+    });
+  }
+
+  // ----- Share via the phone's native share sheet -----
+  // Only shown where the browser supports it (most phones, some desktops).
+  if (shareButton && navigator.share) {
+    shareButton.hidden = false;
+    shareButton.addEventListener('click', function () {
+      var quoteSnapshot = currentQuoteSnapshot();
+      if (!quoteSnapshot.total_value) {
+        alert('The quote is still £0. Add the rooms and items first, then share.');
+        return;
+      }
+      var shareText = 'My quote from Dorset Rewires: ' + quoteSnapshot.total_display + '\n\n' +
+        quoteSnapshot.lines.map(function (line) {
+          return '- ' + line.name + ' = ' + line.value_display;
+        }).join('\n') +
+        '\n\nBuild your own at https://dorsetrewires.co.uk/quote';
+      navigator.share({ text: shareText }).catch(function () { /* user closed the share sheet */ });
     });
   }
 })();
