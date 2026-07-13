@@ -1,19 +1,19 @@
 ﻿/* Dorset Rewires - quote tool offline service worker */
-const VERSION = 'sv-8438ca96';
+const VERSION = 'sv-a09fb38f';
 const SHELL_CACHE = 'dorset-rewires-shell-' + VERSION;
 const RUNTIME_CACHE = 'dorset-rewires-runtime-' + VERSION;
 
 const SHELL = [
   '/quote.html',
-  '/assets/css/quote.css?v=8438ca96',
-  '/assets/js/dr-config.js?v=8438ca96',
-  '/assets/js/quote-calculator-logic.js?v=8438ca96',
-  '/assets/css/handover-pack.css?v=8438ca96',
-  '/assets/js/handover-pack.js?v=8438ca96',
+  '/assets/css/quote.css?v=a09fb38f',
+  '/assets/js/dr-config.js?v=a09fb38f',
+  '/assets/js/quote-calculator-logic.js?v=a09fb38f',
+  '/assets/css/handover-pack.css?v=a09fb38f',
+  '/assets/js/handover-pack.js?v=a09fb38f',
   '/assets/img/quote-tool-qr-code.svg',
-  '/assets/css/styles.css?v=8438ca96',
-  '/assets/js/script.js?v=8438ca96',
-  '/assets/js/reviews-carousel.js?v=8438ca96',
+  '/assets/css/styles.css?v=a09fb38f',
+  '/assets/js/script.js?v=a09fb38f',
+  '/assets/js/reviews-carousel.js?v=a09fb38f',
   '/manifest.json',
   '/assets/icons/icon-192.png',
   '/assets/icons/icon-512.png',

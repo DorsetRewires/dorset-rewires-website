@@ -160,3 +160,12 @@
 @media (max-width: 720px) {
   .page-cta-row .btn-call, .page-cta-row .btn-amber { width: 100%; justify-content: center; }
 }
+
+/* Refer-page social proof (filled live from reviews.json - see refer.html inline script) */
+.refer-proof { background: #fff; border: 1px solid var(--c-border); border-radius: var(--r-md); padding: 18px 20px; margin: 10px 0 6px; }
+.refer-proof-rating { margin: 0; font-size: 16px; }
+.refer-proof-stars { color: var(--c-amber); letter-spacing: 2px; }
+.refer-proof blockquote { margin: 14px 0 0; padding: 0 0 0 14px; border-left: 3px solid var(--c-amber); }
+.refer-proof blockquote p { margin: 0; font-size: 15px; color: var(--c-text-soft); }
+.refer-proof blockquote footer { margin-top: 4px; font-size: 13px; color: var(--c-navy); font-weight: 700; }
+.refer-proof-link { margin: 14px 0 0; font-size: 14px; }

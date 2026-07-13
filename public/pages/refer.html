@@ -23,8 +23,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet">
-<link rel="stylesheet" href="../assets/css/styles.css?v=8438ca96">
-<link rel="stylesheet" href="../assets/css/page.css?v=8438ca96">
+<link rel="stylesheet" href="../assets/css/styles.css?v=a09fb38f">
+<link rel="stylesheet" href="../assets/css/page.css?v=a09fb38f">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to main content</a>
@@ -87,6 +87,15 @@
       <h2>Why your friend will thank you</h2>
       <p>Before their works start, we set the job up safely - <strong>free</strong>. On a renovation, that is a full <strong>electrical safety check</strong> (EICR)<span data-eicr-worth></span>. On a full rewire or new build, we fit a <strong>free temporary power board</strong> for the builders - a safe supply with surge protection and sockets, ready to use. Either way, their project starts safe.</p>
       <p><strong>And we quote, we do not estimate.</strong> The price we give is the price they pay. It only goes up if they change the job.</p>
+
+      <div id="referProof" hidden>
+      <h2>What people say about Pete's work</h2>
+      <div class="refer-proof">
+        <p class="refer-proof-rating"><span class="refer-proof-stars" id="referProofStars" aria-hidden="true"></span> <strong id="referProofScore"></strong> <span id="referProofCount"></span></p>
+        <div id="referProofQuotes"></div>
+        <p class="refer-proof-link"><a href="/reviews">Read all our Google reviews</a></p>
+      </div>
+      </div>
 
       <div class="page-cta cta-spaced">
         <h3>Refer a friend now</h3>
@@ -151,8 +160,8 @@
     <p>&copy; 2026 Dorset Rewires. All rights reserved. <a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a></p>
   </div>
 </footer>
-<script src="../assets/js/dr-config.js?v=8438ca96"></script>
-<script src="../assets/js/script.js?v=8438ca96"></script>
+<script src="../assets/js/dr-config.js?v=a09fb38f"></script>
+<script src="../assets/js/script.js?v=a09fb38f"></script>
 <script>
 // (1) Inject the free-check value LIVE from the price list (never hardcode a price).
 // (2) Build the WhatsApp share link with a pre-written, friendly message.
@@ -172,11 +181,42 @@
 
   var shareButtons = document.querySelectorAll('.wa-share');
   if (shareButtons.length) {
-    var msg = "This is Pete the electrician - he owns Dorset Rewires. "
-            + "https://dorsetrewires.co.uk";
+    var msg = "You know you're doing the house up - this is the electrician I'd use. "
+            + "Pete at Dorset Rewires. You can price your own rewire on his site in about a minute, "
+            + "and the price he quotes is the price you pay. "
+            + "https://dorsetrewires.co.uk/quote";
     var waUrl = 'https://wa.me/?text=' + encodeURIComponent(msg);
     shareButtons.forEach(function (el) { el.href = waUrl; });
   }
+
+  // (3) Social proof, read live from reviews.json (the ONE review source - never
+  // hardcode a rating or count). The block stays hidden if there are no reviews.
+  fetch('/reviews.json', { cache: 'no-cache' }).then(function (r) { return r.json(); }).then(function (data) {
+    var aggregate = (data && data.aggregate) || {};
+    var reviews = (data && data.reviews) || [];
+    if (!reviews.length || !aggregate.count) return;
+    var proofBlock = document.getElementById('referProof');
+    if (!proofBlock) return;
+    var fullStars = '';
+    for (var i = 0; i < 5; i++) fullStars += i < Math.round(aggregate.rating || 0) ? '★' : '☆';
+    document.getElementById('referProofStars').textContent = fullStars;
+    document.getElementById('referProofScore').textContent = (typeof aggregate.rating === 'number') ? aggregate.rating.toFixed(1) : aggregate.rating;
+    document.getElementById('referProofCount').textContent = 'from ' + aggregate.count + ' ' + (aggregate.source || 'Google') + ' review' + (aggregate.count === 1 ? '' : 's');
+    var quotesMount = document.getElementById('referProofQuotes');
+    reviews.slice(0, 2).forEach(function (review) {
+      var body = review.body || '';
+      if (body.length > 160) body = body.slice(0, 160).replace(/\s+\S*$/, '') + '...';
+      var quote = document.createElement('blockquote');
+      var text = document.createElement('p');
+      text.textContent = '"' + body + '"';
+      var who = document.createElement('footer');
+      who.textContent = review.author + (review.location ? ', ' + review.location : '');
+      quote.appendChild(text);
+      quote.appendChild(who);
+      quotesMount.appendChild(quote);
+    });
+    proofBlock.hidden = false;
+  }).catch(function () {});
 })();
 </script>
 </body>
