@@ -46,6 +46,13 @@ the standard head/meta, header, footer and script include.
   also present) tested as "banner-blind" - a coloured badge reads as decoration and
   the eye skips it, so plain bold text works better. Eyebrows are strongest as a
   full-sentence claim (a Becker "slap"), not a short label. Added 2026-07-04.
+  STANDARD ON TOWN PAGES (2026-07-13, Pete's call): every electrician-<town> page
+  opens its `<article>` with the brand-promise eyebrow -
+  `<p class="eyebrow-plain"><span class="accent">Quotes, not estimates.</span>
+  The price we quote is the price you pay.</p>` - and the lede then says "a fixed
+  price in writing that only changes if you change the job" WITHOUT repeating
+  "Quotes, not estimates" (no back-to-back duplication). The page template
+  (ops/templates/page-template.html) carries this by default.
 - **Buttons**: `.btn-amber` (primary CTA, amber fill / navy text); `.btn-ghost-cta`
   and `.btn-ghost-dark` (secondary outlined); `.btn-call` (green call button);
   `.btn-awaiting` (disabled grey "awaiting" placeholder). Amber is reserved for the
@@ -60,6 +67,7 @@ the standard head/meta, header, footer and script include.
 - **Includes / excludes lists** `ul.tick-list` (green tick) and `ul.cross-list` (grey cross) - for "what's included vs what's extra" style lists. Bold the key term in each `<li>`.
 - **Reward tiers** `ul.tier-list` (+ `.tier-amount` pill + `.tier-note`) in `page.css`: the /refer "What you earn" box - an amber pill amount beside its job label, on the amber-tint tokens so it reads friendly not warning. Page-scoped to /refer; reuse if another page needs a money-tier breakdown. Added 2026-07-07.
 - **Image placeholder** `figure.page-figure > .img-placeholder` (+ `figcaption`): a dashed-border box that reserves a real photo slot before a shoot, so layout is final and the photo just drops in later. The `.page-toc` "On this page" label also carries an amber underline (brand cue).
+- **Figure pair (comparison, added 2026-07-10)** `.figure-pair` wrapping two `figure.page-figure`: a two-up grid that stacks to one column under 620px. Use to compare two real photos side by side (first use: RCBO board vs split-load RCD board on the cost guide). Two figures = two keyword-rich alt texts + two figcaptions, which is the SEO reason to prefer a pair over one image. Defined once in `page.css`; each inner figure drops its own `max-width`.
 - **Internal linking (SEO standard, 2026-06-19):** link key terms to their page EVERY time they appear - "instant quote tool" -> ../quote.html, "EICR" -> the EICR page, "consumer unit" -> the CU page, "cost guide" -> the cost guide. Spreads ranking authority and builds topic clusters. Lean toward MORE internal links, not fewer.
 - **FAQ accordion - ONE source (fixed 2026-06-19):** native `<details>/<summary>` inside `<div class="faq">`. The styling (the rotating chevron marker) lives ONCE in `styles.css` (`.faq summary::after`). Do NOT redefine `.faq` in `page.css` - that override caused a homepage-vs-SEO-page drift (the chevron got replaced by a +/-). Mirror each visible Q&A in a `FAQPage` JSON-LD block.
 - **(superseded) FAQ accordion** `.faq` wrapping native `<details>/<summary>` (NO JavaScript) - amber "+" that rotates to a cross when open. Mirror each visible Q&A in a `FAQPage` JSON-LD block in the page `@graph` so it is eligible for rich results. All decided 2026-06-14 on the Cost Guide page (the pilot detailed SEO page).
