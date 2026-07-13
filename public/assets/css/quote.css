@@ -338,6 +338,7 @@
 .rate-card td:last-child { text-align: right; color: var(--c-navy); font-weight: 700; }
 .rate-card tr { border-top: 1px solid var(--c-border); }
 .rate-card tr:first-child { border-top: 0; }
+.rate-card-note { margin: 12px 0 0; font-size: 12.5px; line-height: 1.5; color: var(--c-text-soft); }
 
 @media (max-width: 980px) {
   .calc-grid { grid-template-columns: 1fr; }
@@ -385,6 +386,16 @@
 }
 
 /* Consumer-unit "add a board" prompt in the running-total summary */
+.summary-minimum-note {
+  background: var(--c-amber-soft);
+  border: 1px solid var(--c-amber-line);
+  border-radius: var(--r-md);
+  padding: 12px 14px;
+  margin: 14px 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--c-text);
+}
 .consumer-unit-prompt {
   background: var(--c-amber-soft);
   border: 1px solid var(--c-amber-line);

@@ -19,7 +19,8 @@
     external_ip_fitting_price: 90, wired_ring_doorbell_cam_price: 180,
     tv_aerial_price: 220, tv_point_price: 90, sky_point_price: 90, telephone_point_price: 90,
     garage_consumer_unit_price: 180,
-    usb_socket_price: 100, water_bonding_price: 90, gas_bonding_price: 90
+    usb_socket_price: 100, water_bonding_price: 90, gas_bonding_price: 90,
+    small_job_minimum_price: 150  // minimum job value - covers the visit, testing and the certificate
   };
 
   // EICR banded prices - standalone from the rewire calc. Fallback matches
@@ -74,6 +75,7 @@
       if (pp.usb_socket != null) PRICES.usb_socket_price = pp.usb_socket;
       if (pw.water_bonding != null) PRICES.water_bonding_price = pw.water_bonding;
       if (pw.gas_bonding != null) PRICES.gas_bonding_price = pw.gas_bonding;
+      if (j.small_job_minimum_gbp != null) PRICES.small_job_minimum_price = j.small_job_minimum_gbp;
       if (Array.isArray(j.eicr_by_circuit_count) && j.eicr_by_circuit_count.length) eicrCircuitBands = j.eicr_by_circuit_count;
       if (j.eicr_extras && j.eicr_extras.commercial_uplift_percent != null) eicrCommercialUpliftPercent = j.eicr_extras.commercial_uplift_percent;
       if (typeof refreshEicrPrice === 'function') refreshEicrPrice();
@@ -139,6 +141,7 @@
   var csTotal = document.getElementById('csTotal');
   var csLines = document.getElementById('csLines');
   var csCount = document.getElementById('csCount');
+  var csMinimumNote = document.getElementById('csMinimumNote');
   var csCta = document.getElementById('csCta');
   var csReset = document.getElementById('csReset');
   var wholePropertySubtotalEl = document.getElementById('wholePropertySubtotal');
@@ -356,6 +359,24 @@
       var subEl = document.querySelector('[data-room-id="' + room.id + '"] .room-subtotal');
       if (subEl) subEl.textContent = sub > 0 ? formatAsCurrency(sub) : '£0';
     });
+
+    // Minimum job value: a small pick list still gets the full visit, testing and
+    // certificate, so the total never dips below the canonical minimum. The
+    // top-up rides as a visible line so every consumer (summary, email, print
+    // pack) itemises to the same total. Copy lives here, price in price-list.json.
+    var smallJobMinimumTopUp = 0;
+    if (total > 0 && total < PRICES.small_job_minimum_price) {
+      smallJobMinimumTopUp = PRICES.small_job_minimum_price - total;
+      total = PRICES.small_job_minimum_price;
+      lines.push({ name: 'Small-job minimum (visit, testing & certificate included)', value: smallJobMinimumTopUp });
+    }
+    if (csMinimumNote) {
+      csMinimumNote.hidden = smallJobMinimumTopUp === 0;
+      if (smallJobMinimumTopUp > 0) {
+        csMinimumNote.textContent = 'Small job? Our minimum is ' + formatAsCurrency(PRICES.small_job_minimum_price) +
+          '. It covers the visit, testing and your certificate, however short the list.';
+      }
+    }
 
     csTotal.textContent = formatAsCurrency(total);
     csCount.textContent = itemCount === 0 ? 'Nothing added yet' : (itemCount === 1 ? '1 item added' : itemCount + ' items added');
