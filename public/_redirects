@@ -38,6 +38,12 @@
 /reviews                         /reviews                         200
 /reviews.html                    /reviews                         200
 
+# Typo-catcher (2026-07-14): the singular gets typed when the link is passed on
+# verbally. Clean dest (NO .html - that 308-loops). Exact-path match, so it does
+# not touch /review-request above.
+/review                          /reviews                         301
+/review.html                     /reviews                         301
+
 # Privacy policy + Terms carved out of holding so the sitewide footer links work.
 # Indexable (index,follow) but deliberately kept OUT of sitemap.xml - legal pages have
 # no search value (see check-sitemap.py). Clean dest (NO .html - that 308-loops).
