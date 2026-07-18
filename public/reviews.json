@@ -1,10 +1,18 @@
 {
   "aggregate": {
     "rating": 5.0,
-    "count": 4,
+    "count": 5,
     "source": "Google"
   },
   "reviews": [
+    {
+      "stars": 5,
+      "body": "I highly recommend this electrician. He has carried out work for me on several occasions, and every job has been completed to an exceptionally high standard. He is reliable, professional, punctual, and always takes the time to explain everything clearly. His attention to detail is outstanding, and he works very neatly, leaving the workspace clean and tidy when the job is finished. It's not easy to find someone you can trust, but I can honestly say he is one of the best tradespeople I've worked with. I will definitely continue using his services and wouldn't hesitate to recommend him to anyone looking for a skilled and trustworthy electrician.",
+      "author": "Mariusz Iglewski",
+      "location": "",
+      "date": "July 2026",
+      "source": "Google"
+    },
     {
       "stars": 5,
       "body": "Dorset Rewires were brilliant from start to finish. Great communication, turned up when they said they would, and carried out the work to a really high standard. Everything was left tidy and they were professional throughout. Would definitely recommend and use again.",
