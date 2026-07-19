@@ -43,10 +43,16 @@ collections:
             name: reviews
             widget: list
             fields:
-              - { label: ID (unique, e.g. r12), name: id, widget: string }
+              # required: false is DELIBERATE (2026-07-19). Decap treats fields as
+              # required by default, and no review has ever had an id - not the ones
+              # added by hand, nor the ones google-reviews-poll.py commits daily.
+              # Without this the editor demanded an invented ID before it would save.
+              - { label: ID (optional, unused), name: id, widget: string, required: false }
               - { label: Star rating, name: stars, widget: number, min: 1, max: 5 }
               - { label: Reviewer name, name: author, widget: string }
-              - { label: Location (e.g. Bournemouth, Winton), name: location, widget: string }
+              # Also required: false - Google reviews often carry no location, and
+              # two of the five live reviews have location "" (2026-07-19).
+              - { label: Location (e.g. Bournemouth, Winton), name: location, widget: string, required: false }
               - { label: Date (e.g. March 2026), name: date, widget: string }
               - { label: Source (e.g. Google), name: source, widget: string }
               - { label: Review text, name: body, widget: text }
