@@ -41,3 +41,6 @@ non context website checks.txt
 
 # Client / architect job files (e.g. tender drawings, specs) - NEVER commit; repo may be public
 projects/
+
+# EICR phone app - its OWN private git repo (DorsetRewires/eicr-app), never part of the public website repo
+eicr-app/
