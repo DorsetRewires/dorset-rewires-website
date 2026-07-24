@@ -4,8 +4,8 @@
   "phone_display": "07836 535100",
   "phone_tel": "+447836535100",
   "email": "info@dorsetrewires.co.uk",
-  "open_days": "Mon-Sat",
-  "hours_display": "Mon-Sat 7am-7pm",
+  "open_days": "Mon-Sun",
+  "hours_display": "Mon-Sun 7am-7pm",
   "accreditation": "Part P Registered",
   "guarantee_years": "10",
   "public_liability_millions": "5",
@@ -17,6 +17,10 @@
   "stage_payment_threshold_gbp": "3,000",
   "stage_payment_schedule_percent": "5,20,25,25,15,10",
   "retention_percent": "2.5",
-  "referral_rewards": { "full_rewire_new_build_renovation": 300, "partial_rewire_extension": 150, "fuseboard_smaller_job": 50 },
+  "referral_rewards": {
+    "full_rewire_new_build_renovation": 300,
+    "partial_rewire_extension": 150,
+    "fuseboard_smaller_job": 50
+  },
   "google_review_url": "https://g.page/r/CaqZW0VgL1BPEBM/review"
 }
