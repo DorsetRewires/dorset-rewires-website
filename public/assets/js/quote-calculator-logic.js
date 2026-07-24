@@ -133,7 +133,9 @@
     wired_ring_doorbell_count: 0,
     garage_consumer_unit_count: 0,
     water_bonding_count: 0,
-    gas_bonding_count: 0
+    gas_bonding_count: 0,
+    eicr_circuit_count: 0,
+    eicr_commercial: false
   };
   var nextRoomId = 1;
 
@@ -165,7 +167,15 @@
   // the browser, so the Reset button is the way to start fresh.)
   var QUOTE_STORAGE_KEY = 'dorset-rewires-quote-v1';
 
+  // False until the saved quote has been restored (or found absent). The EICR
+  // card refresh runs recalculateAndUpdateDisplay during initial wiring, and
+  // without this guard that early run would SAVE the empty state over the
+  // customer's stored quote before loadQuoteState had read it (caught by the
+  // 2026-07-24 end-to-end test - reload wiped the quote).
+  var quoteInitialisationComplete = false;
+
   function saveQuoteState() {
+    if (!quoteInitialisationComplete) return;
     try {
       localStorage.setItem(QUOTE_STORAGE_KEY, JSON.stringify({
         rooms: state.rooms,
@@ -177,6 +187,8 @@
         garage_consumer_unit_count: state.garage_consumer_unit_count,
         water_bonding_count: state.water_bonding_count,
         gas_bonding_count: state.gas_bonding_count,
+        eicr_circuit_count: state.eicr_circuit_count,
+        eicr_commercial: state.eicr_commercial,
         next_room_id: nextRoomId
       }));
     } catch (e) { /* storage full or disabled - the quote still works in memory */ }
@@ -198,6 +210,8 @@
     state.garage_consumer_unit_count = saved.garage_consumer_unit_count || 0;
     state.water_bonding_count = saved.water_bonding_count || 0;
     state.gas_bonding_count = saved.gas_bonding_count || 0;
+    state.eicr_circuit_count = saved.eicr_circuit_count || 0;
+    state.eicr_commercial = !!saved.eicr_commercial;
     nextRoomId = saved.next_room_id || 1;
 
     state.rooms = saved.rooms;
@@ -212,6 +226,12 @@
     });
     // Put the saved board size back into the size picker.
     if (consumerUnitSizeSelect) consumerUnitSizeSelect.value = state.consumer_unit_size;
+    // Put the saved EICR selection back into its card, and open the card so the
+    // restored price is visible rather than hidden behind a collapsed block.
+    if (eicrCircuitInput) eicrCircuitInput.value = state.eicr_circuit_count;
+    if (eicrCommercialToggle) eicrCommercialToggle.checked = state.eicr_commercial;
+    if (eicrBlock && state.eicr_circuit_count > 0) eicrBlock.classList.remove('is-collapsed');
+    if (state.eicr_circuit_count > 0) refreshEicrPrice();
 
     updateQuickAddBadges();
     return true;
@@ -332,6 +352,21 @@
       total += vGasBond;
       itemCount += state.gas_bonding_count;
       lines.push({ name: state.gas_bonding_count + ' x Gas bond', value: vGasBond });
+    }
+    // EICR safety check: banded by circuit count (live from price-list.json).
+    // Joins the total and the summary so an EICR-only visitor can send a quote
+    // (before 2026-07-24 the EICR card priced itself but never reached the
+    // summary card, so "Send my quote to Pete" stayed disabled at 0).
+    if (state.eicr_circuit_count > 0) {
+      var eicrQuoteValue = eicrQuotePriceFromState();
+      if (eicrQuoteValue != null) {
+        total += eicrQuoteValue;
+        itemCount += 1;
+        lines.push({
+          name: 'EICR safety report (' + state.eicr_circuit_count + ' circuit' + (state.eicr_circuit_count === 1 ? '' : 's') + (state.eicr_commercial ? ', commercial guide price' : '') + ')',
+          value: eicrQuoteValue
+        });
+      }
     }
 
     state.rooms.forEach(function (room) {
@@ -912,16 +947,33 @@
     return null;
   }
 
+  // The EICR price the QUOTE uses: banded price for the saved circuit count,
+  // with the commercial uplift applied when that box is ticked. Hoisted, so
+  // recalculateAndUpdateDisplay (defined earlier) can call it safely.
+  function eicrQuotePriceFromState() {
+    var price = eicrPriceForCircuits(state.eicr_circuit_count);
+    if (price == null) return null;
+    if (state.eicr_commercial) {
+      price = Math.round((price * (1 + eicrCommercialUpliftPercent / 100)) / 5) * 5;
+    }
+    return price;
+  }
+
   function refreshEicrPrice() {
     if (!eicrCircuitInput) return;
     var circuits = parseInt(eicrCircuitInput.value, 10) || 0;
+    // Keep the shared quote state in step with the card, then let the main
+    // recalculation carry the EICR into the summary, the total and the email.
+    state.eicr_circuit_count = circuits;
+    state.eicr_commercial = !!(eicrCommercialToggle && eicrCommercialToggle.checked);
+    recalculateAndUpdateDisplay();
     var price = eicrPriceForCircuits(circuits);
     if (price == null) {
       if (eicrPriceDisplayEl) eicrPriceDisplayEl.textContent = '-';
       if (eicrResultEl) eicrResultEl.textContent = 'Enter your trip-switch count to see your fixed EICR price.';
       return;
     }
-    var isCommercial = eicrCommercialToggle && eicrCommercialToggle.checked;
+    var isCommercial = state.eicr_commercial;
     if (isCommercial) {
       // Commercial / 3-phase uplift, rounded to the nearest 5 pounds for a clean figure.
       price = Math.round((price * (1 + eicrCommercialUpliftPercent / 100)) / 5) * 5;
@@ -995,6 +1047,12 @@
         state.garage_consumer_unit_count = 0;
         state.water_bonding_count = 0;
         state.gas_bonding_count = 0;
+        state.eicr_circuit_count = 0;
+        state.eicr_commercial = false;
+        if (eicrCircuitInput) eicrCircuitInput.value = 0;
+        if (eicrCommercialToggle) eicrCommercialToggle.checked = false;
+        if (eicrPriceDisplayEl) eicrPriceDisplayEl.textContent = '-';
+        if (eicrResultEl) eicrResultEl.textContent = 'Enter your trip-switch count to see your fixed EICR price.';
         nextRoomId = 1;
         roomsList.innerHTML = '';
         document.querySelectorAll('.calc-row[data-key] .calc-row-quantity').forEach(function (input) { input.value = 0; });
@@ -1008,8 +1066,10 @@
   // Restore any in-progress quote saved in this browser, then show totals. If
   // nothing is saved, show the empty prompt instead.
   if (loadQuoteState()) {
+    quoteInitialisationComplete = true;
     recalculateAndUpdateDisplay();
   } else {
+    quoteInitialisationComplete = true;
     csLines.innerHTML = '<div class="summary-empty">Add a room below to begin. Tap Quick add for a ready-named room, or + Blank room to name your own.</div>';
   }
 
