@@ -95,6 +95,14 @@
 /our-promise.html                          /pages/our-promise                           200
 /landlord-electrician-bournemouth          /pages/landlord-electrician-bournemouth      200
 /landlord-electrician-bournemouth.html     /pages/landlord-electrician-bournemouth      200
+/home-air-conditioning-dorset              /pages/home-air-conditioning-dorset          200
+/home-air-conditioning-dorset.html         /pages/home-air-conditioning-dorset          200
+/air-conditioning-bournemouth              /pages/air-conditioning-bournemouth          200
+/air-conditioning-bournemouth.html         /pages/air-conditioning-bournemouth          200
+/air-conditioning-poole                    /pages/air-conditioning-poole                200
+/air-conditioning-poole.html               /pages/air-conditioning-poole                200
+/air-conditioning-cost-guide-dorset-2026       /pages/air-conditioning-cost-guide-dorset-2026   200
+/air-conditioning-cost-guide-dorset-2026.html  /pages/air-conditioning-cost-guide-dorset-2026   200
 
 # Referral-partner landing (built 2026-07-04, DISABLED 2026-07-04 to focus on /refer for
 # the mums word-of-mouth channel). File kept at public/pages/partners.html; re-enable by
