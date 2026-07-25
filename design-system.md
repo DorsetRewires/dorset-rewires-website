@@ -73,6 +73,18 @@ the standard head/meta, header, footer and script include.
 - **(superseded) FAQ accordion** `.faq` wrapping native `<details>/<summary>` (NO JavaScript) - amber "+" that rotates to a cross when open. Mirror each visible Q&A in a `FAQPage` JSON-LD block in the page `@graph` so it is eligible for rich results. All decided 2026-06-14 on the Cost Guide page (the pilot detailed SEO page).
 - **Handover pack (print standard, added 2026-07-09)** `.handover-pack` + `.handover-page` (quote tool only, `assets/css/handover-pack.css`): the Pete-only three-page A4 print pack (cover, itemised quote, how-the-price-is-built). Hidden on screen; prints ONLY when `body.handover-print-active` is set by `handover-pack.js` (so a customer printing /quote normally still gets the web page). Print pages use the brand tokens as literal hex (print CSS) with a 3px amber rule under each page's brand strip. The rate card on page 3 is CLONED from the on-page `.rate-card` table at print time - never re-type prices into the pack. The on-screen `.handover-card` controls (amber-bordered card, navy "Pete only" pill `.handover-badge`) show only at `/quote#pete`.
 
+## Quote-calculator section dividers (added 2026-07-25, Pete's design)
+
+The /quote calculator serves two different visitors, so its left column is split by
+labelled dividers (`.calc-section-divider` in quote.css):
+1. "Quick single jobs" above the EICR + consumer-unit cards (priced in seconds, done
+   while you live in).
+2. "The full job: rewires and bigger work" (`.calc-section-full` - extra air, top rule,
+   amber accent on the label rule) above the walk-round tip + whole-property + rooms.
+Uppercase 15px label with a flex rule line after it, one-line muted sub. Uses tokens
+only (--c-navy, --c-border, --c-amber-line). If the calculator gains a third audience,
+add a divider rather than a new pattern.
+
 ## Page anatomy / "blog feel" (open decision)
 
 The homepage header sits above the navy hero, so it separates cleanly. Sub-pages

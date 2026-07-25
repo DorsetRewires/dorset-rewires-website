@@ -18,6 +18,22 @@
 .calc { padding: 56px 0 96px; background: var(--c-bg); }
 .calc-grid { display: grid; grid-template-columns: 1.4fr 1fr; gap: 40px; align-items: start; }
 
+/* Calculator section dividers (2026-07-25, Pete's design): the page serves two
+   different visitors - quick single-item jobs (EICR, fuse board) and the full
+   room-by-room builder. A labelled divider above each half sends people to the
+   right part fast. The full-job divider carries the amber accent because that
+   half is the bigger commitment. */
+.calc-section-divider { margin: 0 0 18px; }
+.calc-section-divider h2 {
+  margin: 0 0 4px; font-size: 15px; font-weight: 800; letter-spacing: 0.06em;
+  text-transform: uppercase; color: var(--c-navy);
+  display: flex; align-items: center; gap: 12px;
+}
+.calc-section-divider h2::after { content: ""; flex: 1; height: 2px; background: var(--c-border); border-radius: 1px; }
+.calc-section-divider p { margin: 0; color: var(--c-text-mute); font-size: 14px; }
+.calc-section-divider.calc-section-full { margin-top: 42px; padding-top: 26px; border-top: 1px solid var(--c-border); }
+.calc-section-divider.calc-section-full h2::after { background: var(--c-amber-line); }
+
 .calc-block {
   background: #fff; border: 1px solid var(--c-border); border-radius: var(--r-lg);
   padding: 28px 28px 18px; margin-bottom: 22px;
