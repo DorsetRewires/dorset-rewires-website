@@ -1,10 +1,10 @@
 {
-  "version": "1.2.1",
+  "version": "1.2.2",
   "updated": "2026-07-28",
   "notes": "Single source of truth for all prices on the site and in the quote calculator. Edit via /ops-hq/pricing-admin.html or by hand. After editing, drop in place and reload any open page.",
   "small_job_minimum_gbp": 150,
   "rewire_per_point": {
-    "socket": 95,
+    "socket": 90,
     "usb_socket": 100,
     "light": 90,
     "fused_spur": 90,
