@@ -115,7 +115,7 @@
   // Each item has an ADHD-friendly question label and a one-line plain-English
   // description (the "typical" hint). Same shape as radials below.
   var ROOM_ITEMS = [
-    { key: 'sockets',          label: 'How many sockets in this room?',          typical: 'Single or double, £92 each. Count each wall plate (not each plug-in point).' },
+    { key: 'sockets',          label: 'How many sockets in this room?',          typical: 'Single or double, £93 each. Count each wall plate (not each plug-in point).' },
     { key: 'lights',           label: 'How many light fittings?',                typical: '£90 each. Pendants, downlights, wall lights, outdoor lights all count.' },
     { key: 'fused_spurs',      label: 'How many fused spurs?',                   typical: '£90 each. Permanently wired stuff: boiler, towel rail, cooker hood, garage door opener.' },
     { key: 'one_way_switches', label: 'How many normal (1-way) light switches?', typical: 'Included free with the lights. One press on, one press off.' },
