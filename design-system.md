@@ -167,6 +167,23 @@ surfaces, bigger radii) lifted from `ops/ops-hq/today.html` / `v3-ui-mockup.html
 - The customer-website rules above (header/footer/check-consistency) do NOT apply
   inside `/drsaas/` - and this shell must not leak into `public/`.
 
+## Prices on pages + the "bring us the fix" law (added 2026-07-28, Pete's rule)
+
+- **New pages never state a price as bare prose.** Wrap it:
+  `<span data-price-key="<price-list path>">&pound;160</span>` and load
+  `assets/js/live-price-fill.js` (the page template shows the pattern). The page
+  then self-updates from `/data/price-list.json` on every visit; the static text
+  inside the span is the SEO/no-JS fallback and is still guard-checked, so a JS
+  failure falls back to publish-verified text. JSON-LD amounts stay static
+  (scripts cannot run there) - the guards + publish auto-rewriter own those.
+- **"Bring us the fix" - core product law for everything we build.** When
+  software finds a problem, it must bring the person the fix: name the exact
+  page/field, show the offending text, and put the edit (or a one-click path to
+  it) in front of them. Never "something is invalid, go hunt for it". This is
+  the ADHD design ethos applied to errors: auto-scroll to the field, or open a
+  modal containing just the thing to fix. Applies to the publish pipeline,
+  every Settings editor, and any future DR SaaS form.
+
 ## Governance - how this stays true
 
 1. **Reuse first**: before building a component, check this doc + `ops/templates/`.
