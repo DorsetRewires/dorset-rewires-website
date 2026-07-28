@@ -148,6 +148,25 @@ house style, so a link to any page looks like the same brand.
   card are multi-line but the same bare aesthetic, hand-tuned in `build_refer()` /
   `build_cu()`.
 
+## DR SaaS product shell (Ops HQ v3, added 2026-07-28)
+
+The internal product app at `/drsaas/` has its OWN design system, separate from the
+customer website above. It is the approved v3 look (navy + amber clinical, softer
+surfaces, bigger radii) lifted from `ops/ops-hq/today.html` / `v3-ui-mockup.html`.
+
+- **Theme**: `ops/drsaas/assets/drsaas.css`. Tokens live in its `:root`
+  (`--backdrop`, `--surface`, `--accent` etc). The accent can be overridden per
+  tenant from `ops/ops-hq/data/tenant-config.json` (`branding.accent_colour`).
+- **Rail**: every `/drsaas/` page has `<aside class="rail" data-drsaas-rail></aside>`
+  rendered by `ops/drsaas/assets/drsaas-shell.js` from
+  `ops/drsaas/config/module-registry.json`. NEVER hand-code rail markup on a page.
+- **Brand motif**: ECG pulse line on the amber tile (in the shell JS), tagline
+  "The cure for trade admin", SVG data-URI favicon injected by the shell.
+- **Class-name lock**: the classes in drsaas.css that ops-hq-today.js / ops-crm.js
+  emit from JS (`.tile`, `.chip-amber`, `.job-card` etc) must keep their names.
+- The customer-website rules above (header/footer/check-consistency) do NOT apply
+  inside `/drsaas/` - and this shell must not leak into `public/`.
+
 ## Governance - how this stays true
 
 1. **Reuse first**: before building a component, check this doc + `ops/templates/`.
