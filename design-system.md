@@ -193,6 +193,27 @@ rules. The old v3 dark-surface look is retired.
   modal containing just the thing to fix. Applies to the publish pipeline,
   every Settings editor, and any future DR SaaS form.
 
+## EICR page standard blocks (both are REQUIRED on every new EICR page)
+
+1. **"We rewire houses. So can you trust our EICR?"** - the no-conflict block
+   (added 2026-07-27). Kills the "a rewire firm will fail my EICR to sell a rewire"
+   fear: same price pass or fail, every issue photographed and BS 7671 coded, a
+   rewire is rarely the answer, the remedial work is yours to place.
+2. **"Made safe on the day - our C1 promise"** (added 2026-07-29, Pete's idea).
+   `<h2 id="madesafe">` plus a TOC entry and a matching FAQ schema question.
+   The four points: we make it safe before we leave; it is included, not a return
+   visit; the report still records the C1 as the rules require, with what we did;
+   you are told on the spot and in writing.
+   **WORDING IS LOAD-BEARING - do not "improve" it into a false claim.** Pete's
+   original instinct was "we never write C1 on a report". That is NOT permissible:
+   the IET's own EICR-myths guidance is explicit that a C1 must be recorded with
+   its C1 code even when the danger is removed on site, a written danger
+   notification must be issued, and any C1 or C2 makes the report unsatisfactory.
+   A C1 also cannot be "converted to a C3" by isolating the circuit. So the page
+   NEVER promises to omit or downgrade a code - it promises to remove the danger
+   at no extra cost and to record the truth. That version is stronger anyway: it
+   names the exact failure of the cheap test-and-run outfits.
+
 ## "Editable data, not code" - core product law (added 2026-07-28, Pete's rule)
 
 Every business value and business rule lives in an editable data file the owner
