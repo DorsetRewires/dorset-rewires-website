@@ -148,11 +148,16 @@ house style, so a link to any page looks like the same brand.
   card are multi-line but the same bare aesthetic, hand-tuned in `build_refer()` /
   `build_cu()`.
 
-## DR SaaS product shell (Ops HQ v3, added 2026-07-28)
+## DR SaaS product shell (Ops HQ v3 2026-07-28; re-themed to v4 same day)
 
 The internal product app at `/drsaas/` has its OWN design system, separate from the
-customer website above. It is the approved v3 look (navy + amber clinical, softer
-surfaces, bigger radii) lifted from `ops/ops-hq/today.html` / `v3-ui-mockup.html`.
+customer website above. Since the v4 re-theme (Pete approved v4-design-sample.html
+2026-07-28): NAVY RAIL + LIGHT work surface (paper `#F4F6FA`, white cards, soft
+`--shadow-card` shadows), amber reserved for the primary action and attention
+items, `--accent-ink #8A5B00` for amber TEXT on light surfaces (plain `--accent`
+amber text fails contrast on white). The rail keeps the dark navy via scoped
+token overrides on `.rail` - re-skin by changing tokens, never by editing rail
+rules. The old v3 dark-surface look is retired.
 
 - **Theme**: `ops/drsaas/assets/drsaas.css`. Tokens live in its `:root`
   (`--backdrop`, `--surface`, `--accent` etc). The accent can be overridden per
@@ -164,6 +169,10 @@ surfaces, bigger radii) lifted from `ops/ops-hq/today.html` / `v3-ui-mockup.html
   "The cure for trade admin", SVG data-URI favicon injected by the shell.
 - **Class-name lock**: the classes in drsaas.css that ops-hq-today.js / ops-crm.js
   emit from JS (`.tile`, `.chip-amber`, `.job-card` etc) must keep their names.
+- **Content links**: classless `<a>` tags inside `.main` get `var(--sky)` +
+  underline from drsaas.css (added 2026-07-28 - browser-default blue was
+  unreadable on the dark surfaces). Never rely on default link colour; if a link
+  needs its own look, give it a class.
 - The customer-website rules above (header/footer/check-consistency) do NOT apply
   inside `/drsaas/` - and this shell must not leak into `public/`.
 
@@ -183,6 +192,19 @@ surfaces, bigger radii) lifted from `ops/ops-hq/today.html` / `v3-ui-mockup.html
   the ADHD design ethos applied to errors: auto-scroll to the field, or open a
   modal containing just the thing to fix. Applies to the publish pipeline,
   every Settings editor, and any future DR SaaS form.
+
+## "Editable data, not code" - core product law (added 2026-07-28, Pete's rule)
+
+Every business value and business rule lives in an editable data file the owner
+can change from inside the product - never buried in Python, JS or HTML. Prices,
+templates, allowlists, thresholds, business info, module lists: all data files
+behind an editor surface. The test for any new build: "if Pete wants to change
+this next year, does he edit a field or does he need Claude?" A field = right;
+needing Claude = a me-dependency, and every one we remove makes DR run itself
+and makes DrSaaS sellable (a tenant will not have a Claude on tap). Origin: the
+check-prices allowlist moving from Python into `money-allowlist.json` - "one
+more me-dependency gone". Sibling of "bring us the fix": that law covers how
+errors reach the person, this one covers where values live.
 
 ## Governance - how this stays true
 
