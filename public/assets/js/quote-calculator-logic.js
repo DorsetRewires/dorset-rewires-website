@@ -1095,7 +1095,7 @@
     csCta.addEventListener('click', function (e) {
       e.preventDefault();
       if (lastTotal <= 0) {
-        alert('Add a few items first, then send your quote to Pete.');
+        showConfirmDialog({ title: 'Your quote is empty', message: 'Add a few items first, then send your quote to Pete.', confirmLabel: 'OK', alertOnly: true });
         return;
       }
       if (qmStatus) { qmStatus.textContent = ''; qmStatus.className = 'quote-modal-status'; }

@@ -123,7 +123,7 @@
   printButton.addEventListener('click', function () {
     var quoteSnapshot = currentQuoteSnapshot();
     if (!quoteSnapshot.total_value) {
-      alert('The quote is still £0. Add the rooms and items first, then print.');
+      showConfirmDialog({ title: 'Nothing to print yet', message: 'The quote is still £0. Add the rooms and items first, then print.', confirmLabel: 'OK', alertOnly: true });
       return;
     }
     fillHandoverPack(quoteSnapshot);
@@ -150,7 +150,7 @@
     shareButton.addEventListener('click', function () {
       var quoteSnapshot = currentQuoteSnapshot();
       if (!quoteSnapshot.total_value) {
-        alert('The quote is still £0. Add the rooms and items first, then share.');
+        showConfirmDialog({ title: 'Nothing to share yet', message: 'The quote is still £0. Add the rooms and items first, then share.', confirmLabel: 'OK', alertOnly: true });
         return;
       }
       var shareText = 'My quote from Dorset Rewires: ' + quoteSnapshot.total_display + '\n\n' +

@@ -55,6 +55,8 @@
     var cancelButton = node.querySelector('.dr-confirm-cancel');
     okButton.textContent = options.confirmLabel || 'Confirm';
     cancelButton.textContent = options.cancelLabel || 'Cancel';
+    // alertOnly: a one-button notice (the branded replacement for alert()).
+    cancelButton.hidden = !!options.alertOnly;
     okButton.className = 'dr-confirm-ok' + (options.danger ? ' is-danger' : '');
     confirmDialogLastFocus = document.activeElement;
     node.hidden = false;
