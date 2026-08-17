@@ -27,7 +27,8 @@
     "led_strip_continuous_per_extra_metre": 30,
     "led_strip_section_first_section": 160,
     "led_strip_section_additional_section": 90,
-    "led_strip_section_per_extra_metre": 40
+    "led_strip_section_per_extra_metre": 40,
+    "mains_carbon_monoxide_detector": 110
   },
   "av_points": {
     "tv_aerial": 220,
@@ -47,11 +48,26 @@
     "radial_32a_per_extra_metre": 5
   },
   "rewire_size_ranges": {
-    "1 bed": [2800, 4000],
-    "2 bed": [3800, 5500],
-    "3 bed": [4500, 7000],
-    "4 bed": [6500, 11000],
-    "5 bed+": [10000, 16000]
+    "1 bed": [
+      2800,
+      4000
+    ],
+    "2 bed": [
+      3800,
+      5500
+    ],
+    "3 bed": [
+      4500,
+      7000
+    ],
+    "4 bed": [
+      6500,
+      11000
+    ],
+    "5 bed+": [
+      10000,
+      16000
+    ]
   },
   "eicr_by_circuit_count": [
     {
@@ -90,5 +106,10 @@
     "s_plan_with_cores_run": 475,
     "ashp_existing_cu": 650,
     "ashp_with_cu_upgrade_from": 1100
+  },
+  "remedials": {
+    "note": "Prices for putting right EICR findings. Cable is charged at cost - the no-markup promise holds; reprice here when copper moves.",
+    "fi_investigation_visit_gbp": 25,
+    "bonding_cable_per_metre_gbp": 2
   }
 }
