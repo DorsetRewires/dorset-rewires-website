@@ -112,6 +112,6 @@
   "fi_investigation_visit_gbp": 25,
   "bonding_cable_per_metre_gbp": 2
  },
- "occupied_property_multiplier": 1.6,
- "occupied_property_multiplier_note": "Applied to rewire_per_point labour when the property is occupied/furnished (chasing around a household in place). Set by Pete 2026-08-17. Base per-point rates assume new build or unoccupied."
+ "occupied_property_multiplier": 1.5,
+ "occupied_property_multiplier_note": "Applied to rewire_per_point labour when the property is occupied/furnished (chasing around a household in place). Set by Pete 2026-08-17 at 1.6, revised to 1.5 the same day. Base per-point rates assume new build or unoccupied."
 }
