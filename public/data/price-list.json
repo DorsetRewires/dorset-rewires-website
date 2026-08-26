@@ -1,6 +1,6 @@
 {
-  "version": "1.2.7",
-  "updated": "2026-08-25",
+  "version": "1.2.8",
+  "updated": "2026-08-26",
   "notes": "Single source of truth for all prices on the site and in the quote calculator. Edit via /ops-hq/pricing-admin.html or by hand. After editing, drop in place and reload any open page.",
   "small_job_minimum_gbp": 150,
   "small_job_extras_hourly_rate_gbp": 50,
@@ -113,6 +113,10 @@
     "bonding_cable_per_metre_gbp": 2,
     "led_downlight_replacement_supply_and_fit_gbp": 40,
     "led_downlight_replacement_note": "Supply and fit a fire-rated LED downlight (bathroom IP-rated where needed) in an EXISTING cut-out - like-for-like replacement, single visit. Roughly 20 material + 20 labour per fitting. A NEW lighting point is rewire_per_point.light instead - that 90 covers first and second fix over multiple visits. Set by Pete 2026-08-25 after a 4-halogen bathroom job showed 90 was wrong for pure replacements."
+  },
+  "fault_finding": {
+    "visit_gbp": 149,
+    "note": "Fixed-price fault-finding visit: diagnose the fault (tripping breaker/RCD, dead circuit, intermittent problem), make it safe where possible, and give a written finding plus a fixed repair quote the same day. The 149 is credited in full against the repair if we do the work. Fee never rises mid-visit; a genuinely intermittent fault that needs monitoring equipment or a return visit is agreed in writing first. Set by Pete 2026-08-26 (the fault-finding offer)."
   },
   "occupied_property_multiplier": 1.5,
   "occupied_property_multiplier_note": "Applied to rewire_per_point labour when the property is occupied/furnished (chasing around a household in place). Set by Pete 2026-08-17 at 1.6, revised to 1.5 the same day. Base per-point rates assume new build or unoccupied."
