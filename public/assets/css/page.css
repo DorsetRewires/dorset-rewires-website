@@ -121,6 +121,13 @@
 .table-wrap th, .table-wrap td { padding: 13px 16px; text-align: left; border-bottom: 1px solid var(--c-border); vertical-align: top; }
 .table-wrap th { background: var(--c-bg-soft); color: var(--c-navy); font-weight: 700; font-size: 12.5px; text-transform: uppercase; letter-spacing: 0.04em; }
 .table-wrap tr:last-child td { border-bottom: 0; }
+/* Small screens: tighter cells so the 4-column pricing tables fit a 375px
+   viewport instead of panning sideways (the live render sweep flagged
+   /book-eicr at 393px wide on a 375px screen, 2026-09-04). */
+@media (max-width: 480px) {
+  .table-wrap table { font-size: 14px; }
+  .table-wrap th, .table-wrap td { padding: 10px 8px; }
+}
 .page figure.page-figure img { max-width: 100%; height: auto; display: block; border: 1px solid var(--c-border); border-radius: var(--r-md); }
 
 /* Side-by-side figure comparison (e.g. RCBO board vs split-load RCD board on the
