@@ -1,151 +1,63 @@
-# Holding mode ("coming soon"), with ONE exception: the instant quote tool stays
-# public so Pete can price jobs on it and customers can self-serve their own price.
-#
-# CRITICAL Cloudflare Pages rule: clean URLs are ON, so NEVER put .html in a
-# destination. A rewrite whose target ends in .html (e.g. /holding.html) makes
-# the asset layer 308-redirect to the clean URL (/holding), and that loops
-# forever. Every destination below is therefore a clean URL with no .html.
+# DORSET REWIRES IS RETIRED - EVERY PAGE 301s TO DORSET EICR (Pete "go 301",
+# 2026-09-16 14:16). The Google Business Profile is already named Dorset EICR
+# and its Website button points at dorseteicr.co.uk; this file makes the old
+# domain agree. Rules run top down; the specific pages map to their nearest
+# Dorset EICR page, everything else lands on the Dorset EICR home. The domain
+# stays registered so the citations and the review link keep resolving.
+# The previous file (the post-holding rewrites) is in git history. The
+# catch-all is deliberate (DR_ALLOW_HOLDING_REDIRECT=1 at write and commit).
 
-# Quote tool served at its clean URL (self-rewrite exempts it from the catch-all).
-# /quote.html is mapped to /quote too, so the PWA start_url (/quote.html?source=pwa)
-# and any .html link reach the calculator instead of being swept into the catch-all.
-/quote                           /quote                           200
-/quote.html                      /quote                           200
+# EICR pages and the booking rail
+/eicr-bournemouth                            https://dorseteicr.co.uk/eicr                       301
+/eicr-bournemouth.html                       https://dorseteicr.co.uk/eicr                       301
+/pages/eicr-bournemouth                      https://dorseteicr.co.uk/eicr                       301
+/eicr-poole                                  https://dorseteicr.co.uk/eicr                       301
+/eicr-poole.html                             https://dorseteicr.co.uk/eicr                       301
+/pages/eicr-poole                            https://dorseteicr.co.uk/eicr                       301
+/eicr-remedial-work-bournemouth              https://dorseteicr.co.uk/eicr                       301
+/eicr-remedial-work-bournemouth.html         https://dorseteicr.co.uk/eicr                       301
+/pages/eicr-remedial-work-bournemouth        https://dorseteicr.co.uk/eicr                       301
+/book-eicr                                   https://dorseteicr.co.uk/eicr                       301
+/book-eicr.html                              https://dorseteicr.co.uk/eicr                       301
+/pages/book-eicr                             https://dorseteicr.co.uk/eicr                       301
 
-# Decap CMS admin stays reachable so Pete can edit site content (reviews).
-# Editing/committing is gated by GitHub OAuth, so exposing the static admin is
-# safe. The splat serves admin files directly; /admin/relay.html 308s once to the
-# clean /admin/relay (which Cloudflare serves natively), preserving the OAuth
-# token in the URL hash.
-/admin                           /admin/                          200
-/admin/*                         /admin/:splat                    200
+# Landlords
+/landlord-electrician-bournemouth            https://dorseteicr.co.uk/landlords-letting-agents   301
+/landlord-electrician-bournemouth.html       https://dorseteicr.co.uk/landlords-letting-agents   301
+/pages/landlord-electrician-bournemouth      https://dorseteicr.co.uk/landlords-letting-agents   301
 
-/assets/*                        /assets/:splat                   200
-/data/*                          /data/:splat                     200
-/manifest.json                   /manifest.json                   200
-/quote-tool-service-worker.js    /quote-tool-service-worker.js    200
+# Consumer units
+/consumer-unit-upgrade-bournemouth           https://dorseteicr.co.uk/fuseboard-changes          301
+/consumer-unit-upgrade-bournemouth.html      https://dorseteicr.co.uk/fuseboard-changes          301
+/pages/consumer-unit-upgrade-bournemouth     https://dorseteicr.co.uk/fuseboard-changes          301
 
-# Pete-only daily checklist (noindex). Stable URL so it can be bookmarked on the phone.
-/daily                           /daily                           200
-/daily.html                      /daily                           200
+# Faults
+/fuse-box-keeps-tripping                     https://dorseteicr.co.uk/fault-finding              301
+/fuse-box-keeps-tripping.html                https://dorseteicr.co.uk/fault-finding              301
+/pages/fuse-box-keeps-tripping               https://dorseteicr.co.uk/fault-finding              301
 
-# Pete-only review-request tool (noindex). Bookmarkable on the phone; used after a job.
-/review-request                  /review-request                  200
-/review-request.html             /review-request                  200
+# The pitch to other electricians was DrSaaS all along
+/for-electricians                            https://drsaas.co.uk/                               301
+/for-electricians.html                       https://drsaas.co.uk/                               301
+/pages/for-electricians                      https://drsaas.co.uk/                               301
 
-# Public reviews page carved out so the sitewide "Reviews" nav link works. Shows an
-# honest "awaiting reviews" state for now; kept OUT of sitemap.xml until it has content.
-/reviews                         /reviews                         200
-/reviews.html                    /reviews                         200
+# The pages Dorset EICR has under the same name
+/quote                                       https://dorseteicr.co.uk/quote                       301
+/quote.html                                  https://dorseteicr.co.uk/quote                       301
+/pages/quote                                 https://dorseteicr.co.uk/quote                       301
+/privacy                                     https://dorseteicr.co.uk/privacy                     301
+/privacy.html                                https://dorseteicr.co.uk/privacy                     301
+/pages/privacy                               https://dorseteicr.co.uk/privacy                     301
+/terms                                       https://dorseteicr.co.uk/terms                       301
+/terms.html                                  https://dorseteicr.co.uk/terms                       301
+/pages/terms                                 https://dorseteicr.co.uk/terms                       301
 
-# Typo-catcher (2026-07-14): the singular gets typed when the link is passed on
-# verbally. Clean dest (NO .html - that 308-loops). Exact-path match, so it does
-# not touch /review-request above.
-/review                          /reviews                         301
-/review.html                     /reviews                         301
+# Reviews: the old ask pages go straight to the Google review box
+/review-request                              https://g.page/r/CaqZW0VgL1BPEBM/review              301
+/review-request.html                         https://g.page/r/CaqZW0VgL1BPEBM/review              301
+/review                                      https://g.page/r/CaqZW0VgL1BPEBM/review              301
+/review.html                                 https://g.page/r/CaqZW0VgL1BPEBM/review              301
 
-# Privacy policy + Terms carved out of holding so the sitewide footer links work.
-# Indexable (index,follow) but deliberately kept OUT of sitemap.xml - legal pages have
-# no search value (see check-sitemap.py). Clean dest (NO .html - that 308-loops).
-/privacy                         /pages/privacy                   200
-/privacy.html                    /pages/privacy                   200
-/terms                           /pages/terms                     200
-/terms.html                      /pages/terms                     200
-
-# --- Live SEO pages: carved out of holding so Google can crawl and rank them. ---
-# Canonical = root clean URL (Pete's choice, 2026-06-20). The page files live in
-# /pages/, so serve each at its root URL with a 200 rewrite. Destinations are clean
-# (NO .html - that 308-loops). Both the clean URL and the .html form are mapped, so
-# the existing relative footer links between these pages keep resolving.
-/house-rewires-bournemouth            /pages/house-rewires-bournemouth            200
-/house-rewires-bournemouth.html       /pages/house-rewires-bournemouth            200
-/house-rewires-poole                  /pages/house-rewires-poole                  200
-/house-rewires-poole.html             /pages/house-rewires-poole                  200
-/house-rewire-cost-guide-dorset-2026       /pages/house-rewire-cost-guide-dorset-2026   200
-/house-rewire-cost-guide-dorset-2026.html  /pages/house-rewire-cost-guide-dorset-2026   200
-/electrician-christchurch                  /pages/electrician-christchurch              200
-/electrician-christchurch.html             /pages/electrician-christchurch              200
-/electrician-ferndown                      /pages/electrician-ferndown                  200
-/electrician-ferndown.html                 /pages/electrician-ferndown                  200
-/electrician-wimborne                      /pages/electrician-wimborne                  200
-/electrician-wimborne.html                 /pages/electrician-wimborne                  200
-/electrician-wimborne-minster              /electrician-wimborne                        301
-/electrician-wimborne-minster.html         /electrician-wimborne                        301
-/electrician-broadstone                    /pages/electrician-broadstone                200
-/electrician-broadstone.html               /pages/electrician-broadstone                200
-/electrician-corfe-mullen                  /pages/electrician-corfe-mullen              200
-/electrician-corfe-mullen.html             /pages/electrician-corfe-mullen              200
-/electrician-verwood                       /pages/electrician-verwood                   200
-/electrician-verwood.html                  /pages/electrician-verwood                   200
-/consumer-unit-upgrade-bournemouth         /pages/consumer-unit-upgrade-bournemouth     200
-/consumer-unit-upgrade-bournemouth.html    /pages/consumer-unit-upgrade-bournemouth     200
-/eicr-bournemouth                          /pages/eicr-bournemouth                      200
-/eicr-bournemouth.html                     /pages/eicr-bournemouth                      200
-/eicr-remedial-work-bournemouth            /pages/eicr-remedial-work-bournemouth        200
-/eicr-remedial-work-bournemouth.html       /pages/eicr-remedial-work-bournemouth        200
-/eicr-poole                                /pages/eicr-poole                            200
-/eicr-poole.html                           /pages/eicr-poole                            200
-/book-eicr                                 /pages/book-eicr                             200
-/book-eicr.html                            /pages/book-eicr                             200
-/house-rewires-wimborne                    /pages/house-rewires-wimborne                200
-/house-rewires-wimborne.html               /pages/house-rewires-wimborne                200
-/small-electrical-jobs-bournemouth          /pages/small-electrical-jobs-bournemouth     200
-/small-electrical-jobs-bournemouth.html     /pages/small-electrical-jobs-bournemouth     200
-/new-build-electrician-dorset              /pages/new-build-electrician-dorset          200
-/new-build-electrician-dorset.html         /pages/new-build-electrician-dorset          200
-/self-build-electrician-dorset             /pages/self-build-electrician-dorset         200
-/self-build-electrician-dorset.html        /pages/self-build-electrician-dorset         200
-/electrician-bournemouth                   /pages/electrician-bournemouth               200
-/electrician-bournemouth.html              /pages/electrician-bournemouth               200
-/electrician-poole                         /pages/electrician-poole                     200
-/electrician-poole.html                    /pages/electrician-poole                     200
-/for-electricians                          /pages/for-electricians                      200
-/for-electricians.html                     /pages/for-electricians                      200
-/our-promise                               /pages/our-promise                           200
-/our-promise.html                          /pages/our-promise                           200
-/landlord-electrician-bournemouth          /pages/landlord-electrician-bournemouth      200
-/landlord-electrician-bournemouth.html     /pages/landlord-electrician-bournemouth      200
-/home-air-conditioning-dorset              /pages/home-air-conditioning-dorset          200
-/home-air-conditioning-dorset.html         /pages/home-air-conditioning-dorset          200
-/air-conditioning-bournemouth              /pages/air-conditioning-bournemouth          200
-/air-conditioning-bournemouth.html         /pages/air-conditioning-bournemouth          200
-/air-conditioning-poole                    /pages/air-conditioning-poole                200
-/air-conditioning-poole.html               /pages/air-conditioning-poole                200
-/air-conditioning-cost-guide-dorset-2026       /pages/air-conditioning-cost-guide-dorset-2026   200
-/air-conditioning-cost-guide-dorset-2026.html  /pages/air-conditioning-cost-guide-dorset-2026   200
-/fuse-box-keeps-tripping                   /pages/fuse-box-keeps-tripping               200
-/fuse-box-keeps-tripping.html              /pages/fuse-box-keeps-tripping               200
-
-# Referral-partner landing (built 2026-07-04, DISABLED 2026-07-04 to focus on /refer for
-# the mums word-of-mouth channel). File kept at public/pages/partners.html; re-enable by
-# uncommenting the two rules below. noindex, out of sitemap.
-# /partners                                /pages/partners                              200
-# /partners.html                           /pages/partners                              200
-
-# Refer-a-friend page (2026-07-04) - the £300 word-of-mouth program, shared via
-# WhatsApp/social. noindex, out of sitemap. Clean dest (NO .html - that 308-loops).
-/refer                                     /pages/refer                                 200
-/refer.html                                /pages/refer                                 200
-
-# Homepage carved out of holding (2026-06-21) so it can be indexed and start the SEO
-# clock. Self-rewrite (source = dest, NO .html) exempts / from the catch-all, exactly
-# like /quote below. Header-trace / after deploy to confirm 200 + no loop.
-/                                /                                200
-
-# /index.html must reach the real homepage, not holding. It is NOT covered by the "/"
-# carve-out above, so the catch-all was serving it the holding page (the logo + nav
-# links point at index.html). 301 to the clean root - dest has NO .html, so no loop.
-/index.html                      /                                301
-
-# Crawl files must serve themselves, NOT the holding page (the catch-all would
-# otherwise rewrite them to /holding and Google would get HTML instead of the sitemap).
-/robots.txt                      /robots.txt                      200
-/sitemap.xml                     /sitemap.xml                     200
-
-# HOLDING MODE LIFTED 2026-06-21 - the site is fully live. There is NO catch-all, so any
-# path with no matching file or rule returns the custom 404 page (public/404.html) with a
-# real 404 status. (To re-instate holding, add back:  /*  /holding  200  as the last line.)
-#
-# The pages live in /pages/ but are served at their root clean URLs by the carve-outs above.
-# Redirect any direct /pages/* hit to the clean root URL so it is not duplicate content.
-/pages/*                         /:splat                          301
+# Everything else - rewires, air conditioning, the town pages, partners,
+# reviews, the holding page, the Decap admin - lands on the Dorset EICR home.
+/*                                           https://dorseteicr.co.uk/                            301
